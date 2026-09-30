@@ -716,3 +716,110 @@ main { min-height: 70vh; }
   .plans-faq { padding-bottom: 75px; }
   .plans-cta { margin-bottom: 0; }
 }
+
+/* Authentication and installable mobile app */
+.mobile-app-nav { display: none; }
+.auth-page { display: grid; grid-template-columns: 1.05fr .95fr; min-height: calc(100vh - 74px); }
+.auth-benefits { background: linear-gradient(135deg,#123b31,#225747); color: white; display: flex; flex-direction: column; justify-content: center; padding: 80px max(8vw,55px); }
+.auth-benefits h1 { color: white; font-family: Georgia,serif; font-size: clamp(48px,5vw,70px); font-weight: 500; letter-spacing: -3px; line-height: 1.02; margin: 22px 0; }
+.auth-benefits > p { color: #c2d0ca; font-size: 17px; line-height: 1.7; max-width: 610px; }
+.auth-benefits ul { display: flex; flex-direction: column; gap: 15px; list-style: none; margin: 30px 0 0; padding: 0; }
+.auth-benefits li { align-items: center; color: #eef4f1; display: flex; font-size: 15px; gap: 10px; }
+.auth-benefits li svg { color: var(--lime); }
+.auth-panel { align-self: center; justify-self: center; max-width: 460px; padding: 65px 36px; text-align: center; width: 100%; }
+.auth-logo-mark { align-items: center; background: var(--forest); border-radius: 50%; color: white; display: inline-flex; font-family: Georgia,serif; font-size: 30px; font-weight: 700; height: 58px; justify-content: center; position: relative; width: 58px; }
+.auth-logo-mark::after { background: var(--lime); border-radius: 10px 0 10px; content: ""; height: 15px; position: absolute; right: -2px; top: -2px; transform: rotate(35deg); width: 9px; }
+.auth-panel h2 { color: var(--forest); font-family: Georgia,serif; font-size: 35px; font-weight: 500; margin: 23px 0 10px; }
+.auth-panel > p { color: var(--muted); font-size: 15px; line-height: 1.65; margin: 0 0 28px; }
+.google-signin { align-items: center; background: white; border: 1px solid #c9d0cc; border-radius: 10px; color: #28342f; display: flex; font-size: 15px; font-weight: 750; gap: 13px; justify-content: center; min-height: 54px; padding: 0 20px; width: 100%; }
+.google-signin:hover { border-color: var(--forest); box-shadow: 0 8px 25px rgba(23,63,53,.1); }
+.google-signin:disabled { cursor: wait; opacity: .65; }
+.google-mark { color: #4285f4; font-family: Arial,sans-serif; font-size: 22px; font-weight: 800; }
+.auth-divider { align-items: center; color: #8a948f; display: flex; font-size: 12px; gap: 12px; margin: 24px 0 15px; }
+.auth-divider::before, .auth-divider::after { background: var(--line); content: ""; flex: 1; height: 1px; }
+.auth-panel > small { color: var(--muted); display: block; font-size: 12px; line-height: 1.55; margin-bottom: 22px; }
+.auth-error { background: #fff1ef; border: 1px solid #e7b7b0; border-radius: 8px; color: #8f3428; font-size: 13px; line-height: 1.5; padding: 12px; }
+.account-page { background: #f4f5f0; min-height: 72vh; padding: 75px 0 100px; }
+.account-welcome { align-items: center; background: white; border: 1px solid var(--line); border-radius: 18px; display: grid; gap: 20px; grid-template-columns: auto 1fr auto; padding: 28px; }
+.account-avatar { align-items: center; background: var(--forest); border-radius: 50%; color: white; display: flex; font-family: Georgia,serif; font-size: 32px; height: 68px; justify-content: center; width: 68px; }
+.account-welcome h1 { color: var(--forest); font-family: Georgia,serif; font-size: 34px; font-weight: 500; margin: 5px 0; }
+.account-welcome p { color: var(--muted); font-size: 14px; margin: 0; }
+.account-grid { display: grid; gap: 18px; grid-template-columns: repeat(3,1fr); margin-top: 24px; }
+.account-grid article { align-items: flex-start; background: white; border: 1px solid var(--line); border-radius: 16px; display: flex; flex-direction: column; min-height: 285px; padding: 28px; }
+.account-grid article > div { flex: 1; }
+.account-grid h2 { color: var(--forest); font-family: Georgia,serif; font-size: 25px; font-weight: 500; margin: 24px 0 8px; }
+.account-grid p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+.install-page { background: linear-gradient(180deg,#eef3e9,#fffef9 75%); min-height: calc(100vh - 74px); padding: 80px 0 100px; }
+.install-grid { align-items: center; display: grid; gap: 100px; grid-template-columns: .72fr 1.28fr; }
+.phone-preview { background: #102f28; border: 8px solid #0b231e; border-radius: 48px; box-shadow: 0 35px 70px rgba(23,63,53,.25); height: 660px; justify-self: center; max-width: 335px; overflow: hidden; padding: 23px 12px 13px; position: relative; width: 100%; }
+.phone-speaker { background: #071b16; border-radius: 0 0 13px 13px; height: 24px; left: 50%; position: absolute; top: 0; transform: translateX(-50%); width: 118px; z-index: 2; }
+.phone-screen { background: #fffef9; border-radius: 35px; height: 100%; overflow: hidden; padding: 26px 18px; }
+.mini-app-head { align-items: center; border-bottom: 1px solid var(--line); color: var(--forest); display: flex; gap: 10px; padding-bottom: 18px; }
+.mini-app-head .auth-logo-mark { font-size: 17px; height: 34px; width: 34px; }
+.mini-app-head .auth-logo-mark::after { height: 8px; width: 5px; }
+.mini-greeting { display: flex; flex-direction: column; padding: 38px 0 26px; }
+.mini-greeting small { color: var(--moss); font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; }
+.mini-greeting strong { color: var(--forest); font-family: Georgia,serif; font-size: 29px; font-weight: 500; line-height: 1.15; margin-top: 8px; }
+.mini-actions { display: grid; gap: 8px; grid-template-columns: repeat(3,1fr); }
+.mini-actions span { background: #eaf0e5; border-radius: 9px; color: var(--forest); font-size: 10px; font-weight: 800; padding: 15px 4px; text-align: center; }
+.mini-card { background: var(--forest); border-radius: 15px; color: white; display: flex; flex-direction: column; margin-top: 22px; padding: 24px 20px; }
+.mini-card span { color: var(--lime); font-size: 9px; font-weight: 800; letter-spacing: 1px; }
+.mini-card strong { font-family: Georgia,serif; font-size: 22px; font-weight: 500; margin: 12px 0; }
+.mini-card small { color: #b8c9c2; font-size: 11px; line-height: 1.5; }
+.install-copy h1 { color: var(--forest); font-family: Georgia,serif; font-size: clamp(45px,5vw,64px); font-weight: 500; letter-spacing: -2.5px; line-height: 1.05; margin: 20px 0; }
+.install-copy > p { color: var(--muted); font-size: 17px; line-height: 1.7; max-width: 690px; }
+.install-button { margin: 18px 0 8px; }
+.install-hint, .install-success { background: white; border: 1px solid var(--line); border-radius: 10px; color: var(--forest); display: inline-block; font-size: 14px; line-height: 1.55; margin: 18px 0 8px; padding: 15px 18px; }
+.install-success { background: #eaf4e8; border-color: #bdd5b6; }
+.install-benefits { display: flex; flex-direction: column; gap: 17px; margin-top: 35px; }
+.install-benefits > div { align-items: flex-start; display: flex; gap: 12px; }
+.install-benefits svg { color: var(--moss); margin-top: 2px; }
+.install-benefits span { display: flex; flex-direction: column; gap: 4px; }
+.install-benefits strong { color: var(--forest); font-size: 15px; }
+.install-benefits small { color: var(--muted); font-size: 13px; }
+.platform-steps { display: grid; gap: 13px; grid-template-columns: repeat(2,1fr); margin-top: 35px; }
+.platform-steps article { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 19px; }
+.platform-steps strong { color: var(--forest); font-size: 15px; }
+.platform-steps p { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 8px 0 0; }
+.offline-page { align-items: center; display: flex; justify-content: center; min-height: 70vh; padding: 40px 20px; text-align: center; }
+.offline-page h1 { color: var(--forest); font-family: Georgia,serif; font-size: 44px; margin: 22px 0 10px; }
+.offline-page p { color: var(--muted); margin-bottom: 25px; }
+
+@media (max-width: 900px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-benefits { padding: 75px 45px; }
+  .auth-panel { padding-bottom: 85px; padding-top: 70px; }
+  .account-grid { grid-template-columns: 1fr; }
+  .account-grid article { min-height: auto; }
+  .install-grid { gap: 60px; grid-template-columns: 1fr; }
+  .phone-preview { order: 2; }
+}
+
+@media (max-width: 620px) {
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+  .site-footer { padding-bottom: env(safe-area-inset-bottom); }
+  .mobile-app-nav { align-items: center; background: rgba(255,254,249,.97); border-top: 1px solid rgba(23,63,53,.12); bottom: 0; display: grid; grid-template-columns: repeat(5,1fr); left: 0; padding: 7px 6px calc(7px + env(safe-area-inset-bottom)); position: fixed; right: 0; z-index: 80; backdrop-filter: blur(14px); }
+  .mobile-app-nav > a { align-items: center; color: #607069; display: flex; flex-direction: column; font-size: 10px; font-weight: 700; gap: 3px; justify-content: center; min-height: 52px; }
+  .mobile-app-nav > a[aria-current="page"] { color: var(--forest); }
+  .mobile-nav-icon { align-items: center; display: flex; height: 25px; justify-content: center; }
+  .mobile-app-nav > a.primary .mobile-nav-icon { background: var(--forest); border-radius: 50%; color: white; height: 42px; margin-top: -24px; width: 42px; }
+  .mobile-app-nav > a.primary { color: var(--forest); }
+  .auth-page { min-height: auto; }
+  .auth-benefits { padding: 60px 24px; }
+  .auth-benefits h1 { font-size: 45px; letter-spacing: -2px; }
+  .auth-benefits > p { font-size: 15px; }
+  .auth-panel { padding: 58px 23px 75px; }
+  .auth-panel h2 { font-size: 31px; }
+  .account-page { padding: 45px 0 70px; }
+  .account-welcome { align-items: flex-start; grid-template-columns: auto 1fr; padding: 23px; }
+  .account-welcome form { grid-column: 1/-1; width: 100%; }
+  .account-welcome form .button { width: 100%; }
+  .account-welcome h1 { font-size: 27px; }
+  .account-avatar { height: 54px; width: 54px; }
+  .install-page { padding: 60px 0 75px; }
+  .install-grid { gap: 48px; }
+  .install-copy h1 { font-size: 43px; }
+  .install-copy > p { font-size: 15px; }
+  .platform-steps { grid-template-columns: 1fr; }
+  .phone-preview { height: 600px; max-width: 305px; }
+}
