@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "7 min",
     publishedAt: "2026-09-30",
     updatedAt: "2026-09-30",
-    image: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1400&q=85",
+    image: "https://images.unsplash.com/photo-1685032236350-3873c9035ee0?auto=format&fit=crop&w=1400&q=85",
     imageAlt: "Aves de crianza en un ambiente abierto",
     sections: [
       {

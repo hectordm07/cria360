@@ -61,7 +61,7 @@ export default function Home() {
       </div></section>
 
       <section className="section-shell id-showcase">
-        <div className="id-showcase-photo"><Image src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1400&q=88" alt="Gallo de criadero identificado con ficha digital" fill sizes="(max-width: 900px) 100vw, 50vw" /><span className="photo-label">CRIA360 ID · PE-03091</span></div>
+        <div className="id-showcase-photo"><Image src="https://images.unsplash.com/photo-1685032236350-3873c9035ee0?auto=format&fit=crop&w=1400&q=88" alt="Gallo de criadero identificado con ficha digital" fill sizes="(max-width: 900px) 100vw, 50vw" /><span className="photo-label">CRIA360 ID · PE-03091</span></div>
         <div className="id-showcase-copy"><span className="eyebrow"><Icon name="tag" /> Placa inteligente CRIA360</span><h2>La historia del animal viaja con él.</h2><p>Al escanear la placa QR se abre una ficha actualizada con la información que el criador autoriza: origen, padres, salud y responsable.</p><ul><li><Icon name="check" /> No requiere instalar una app para escanear</li><li><Icon name="check" /> Información pública y privada por separado</li><li><Icon name="check" /> Código único para cada animal</li></ul><div className="hero-actions"><Link className="button button-primary" href="/placas-inteligentes">Conocer la placa</Link><Link className="text-link" href="/animales/CRIA-PE-03091">Ver ficha de ejemplo</Link></div></div>
       </section>
 
