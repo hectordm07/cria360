@@ -1,0 +1,19 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Icon } from "@/components/icon";
+
+export const metadata: Metadata = {
+  title: "Placas QR inteligentes para animales",
+  description: "Identifica cada animal con una placa QR conectada a su ficha de salud, genealogía, criadero y responsable.",
+  alternates: { canonical: "/placas-inteligentes" },
+};
+
+export default function PlacasInteligentesPage() {
+  return <>
+    <section className="tag-hero"><div className="section-shell tag-hero-grid"><div><span className="eyebrow light"><Icon name="tag" /> CRIA360 ID</span><h1>Una placa pequeña.<br />Una historia completa.</h1><p>Identifica gallos, vacunos, porcinos, caballos y otros animales con un QR único conectado a su ficha digital.</p><div className="hero-actions"><Link className="button button-gold" href="/registro">Solicitar mi placa</Link><Link className="button button-outline-light" href="/animales/CRIA-PE-00428">Escanear una demo</Link></div></div><div className="tag-photo"><Image src="https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1400&q=88" alt="Animal de criadero con identidad digital CRIA360" fill priority sizes="(max-width: 900px) 100vw, 45vw" /><div className="tag-sample"><div className="qr-pattern" /><span><strong>CRIA360 ID</strong><small>PE-00816</small></span></div></div></div></section>
+    <section className="section-shell tag-benefits"><div className="section-heading centered"><span className="eyebrow">Identidad que se mantiene actualizada</span><h2>El QR abre la ficha; tú controlas los datos</h2><p>Cualquier persona puede escanear con la cámara del celular. Solo verá la información que el criadero autorice como pública.</p></div><div className="module-grid"><article className="module-card"><span className="icon-box"><Icon name="verified" /></span><h3>Identidad única</h3><p>Código, foto, especie, raza, sexo y estado del animal.</p></article><article className="module-card"><span className="icon-box"><Icon name="tree" /></span><h3>Origen y genealogía</h3><p>Padre, madre, descendencia y criadero de procedencia.</p></article><article className="module-card"><span className="icon-box"><Icon name="health" /></span><h3>Salud organizada</h3><p>Vacunas, controles, restricciones y documentos autorizados.</p></article><article className="module-card"><span className="icon-box"><Icon name="shield" /></span><h3>Privacidad</h3><p>Datos públicos y privados separados por permisos.</p></article></div></section>
+    <section className="tag-steps"><div className="section-shell"><div className="section-heading"><span className="eyebrow light">Cómo funciona</span><h2>Lista para usar en tres pasos</h2></div><ol><li><span>1</span><div><strong>Registra el animal</strong><p>Crea la ficha y define qué información será pública.</p></div></li><li><span>2</span><div><strong>Asigna la placa</strong><p>Vincula el código único con el ejemplar correcto.</p></div></li><li><span>3</span><div><strong>Escanea y actualiza</strong><p>La ficha muestra siempre la última información autorizada.</p></div></li></ol></div></section>
+    <section className="section-shell tag-audience"><div><span className="eyebrow">Una solución para cada criadero</span><h2>Desde un animal hasta cientos de registros.</h2></div><div className="audience-grid"><article><strong>Criadores individuales</strong><p>Identidad y ficha pública del ejemplar.</p></article><article><strong>Granjas y galpones</strong><p>Control por lote, ubicación y responsables.</p></article><article><strong>Asociaciones</strong><p>Registros, verificación y certificados.</p></article><article><strong>Veterinarias</strong><p>Controles sanitarios con fecha y autor.</p></article></div><Link className="button button-primary" href="/planes">Comparar planes</Link></section>
+  </>;
+}

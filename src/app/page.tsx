@@ -1,63 +1,76 @@
+import Image from "next/image";
 import Link from "next/link";
 import { AnimalCard } from "@/components/animal-card";
 import { Icon } from "@/components/icon";
+import { blogPosts } from "@/lib/blog-data";
 import { featuredAnimals } from "@/lib/demo-data";
 
-const modules = [
-  { icon: "tag" as const, name: "CRIA360 ID", text: "Una placa QR o NFC que abre la ficha digital del animal en segundos." },
-  { icon: "tree" as const, name: "Genealogía", text: "Padres, abuelos y líneas de crianza conectados en un historial claro." },
-  { icon: "health" as const, name: "Salud", text: "Vacunas, controles, restricciones y documentos en un solo lugar." },
-  { icon: "store" as const, name: "CRIA360 Market", text: "Criaderos y animales con identidad, reputación e información verificable." },
+const categories = [
+  { name: "Gallos y aves", detail: "Gallos, gallinas y aves de crianza", href: "/venta-de-gallos", symbol: "A" },
+  { name: "Ganado vacuno", detail: "Reproductores, terneros y vaquillonas", href: "/marketplace?especie=vacunos", symbol: "V" },
+  { name: "Porcinos", detail: "Lechones y reproductores", href: "/marketplace?especie=porcinos", symbol: "P" },
+  { name: "Caballos", detail: "Equinos de criaderos registrados", href: "/marketplace?especie=equinos", symbol: "E" },
+  { name: "Ovinos y caprinos", detail: "Animales con origen e historial", href: "/marketplace?especie=ovinos", symbol: "O" },
+  { name: "Ver todos", detail: "Explora el marketplace completo", href: "/marketplace", symbol: "+" },
 ];
 
-const species = ["Aves", "Porcinos", "Vacunos", "Ovinos", "Caprinos", "Equinos", "Otros"];
-
 export default function Home() {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "CRIA360",
+    url: "https://cria360.vercel.app",
+    description: "Marketplace, identidad y gestión para criaderos de animales en Perú.",
+  };
+
   return (
     <>
-      <section className="hero section-shell">
-        <div className="hero-copy">
-          <span className="eyebrow"><Icon name="spark" /> Tecnología para criadores</span>
-          <h1>La identidad digital de <em>cada generación.</em></h1>
-          <p className="hero-lead">Registra el origen, genealogía, salud y trayectoria de cada animal. Conecta tu criadero con compradores que valoran la trazabilidad.</p>
-          <div className="hero-actions">
-            <Link className="button button-primary" href="/registro">Crear mi criadero <span>→</span></Link>
-            <Link className="button button-secondary" href="/marketplace">Explorar marketplace</Link>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }} />
+
+      <section className="commerce-hero">
+        <div className="section-shell commerce-hero-grid">
+          <div className="commerce-copy">
+            <span className="eyebrow light"><Icon name="verified" /> Criaderos, animales e identidad digital</span>
+            <h1>Encuentra animales con <em>origen verificable.</em></h1>
+            <p>Compra y publica ejemplares de criaderos en Perú. Revisa procedencia, genealogía y salud antes de contactar.</p>
+            <form className="hero-search" action="/marketplace">
+              <label className="sr-only" htmlFor="home-search">Buscar animales</label>
+              <input id="home-search" name="q" placeholder="¿Qué animal, raza o criadero buscas?" />
+              <button type="submit">Buscar</button>
+            </form>
+            <div className="hero-quick-links"><span>Popular:</span><Link href="/venta-de-gallos">gallos</Link><Link href="/marketplace?especie=vacunos">ganado vacuno</Link><Link href="/marketplace?especie=porcinos">lechones</Link></div>
+            <div className="commerce-actions"><Link className="button button-gold" href="/marketplace">Ver animales</Link><Link className="button button-outline-light" href="/registro">Publicar gratis</Link></div>
           </div>
-          <p className="microcopy"><Icon name="check" /> Empieza gratis · No requiere tarjeta</p>
-        </div>
-        <div className="hero-visual" aria-label="Ficha digital de animal CRIA360">
-          <div className="sun-orb" />
-          <div className="profile-card">
-            <div className="profile-photo animal-gradient cattle"><span className="species-mark">V</span><span className="verified-chip"><Icon name="verified" /> Verificado</span></div>
-            <div className="profile-body">
-              <div className="profile-title"><div><span className="mini-label">CRIA360 ID</span><h3>Magnus 428</h3></div><span className="id-badge">PE-00428</span></div>
-              <div className="profile-facts"><span><small>Especie</small>Vacuno</span><span><small>Raza</small>Brown Swiss</span><span><small>Nacimiento</small>14 Mar 2025</span></div>
-              <div className="lineage-line"><Icon name="tree" /><span><small>Padre</small>Artemis 091</span><span><small>Madre</small>Luna 214</span></div>
-            </div>
+          <div className="commerce-hero-image">
+            <Image src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1600&q=88" alt="Criadero de ganado vacuno en pastoreo" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
+            <div className="hero-trust-card"><span className="trust-icon"><Icon name="shield" /></span><div><strong>Compra con más información</strong><small>Identidad · origen · salud · criadero</small></div></div>
           </div>
-          <div className="qr-float"><div className="qr-pattern" aria-hidden="true" /><span><strong>Escanea su placa</strong><small>Ficha pública protegida</small></span></div>
         </div>
       </section>
 
-      <section className="trust-strip"><div className="section-shell trust-inner"><p>Creado para criaderos de</p><div className="species-list">{species.map((item) => <span key={item}>{item}</span>)}</div></div></section>
+      <section className="commerce-benefits"><div className="section-shell benefit-row"><span><Icon name="verified" /> Identidades verificables</span><span><Icon name="tree" /> Genealogía conectada</span><span><Icon name="health" /> Historial sanitario</span><span><Icon name="tag" /> Placa QR individual</span></div></section>
 
-      <section className="section-shell section-block">
-        <div className="section-heading centered"><span className="eyebrow">Todo el ciclo en una plataforma</span><h2>Del nacimiento a la próxima generación</h2><p>Información útil para criar mejor, demostrar procedencia y comercializar con confianza.</p></div>
-        <div className="module-grid">{modules.map((module, index) => <article className="module-card" key={module.name}><span className="module-number">0{index + 1}</span><span className="icon-box"><Icon name={module.icon} /></span><h3>{module.name}</h3><p>{module.text}</p></article>)}</div>
+      <section className="section-shell retail-section">
+        <div className="retail-heading"><div><span className="eyebrow">Compra por especie</span><h2>Todo el criadero, en un solo lugar</h2></div><Link className="text-link" href="/marketplace">Ver todo el marketplace</Link></div>
+        <div className="category-grid">{categories.map((category) => <Link href={category.href} className="category-card" key={category.name}><span>{category.symbol}</span><div><strong>{category.name}</strong><small>{category.detail}</small></div></Link>)}</div>
       </section>
 
-      <section className="how-section"><div className="section-shell split-section">
-        <div><span className="eyebrow light">Simple desde el primer animal</span><h2>Una placa pequeña.<br />Una historia completa.</h2><p>El QR puede leerse con la cámara de cualquier celular. Tú decides qué información es pública y cuál permanece privada.</p><Link className="text-link light-link" href="/animales/CRIA-PE-00428">Ver una ficha de ejemplo <span>→</span></Link></div>
-        <ol className="steps-list"><li><span>1</span><div><strong>Registra</strong><p>Crea la identidad del animal y conecta a sus padres.</p></div></li><li><span>2</span><div><strong>Coloca la placa</strong><p>Asigna un QR único, resistente y difícil de duplicar.</p></div></li><li><span>3</span><div><strong>Actualiza su historia</strong><p>Salud, producción, cambios de dueño y documentos.</p></div></li></ol>
+      <section className="retail-featured"><div className="section-shell retail-section">
+        <div className="retail-heading"><div><span className="eyebrow">Recién publicados</span><h2>Animales destacados</h2><p>Ejemplos demostrativos del marketplace CRIA360.</p></div><Link className="button button-secondary" href="/marketplace">Explorar todos</Link></div>
+        <div className="animal-grid">{featuredAnimals.slice(0, 6).map((animal) => <AnimalCard animal={animal} key={animal.id} />)}</div>
       </div></section>
 
-      <section className="section-shell section-block">
-        <div className="section-heading row-heading"><div><span className="eyebrow">CRIA360 Market</span><h2>Animales con historia, no solo anuncios</h2></div><Link className="text-link" href="/marketplace">Ver todos <span>→</span></Link></div>
-        <div className="animal-grid">{featuredAnimals.slice(0, 3).map((animal) => <AnimalCard animal={animal} key={animal.id} />)}</div>
+      <section className="section-shell id-showcase">
+        <div className="id-showcase-photo"><Image src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1400&q=88" alt="Gallo de criadero identificado con ficha digital" fill sizes="(max-width: 900px) 100vw, 50vw" /><span className="photo-label">CRIA360 ID · PE-03091</span></div>
+        <div className="id-showcase-copy"><span className="eyebrow"><Icon name="tag" /> Placa inteligente CRIA360</span><h2>La historia del animal viaja con él.</h2><p>Al escanear la placa QR se abre una ficha actualizada con la información que el criador autoriza: origen, padres, salud y responsable.</p><ul><li><Icon name="check" /> No requiere instalar una app para escanear</li><li><Icon name="check" /> Información pública y privada por separado</li><li><Icon name="check" /> Código único para cada animal</li></ul><div className="hero-actions"><Link className="button button-primary" href="/placas-inteligentes">Conocer la placa</Link><Link className="text-link" href="/animales/CRIA-PE-03091">Ver ficha de ejemplo</Link></div></div>
       </section>
 
-      <section className="section-shell cta-panel"><div><span className="eyebrow light">Tu criadero merece ser visible</span><h2>Empieza a construir una historia que genere confianza.</h2></div><div className="cta-actions"><Link className="button button-white" href="/registro">Crear cuenta gratis</Link><Link className="button button-ghost" href="/planes">Ver planes</Link></div></section>
+      <section className="guide-section"><div className="section-shell retail-section">
+        <div className="retail-heading"><div><span className="eyebrow light">Guía CRIA360</span><h2>Nutrición, salud y mejor crianza</h2></div><Link className="text-link light-link" href="/blog">Ver todos los artículos</Link></div>
+        <div className="article-grid">{blogPosts.slice(0, 3).map((post) => <article className="article-card" key={post.slug}><Link href={`/blog/${post.slug}`} className="article-image"><Image src={post.image} alt={post.imageAlt} fill sizes="(max-width: 620px) 100vw, 33vw" /></Link><div><span>{post.category} · {post.readingTime}</span><Link href={`/blog/${post.slug}`}><h3>{post.title}</h3></Link><p>{post.description}</p><Link className="article-link" href={`/blog/${post.slug}`}>Leer guía</Link></div></article>)}</div>
+      </div></section>
+
+      <section className="section-shell cta-panel commerce-cta"><div><span className="eyebrow light">Empieza con el primer animal</span><h2>Crea la vitrina digital de tu criadero.</h2><p>Publica, documenta la procedencia y conecta con compradores que buscan información clara.</p></div><div className="cta-actions"><Link className="button button-white" href="/registro">Publicar gratis</Link><Link className="button button-ghost" href="/planes">Ver planes</Link></div></section>
     </>
   );
 }
