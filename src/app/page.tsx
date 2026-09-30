@@ -1,9 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { AnimalCard } from "@/components/animal-card";
 import { Icon } from "@/components/icon";
 import { blogPosts } from "@/lib/blog-data";
 import { featuredAnimals } from "@/lib/demo-data";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const categories = [
   { name: "Gallos y aves", detail: "Gallos, gallinas y aves de crianza", href: "/venta-de-gallos", symbol: "A" },
