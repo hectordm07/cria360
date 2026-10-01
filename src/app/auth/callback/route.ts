@@ -20,5 +20,17 @@ export async function GET(request: Request) {
     return NextResponse.redirect(new URL("/ingresar?error=callback", requestUrl.origin));
   }
 
+  const { data: userData } = await supabase.auth.getUser();
+  if (userData.user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("onboarding_completed")
+      .eq("id", userData.user.id)
+      .maybeSingle();
+    if (!profile?.onboarding_completed) {
+      return NextResponse.redirect(new URL("/registro", requestUrl.origin));
+    }
+  }
+
   return NextResponse.redirect(new URL(next, requestUrl.origin));
 }
