@@ -771,6 +771,7 @@ main { min-height: 70vh; }
 .animal-form input, .animal-form select, .animal-form textarea { background: white; border: 1px solid #cfd6d2; border-radius: 9px; color: #273a33; font: inherit; min-height: 49px; padding: 12px 14px; width: 100%; }
 .animal-form textarea { min-height: 110px; resize: vertical; }
 .animal-form > .button { align-self: flex-end; min-width: 210px; }
+.animal-form > .button:disabled { cursor: wait; opacity: .72; transform: none; }
 .empty-inventory { background: white; border: 1px dashed #b8c5bf; border-radius: 16px; padding: 55px 25px; text-align: center; }
 .empty-inventory strong { color: var(--forest); font-family: Georgia,serif; font-size: 28px; }
 .empty-inventory p { color: var(--muted); margin: 12px 0 24px; }
@@ -868,4 +869,95 @@ main { min-height: 70vh; }
   .install-copy > p { font-size: 15px; }
   .platform-steps { grid-template-columns: 1fr; }
   .phone-preview { height: 600px; max-width: 305px; }
+}
+
+/* Multispecies marketplace redesign */
+.species-section { scroll-margin-top: 90px; }
+.retail-heading p { color: var(--muted); font-size: 15px; line-height: 1.65; margin: 10px 0 0; max-width: 680px; }
+.species-grid { display: grid; gap: 16px; grid-template-columns: repeat(4,1fr); margin-top: 34px; }
+.species-card { background: white; border: 1px solid var(--line); border-radius: 18px; color: var(--forest); overflow: hidden; transition: transform .2s ease, box-shadow .2s ease; }
+.species-card:hover { box-shadow: 0 18px 38px rgba(20,55,46,.12); transform: translateY(-4px); }
+.species-card-photo { height: 145px; overflow: hidden; position: relative; }
+.species-card-photo::after { background: linear-gradient(180deg,transparent,rgba(8,28,23,.2)); content: ""; inset: 0; position: absolute; }
+.species-card-photo img { object-fit: cover; transition: transform .35s ease; }
+.species-card:hover img { transform: scale(1.04); }
+.species-card > div:last-child { display: grid; gap: 7px; grid-template-columns: 38px 1fr; padding: 17px; }
+.species-card > div:last-child > span { align-items: center; background: #e9efe8; border-radius: 10px; display: flex; font-family: Georgia,serif; font-size: 18px; font-weight: 700; grid-row: 1/3; height: 38px; justify-content: center; width: 38px; }
+.species-card strong { font-size: 16px; }
+.species-card small { color: var(--muted); font-size: 12px; line-height: 1.45; }
+.species-card.tone-amber > div:last-child > span { background: #fff0c8; color: #765415; }
+.species-card.tone-rose > div:last-child > span { background: #f8e6e1; color: #824a3f; }
+.species-card.tone-blue > div:last-child > span { background: #e2eef2; color: #2e6070; }
+.species-card.tone-gold > div:last-child > span { background: #f5ead4; color: #6e5122; }
+.species-card.tone-brown > div:last-child > span { background: #ebe2d9; color: #604a38; }
+.species-card.tone-violet > div:last-child > span { background: #ebe6f4; color: #624e7b; }
+.species-card.tone-slate > div:last-child > span { background: #e8ebea; color: #52615c; }
+.platform-flow { background: #123b31; color: white; padding: 86px 0; }
+.platform-flow .retail-heading h2 { color: white; }
+.platform-flow .retail-heading p { color: #afc2ba; }
+.flow-grid { display: grid; gap: 1px; grid-template-columns: repeat(4,1fr); margin-top: 36px; overflow: hidden; }
+.flow-grid article { background: rgba(255,255,255,.055); min-height: 245px; padding: 28px; position: relative; }
+.flow-grid article > span { color: var(--gold); font-size: 12px; font-weight: 800; letter-spacing: 1px; position: absolute; right: 24px; top: 24px; }
+.flow-grid svg { color: var(--lime); margin-top: 26px; }
+.flow-grid h3 { font-family: Georgia,serif; font-size: 25px; font-weight: 500; margin: 24px 0 9px; }
+.flow-grid p { color: #b8c9c2; font-size: 14px; line-height: 1.6; margin: 0; }
+.legal-commerce { background: #1d493d; color: white; padding: 74px 0; }
+.legal-commerce-grid { align-items: center; display: grid; gap: 80px; grid-template-columns: 1.05fr .95fr; }
+.legal-commerce h2 { color: white; font-family: Georgia,serif; font-size: 42px; font-weight: 500; line-height: 1.12; margin: 16px 0; }
+.legal-commerce p { color: #bed0c8; font-size: 15px; line-height: 1.7; }
+.legal-commerce ul { display: flex; flex-direction: column; gap: 14px; list-style: none; margin: 0; padding: 0; }
+.legal-commerce li { align-items: flex-start; background: rgba(255,255,255,.07); border-radius: 10px; display: flex; font-size: 14px; gap: 10px; line-height: 1.5; padding: 13px 15px; }
+.legal-commerce li svg { color: var(--lime); flex: 0 0 auto; }
+.market-hero-modern { background: radial-gradient(circle at 78% 28%,rgba(190,220,108,.18),transparent 28%),linear-gradient(120deg,#0f3029,#1e5445); }
+.modern-search { grid-template-columns: 1.45fr .9fr auto; max-width: 850px; }
+.modern-search button { min-width: 130px; }
+.modern-filters > div:first-child { border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 5px; padding-bottom: 17px; }
+.modern-filters > div:first-child small { color: var(--muted); font-size: 12px; }
+.market-empty { align-items: center; background: white; border: 1px dashed #b9c6c0; border-radius: 16px; display: flex; flex-direction: column; min-height: 310px; justify-content: center; padding: 35px; text-align: center; }
+.market-empty strong { color: var(--forest); font-family: Georgia,serif; font-size: 27px; font-weight: 500; }
+.market-empty p { color: var(--muted); line-height: 1.6; margin: 10px 0 22px; }
+.category-hero { background: linear-gradient(125deg,#123b31,#286450); color: white; }
+.category-hero-grid { align-items: center; display: grid; gap: 80px; grid-template-columns: 1fr .82fr; min-height: 570px; padding-bottom: 62px; padding-top: 62px; }
+.category-hero h1 { color: white; font-family: Georgia,serif; font-size: clamp(52px,6vw,78px); font-weight: 500; letter-spacing: -3px; margin: 16px 0; }
+.category-hero p { color: #c1d1ca; font-size: 17px; line-height: 1.7; max-width: 650px; }
+.category-hero-photo { border-radius: 26px; box-shadow: 0 25px 60px rgba(0,0,0,.24); height: 395px; overflow: hidden; position: relative; }
+.category-hero-photo img { object-fit: cover; }
+.category-hero-photo > span { align-items: center; background: var(--gold); border-radius: 50%; bottom: 20px; color: #2b2418; display: flex; font-family: Georgia,serif; font-size: 30px; font-weight: 700; height: 64px; justify-content: center; position: absolute; right: 20px; width: 64px; }
+.category-listing { padding-bottom: 95px; padding-top: 85px; }
+.responsible-band { background: #edf2e9; border-top: 1px solid #dbe3d7; padding: 35px 0; }
+.responsible-band-grid { align-items: center; display: grid; gap: 20px; grid-template-columns: auto 1fr auto; }
+.responsible-band svg { color: var(--moss); }
+.responsible-band strong { color: var(--forest); display: block; font-size: 16px; margin-bottom: 4px; }
+.responsible-band p { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 0; }
+.responsible-band a { color: var(--forest); font-size: 13px; font-weight: 800; }
+
+@media (max-width: 900px) {
+  .species-grid { grid-template-columns: repeat(2,1fr); }
+  .flow-grid { grid-template-columns: repeat(2,1fr); }
+  .legal-commerce-grid, .category-hero-grid { gap: 45px; grid-template-columns: 1fr; }
+  .category-hero-photo { height: 360px; margin-bottom: 20px; }
+}
+
+@media (max-width: 620px) {
+  .species-grid { gap: 10px; grid-template-columns: repeat(2,1fr); }
+  .species-card-photo { height: 110px; }
+  .species-card > div:last-child { display: flex; flex-direction: column; padding: 13px; }
+  .species-card > div:last-child > span { height: 31px; width: 31px; }
+  .species-card small { display: none; }
+  .platform-flow { padding: 65px 0; }
+  .flow-grid { grid-template-columns: 1fr; }
+  .flow-grid article { min-height: 185px; }
+  .legal-commerce { padding: 60px 0; }
+  .legal-commerce-grid { gap: 35px; }
+  .legal-commerce h2 { font-size: 34px; }
+  .modern-search { grid-template-columns: 1fr; }
+  .market-body { display: block; }
+  .modern-filters { margin-bottom: 25px; position: static; }
+  .category-hero-grid { min-height: auto; padding-bottom: 48px; padding-top: 55px; }
+  .category-hero h1 { font-size: 48px; letter-spacing: -2px; }
+  .category-hero p { font-size: 15px; }
+  .category-hero-photo { border-radius: 18px; height: 310px; }
+  .category-listing { padding-bottom: 70px; padding-top: 65px; }
+  .responsible-band-grid { align-items: start; grid-template-columns: auto 1fr; }
+  .responsible-band-grid a { grid-column: 2; }
 }
