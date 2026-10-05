@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { AccountLink } from "./account-link";
 import { Icon } from "./icon";
 
@@ -14,11 +15,25 @@ const items = [
 
 export function MobileAppNav() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/");
+    router.prefetch("/marketplace");
+    router.prefetch("/blog");
+    router.prefetch("/ingresar");
+  }, [router]);
 
   return (
     <nav className="mobile-app-nav" aria-label="Navegación de la aplicación">
       {items.map((item) => (
-        <Link className={item.primary ? "primary" : ""} href={item.href} key={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+        <Link
+          className={item.primary ? "primary" : ""}
+          href={item.href}
+          key={item.href}
+          prefetch
+          aria-current={pathname === item.href ? "page" : undefined}
+        >
           <span className="mobile-nav-icon"><Icon name={item.icon} size={21} /></span>
           <span>{item.label}</span>
         </Link>
