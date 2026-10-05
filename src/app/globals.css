@@ -1363,3 +1363,354 @@ body:has(.account-app-shell) > main { min-height: 100vh; }
     padding-right: 12px;
   }
 }
+
+
+/* CRIA360 mobile dashboard polish v2 */
+@media (max-width: 760px) {
+  body:has(.account-app-shell) {
+    background: #f4f7f4;
+  }
+
+  .account-sidebar {
+    width: 64px;
+    padding:
+      calc(10px + env(safe-area-inset-top))
+      6px
+      calc(10px + env(safe-area-inset-bottom));
+    background: #103f35;
+    border-right: 1px solid rgba(255,255,255,.08);
+  }
+
+  .account-sidebar-brand {
+    padding: 2px 0 12px;
+    margin-bottom: 8px;
+  }
+
+  .account-sidebar-brand .sidebar-brand-symbol {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .account-sidebar nav {
+    gap: 5px;
+  }
+
+  .account-sidebar nav a {
+    width: 48px;
+    min-height: 48px;
+    border-radius: 12px;
+  }
+
+  .account-sidebar nav a svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .account-sidebar nav a.active {
+    background: #b8d96b;
+    box-shadow: none;
+  }
+
+  .account-sidebar nav a.active::before {
+    left: -6px;
+    width: 3px;
+    height: 24px;
+  }
+
+  .account-app-content {
+    margin-left: 64px;
+    width: calc(100% - 64px);
+    background: #f4f7f4;
+  }
+
+  .account-dashboard {
+    max-width: 720px;
+    margin: 0 auto;
+    padding:
+      calc(18px + env(safe-area-inset-top))
+      16px
+      48px;
+  }
+
+  .dashboard-topbar {
+    display: grid;
+    grid-template-columns: minmax(0,1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .dashboard-topbar > div:first-child {
+    min-width: 0;
+  }
+
+  .dashboard-topbar .eyebrow {
+    font-size: 10px;
+    letter-spacing: .11em;
+  }
+
+  .dashboard-topbar h1 {
+    font-size: clamp(29px, 8vw, 36px);
+    line-height: 1.04;
+    letter-spacing: -.045em;
+    margin: 8px 0 9px;
+  }
+
+  .dashboard-topbar p {
+    max-width: 430px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .dashboard-user {
+    display: grid;
+    grid-template-columns: 40px minmax(0,1fr) auto;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    min-height: 58px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(21,65,53,.045);
+  }
+
+  .dashboard-user > span {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .dashboard-user > div {
+    display: flex;
+    min-width: 0;
+  }
+
+  .dashboard-user strong {
+    font-size: 12px;
+  }
+
+  .dashboard-user small {
+    font-size: 10px;
+  }
+
+  .dashboard-user button {
+    min-width: 52px;
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+
+  .dashboard-kpis {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .dashboard-kpis article {
+    min-height: 118px;
+    padding: 14px;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(21,65,53,.04);
+  }
+
+  .dashboard-kpis article {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .kpi-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .kpi-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .dashboard-kpis article > div {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .dashboard-kpis strong {
+    order: -1;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 7px;
+  }
+
+  .dashboard-kpis small {
+    font-size: 11px;
+    line-height: 1.25;
+  }
+
+  .dashboard-kpis p {
+    font-size: 9.5px;
+    line-height: 1.35;
+    margin-top: 5px;
+  }
+
+  .dashboard-section {
+    margin-top: 26px;
+  }
+
+  .dashboard-section-head {
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .dashboard-section-head .eyebrow {
+    font-size: 10px;
+  }
+
+  .dashboard-section-head h2,
+  .dashboard-panel h2 {
+    font-size: 24px;
+    line-height: 1.08;
+    margin: 5px 0;
+  }
+
+  .dashboard-section-head p {
+    max-width: 430px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .dashboard-section-head .button {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .stock-species-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .stock-species-card {
+    height: 156px;
+    border-radius: 14px;
+  }
+
+  .stock-species-card > div {
+    padding: 13px;
+  }
+
+  .stock-species-card > div > strong {
+    font-size: 30px;
+  }
+
+  .stock-species-card h3 {
+    font-size: 17px;
+  }
+
+  .quick-action-grid {
+    gap: 10px;
+  }
+
+  .dashboard-panel {
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .account-sidebar {
+    width: 60px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .account-sidebar-brand .sidebar-brand-symbol {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .account-sidebar nav a {
+    width: 46px;
+    min-height: 46px;
+  }
+
+  .account-app-content {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+  }
+
+  .account-dashboard {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .dashboard-topbar h1 {
+    font-size: clamp(28px, 8.2vw, 33px);
+  }
+
+  .dashboard-topbar p {
+    font-size: 12px;
+  }
+
+  .dashboard-user {
+    grid-template-columns: 38px minmax(0,1fr) auto;
+    min-height: 54px;
+    padding: 7px 9px;
+  }
+
+  .dashboard-user > span {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+  }
+
+  .dashboard-user strong {
+    font-size: 11px;
+  }
+
+  .dashboard-user small {
+    font-size: 9px;
+  }
+
+  .dashboard-kpis {
+    gap: 8px;
+  }
+
+  .dashboard-kpis article {
+    min-height: 108px;
+    padding: 12px;
+    grid-template-columns: 32px 1fr;
+    gap: 8px;
+  }
+
+  .kpi-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dashboard-kpis strong {
+    font-size: 25px;
+  }
+
+  .dashboard-kpis small {
+    font-size: 10px;
+  }
+
+  .dashboard-kpis p {
+    font-size: 9px;
+  }
+
+  .dashboard-section-head {
+    align-items: stretch;
+  }
+
+  .dashboard-section-head h2,
+  .dashboard-panel h2 {
+    font-size: 22px;
+  }
+
+  .stock-species-card {
+    height: 145px;
+  }
+}
