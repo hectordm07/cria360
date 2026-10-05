@@ -8,12 +8,12 @@ Criaderos pequeños y medianos de aves, porcinos, vacunos, ovinos, caprinos y eq
 
 | Plan | Precio referencial | Límite principal | Marketplace | Usuario ideal |
 | --- | ---: | --- | --- | --- |
-| Gratis | S/ 0 | 1 criadero, 5 animales | 1 anuncio/mes | Criador que prueba el sistema |
-| Criador | S/ 39/mes | 50 animales | 5 anuncios activos | Criadero pequeño en crecimiento |
-| Pro | S/ 89/mes | 250 animales, 3 usuarios | 20 anuncios activos | Operación profesional |
-| Empresa | A medida | Multi-sede e ilimitado | Según contrato | Asociación o empresa ganadera |
+| Gratis | S/ 0 | 1 criadero, 5 animales | 1 publicación activa | Criador que prueba el sistema |
+| Granja | S/ 69.90/mes o S/ 699/año | 150 animales | 30 publicaciones activas | Criadero pequeño o mediano |
+| Granja Pro | S/ 149.90/mes o S/ 1,499/año | 1,000 animales, hasta 5 usuarios | Ilimitadas | Operación profesional |
+| Empresa | A medida | Multi-sede o necesidades especiales | Según contrato | Asociación, integrador o empresa |
 
-Los precios son hipótesis de lanzamiento y deben validarse con 10 a 20 entrevistas y una preventa piloto.
+El plan anual ofrece aproximadamente dos meses de descuento frente al pago mensual. La estructura debe revisarse con entrevistas, conversión real y costos de soporte/infraestructura antes de ampliar descuentos.
 
 ## Monetización recomendada
 
