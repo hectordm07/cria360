@@ -9,7 +9,7 @@ type Billing = "monthly" | "annual";
 const plans = [
   {
     name: "Inicial",
-    note: "Para probar CRIA360",
+    note: "Para conocer CRIA360",
     monthly: 0,
     annual: 0,
     cta: "Crear mi granja",
@@ -23,9 +23,9 @@ const plans = [
   },
   {
     name: "Granja",
-    note: "Criaderos en crecimiento",
-    monthly: 69.9,
-    annual: 699,
+    note: "Criaderos pequeños y medianos",
+    monthly: 99.9,
+    annual: 999,
     cta: "Elegir Granja",
     popular: true,
     features: [
@@ -41,8 +41,8 @@ const plans = [
   {
     name: "Granja Pro",
     note: "Operación profesional",
-    monthly: 149.9,
-    annual: 1499,
+    monthly: 229.9,
+    annual: 2299,
     cta: "Elegir Pro",
     features: [
       "Hasta 1,000 animales",
@@ -51,7 +51,7 @@ const plans = [
       "Hasta 5 usuarios del equipo",
       "Reportes y trazabilidad avanzada",
       "Gestión financiera completa",
-      "Prioridad en soporte",
+      "Soporte prioritario",
       "20% de descuento en placas",
     ],
   },
@@ -69,7 +69,7 @@ export function ManagementPricing() {
       <div className="billing-toggle" role="group" aria-label="Frecuencia de pago">
         <button type="button" className={billing === "monthly" ? "active" : ""} onClick={() => setBilling("monthly")}>Mensual</button>
         <button type="button" className={billing === "annual" ? "active" : ""} onClick={() => setBilling("annual")}>
-          Anual <span>Ahorra 2 meses</span>
+          Anual <span>2 meses gratis</span>
         </button>
       </div>
 
@@ -82,7 +82,7 @@ export function ManagementPricing() {
 
           return (
             <article className={plan.popular ? "popular" : ""} key={plan.name}>
-              {plan.popular && <span className="popular-label">Mejor valor</span>}
+              {plan.popular && <span className="popular-label">Más elegido</span>}
               <small>{plan.note}</small>
               <h3>{plan.name}</h3>
 
@@ -91,13 +91,13 @@ export function ManagementPricing() {
               ) : billing === "monthly" ? (
                 <>
                   <strong className="management-price">S/ {money(price)}<em> / mes</em></strong>
-                  <span className="billing-detail">Puedes cambiar o cancelar el plan al siguiente periodo.</span>
+                  <span className="billing-detail">Pago mensual. Cambia de plan al siguiente periodo.</span>
                 </>
               ) : (
                 <>
                   <strong className="management-price">S/ {money(price)}<em> / año</em></strong>
                   <span className="annual-equivalent">Equivale a S/ {money(annualEquivalent)} / mes</span>
-                  <span className="annual-saving">Ahorras S/ {money(annualSaving)} al año</span>
+                  <span className="annual-saving">Oferta anual: ahorras S/ {money(annualSaving)} · pagas 10 meses y usas 12</span>
                 </>
               )}
 
@@ -109,7 +109,7 @@ export function ManagementPricing() {
           );
         })}
       </div>
-      <p className="pricing-note">Los precios incluyen actualizaciones de la plataforma. Las placas físicas se adquieren por separado.</p>
+      <p className="pricing-note">Precios de lanzamiento en Perú. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
     </>
   );
 }
