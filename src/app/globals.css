@@ -1132,3 +1132,18 @@ body:has(.account-app-shell) > main { min-height: 100vh; }
 .transaction-list article div { display:grid; gap:4px; }.transaction-list article small { color:var(--muted); }.transaction-list article span { font-weight:850; color:var(--green); text-transform:capitalize; }
 .form-notice { border-radius:11px; padding:11px 14px; margin:14px 0 0; font-weight:700; }.form-notice.success { background:#e9f7ef; color:#17633e; }.form-notice.error { background:#fff0ed; color:#9a3529; }
 @media (max-width:800px){.support-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+
+/* Approved identity 01: Granja conectada — shared across web and app. */
+.brand-mark, .brand-inverse .brand-mark { width:48px; height:48px; flex:none; background:transparent; border-radius:0; transform:none; }
+.brand-mark::after, .auth-logo-mark::after { content:none; }
+.brand-word { font-family:var(--font-geist-sans),Arial,sans-serif; font-size:24px; font-weight:850; letter-spacing:-.065em; line-height:1; }
+.brand-word small { position:static; display:block; margin-top:5px; font-size:9px; font-weight:550; letter-spacing:.02em; line-height:1.2; }
+.brand-word > span { color:#cfa343; }
+.auth-logo-mark { width:68px; height:68px; background:transparent; border-radius:0; }
+.auth-logo-mark svg { height:100%; width:100%; }
+.mini-app-head .auth-logo-mark { height:38px; width:38px; }
+.account-sidebar-brand .sidebar-brand-symbol { display:block; flex:none; height:48px; width:48px; background:transparent; padding:0; border-radius:0; }
+.account-sidebar-brand strong { font-family:var(--font-geist-sans),Arial,sans-serif; font-size:21px; font-weight:850; letter-spacing:-.065em; }
+.account-sidebar-brand strong span { color:#cfa343; }
+.account-sidebar-brand small { font-size:10px; }
+@media(max-width:520px){.brand-mark{width:40px;height:40px}.brand-word{font-size:22px}.brand-word small{font-size:8px}}

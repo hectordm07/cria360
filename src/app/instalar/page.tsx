@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { InstallAppButton } from "@/components/install-app-button";
 import { Icon } from "@/components/icon";
+import { LogoMark } from "@/components/logo-mark";
 
 export const metadata: Metadata = {
   title: "Instalar la app",
@@ -15,7 +16,7 @@ export default function InstallPage() {
         <div className="phone-preview" aria-label="Vista móvil de CRIA360">
           <div className="phone-speaker" />
           <div className="phone-screen">
-            <div className="mini-app-head"><span className="auth-logo-mark">C</span><strong>CRIA360</strong></div>
+            <div className="mini-app-head"><span className="auth-logo-mark"><LogoMark /></span><strong>CRIA360</strong></div>
             <div className="mini-greeting"><small>Buenos días</small><strong>Tu criadero en el bolsillo</strong></div>
             <div className="mini-actions"><span>Publicar</span><span>Animales</span><span>Placas</span></div>
             <div className="mini-card"><span>PLAN GRATIS</span><strong>2 publicaciones activas</strong><small>Administra tus animales desde cualquier lugar.</small></div>

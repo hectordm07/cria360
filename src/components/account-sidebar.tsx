@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/icon";
+import { LogoMark } from "@/components/logo-mark";
 
 const navigation = [
   { href: "/cuenta", label: "Dashboard", icon: "store" as const },
@@ -21,7 +22,7 @@ const navigation = [
 export function AccountSidebar({ breederName, plan }: { breederName: string; plan: string }) {
   const pathname = usePathname();
   return <aside className="account-sidebar">
-    <div className="account-sidebar-brand"><span className="sidebar-brand-symbol">C360</span><div><strong>CRIA360</strong><small>{breederName}</small></div></div>
+    <div className="account-sidebar-brand"><Link className="sidebar-brand-symbol" href="/" aria-label="CRIA360, inicio"><LogoMark inverse /></Link><div><strong>CRIA<span>360</span></strong><small>Tu granja, conectada.</small><small title={breederName}>{breederName}</small></div></div>
     <nav aria-label="Panel del criadero">{navigation.map((item) => { const active = item.href === "/cuenta" ? pathname === item.href : pathname.startsWith(item.href); return <Link className={active ? "active" : ""} href={item.href} key={item.href}><Icon name={item.icon} size={19} /><span>{item.label}</span></Link>; })}</nav>
     <div className="account-plan-mini"><small>PLAN DE GESTIÓN</small><strong>{plan}</strong><Link href="/planes">Ver beneficios del plan</Link></div>
   </aside>;

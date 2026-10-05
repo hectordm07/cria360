@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { GoogleSignInButton } from "@/components/google-sign-in-button";
 import { Icon } from "@/components/icon";
+import { LogoMark } from "@/components/logo-mark";
 
 export const metadata: Metadata = {
   title: "Ingresar",
@@ -29,7 +30,7 @@ export default async function SignInPage({
         </ul>
       </div>
       <div className="auth-panel">
-        <span className="auth-logo-mark">C</span>
+        <span className="auth-logo-mark"><LogoMark /></span>
         <h2>Bienvenido a CRIA360</h2>
         <p>Usa tu cuenta de Google. No tendrás que crear ni recordar otra contraseña.</p>
         {params.error && <p className="auth-error" role="alert">No fue posible completar el acceso. Vuelve a intentarlo.</p>}
