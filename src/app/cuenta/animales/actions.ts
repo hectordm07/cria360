@@ -90,6 +90,7 @@ export async function exitAnimal(formData: FormData) {
   const animalId = text(formData, "animal_id");
   const reason = text(formData, "reason");
   const note = text(formData, "note");
+  const returnCode = text(formData, "return_code");
 
   if (!animalId || !["vendido", "transferido", "fallecido"].includes(reason)) {
     redirect("/cuenta/escanear?error=salida");
@@ -105,5 +106,5 @@ export async function exitAnimal(formData: FormData) {
 
   revalidatePath("/cuenta");
   revalidatePath("/cuenta/animales");
-  redirect("/cuenta/escanear?exit=1");
+  redirect(`/cuenta/escanear?exit=1${returnCode ? `&code=${encodeURIComponent(returnCode)}` : ""}`);
 }
