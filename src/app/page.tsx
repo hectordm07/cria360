@@ -39,7 +39,7 @@ export default function Home() {
             <div className="commerce-actions"><Link className="button button-gold" href="/placas-inteligentes">Comprar placas</Link><Link className="button button-outline-light" href="/registro">Crear mi granja</Link></div>
           </div>
           <div className="commerce-hero-image">
-            <Image src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1600&q=88" alt="Criadero de ganado vacuno en pastoreo" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
+            <Image src="https://images.unsplash.com/photo-1760484700898-012cc3a4e38f?auto=format&fit=crop&w=1600&q=88" alt="Granja avícola con gallinas junto a su galpón" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
             <div className="hero-trust-card"><span className="trust-icon"><Icon name="shield" /></span><div><strong>Información antes de contactar</strong><small>Identidad · origen · salud · responsable</small></div></div>
           </div>
         </div>
