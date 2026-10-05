@@ -2141,3 +2141,560 @@ body:has(.account-app-shell) > main { min-height: 100vh; }
     grid-template-columns: 1fr;
   }
 }
+
+
+/* CRIA360 Orbital web + farm app UX v3 */
+
+/* Public web: lightweight, SEO-first, Orbital-inspired visual system */
+body:not(:has(.account-app-shell)) {
+  --orb-surface: #fbfcf9;
+  --orb-card: #ffffff;
+  --orb-ink: #123b31;
+  --orb-muted: #65756e;
+  --orb-line: #dfe7e1;
+  --orb-accent: #b8d96b;
+  background: var(--orb-surface);
+}
+
+body:not(:has(.account-app-shell)) .site-header {
+  background: rgba(251,252,249,.98);
+  border-bottom: 1px solid var(--orb-line);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body:not(:has(.account-app-shell)) .header-inner {
+  min-height: 68px;
+}
+
+body:not(:has(.account-app-shell)) .commerce-hero {
+  background:
+    radial-gradient(circle at 82% 20%, rgba(184,217,107,.17), transparent 25%),
+    linear-gradient(180deg,#153f35 0%,#10372f 100%);
+}
+
+body:not(:has(.account-app-shell)) .commerce-hero-grid {
+  min-height: min(720px, calc(100vh - 68px));
+  align-items: center;
+}
+
+body:not(:has(.account-app-shell)) .commerce-copy h1 {
+  max-width: 760px;
+  letter-spacing: -.055em;
+  line-height: .98;
+}
+
+body:not(:has(.account-app-shell)) .commerce-copy > p {
+  max-width: 680px;
+  line-height: 1.65;
+}
+
+body:not(:has(.account-app-shell)) .hero-search {
+  border-radius: 14px;
+  box-shadow: 0 12px 34px rgba(4,24,19,.14);
+}
+
+body:not(:has(.account-app-shell)) .species-card,
+body:not(:has(.account-app-shell)) .animal-card,
+body:not(:has(.account-app-shell)) .article-card {
+  border-color: var(--orb-line);
+  box-shadow: 0 6px 20px rgba(18,59,49,.045);
+}
+
+body:not(:has(.account-app-shell)) .species-card:hover,
+body:not(:has(.account-app-shell)) .animal-card:hover,
+body:not(:has(.account-app-shell)) .article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(18,59,49,.08);
+}
+
+body:not(:has(.account-app-shell)) .platform-flow {
+  background:
+    radial-gradient(circle at 8% 16%,rgba(184,217,107,.14),transparent 22%),
+    #103a31;
+}
+
+body:not(:has(.account-app-shell)) .flow-grid {
+  gap: 10px;
+  overflow: visible;
+}
+
+body:not(:has(.account-app-shell)) .flow-grid article {
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+}
+
+body:not(:has(.account-app-shell)) .retail-heading h2,
+body:not(:has(.account-app-shell)) .id-showcase-copy h2,
+body:not(:has(.account-app-shell)) .legal-commerce h2 {
+  letter-spacing: -.035em;
+}
+
+body:not(:has(.account-app-shell)) .button {
+  border-radius: 10px;
+}
+
+body:not(:has(.account-app-shell)) .footer-grid {
+  gap: 34px;
+}
+
+body:not(:has(.account-app-shell)) a,
+body:not(:has(.account-app-shell)) button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Private app: compact farm-management pattern optimized for one-handed use */
+@media (max-width: 760px) {
+  body:has(.account-app-shell) {
+    background: #f4f6f2;
+    font-size: 16px;
+  }
+
+  .account-sidebar {
+    width: 78px;
+    padding:
+      calc(8px + env(safe-area-inset-top))
+      6px
+      calc(8px + env(safe-area-inset-bottom));
+    background: #103f35;
+    border-right: 1px solid rgba(255,255,255,.08);
+  }
+
+  .account-sidebar-brand {
+    min-height: 52px;
+    padding: 0 0 8px;
+    margin: 0 0 5px;
+  }
+
+  .account-sidebar-brand .sidebar-brand-symbol {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .account-sidebar nav {
+    gap: 2px;
+    margin: 0;
+  }
+
+  .account-sidebar nav a {
+    position: relative;
+    width: 66px;
+    min-height: 54px;
+    margin: 0 auto;
+    padding: 5px 3px 4px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    flex-direction: column;
+    gap: 3px;
+    justify-content: center;
+    color: #c7d8d1;
+    transition: background .12s ease, border-color .12s ease, color .12s ease;
+  }
+
+  .account-sidebar nav a svg {
+    width: 21px;
+    height: 21px;
+    flex: 0 0 auto;
+  }
+
+  .account-sidebar nav a > span {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    border: 0;
+    display: block;
+    max-width: 60px;
+    color: inherit;
+    font-size: 8.5px;
+    font-weight: 720;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .account-sidebar nav a.active {
+    background: #b8d96b;
+    border-color: #cce982;
+    color: #103f35;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+  }
+
+  .account-sidebar nav a.active::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  .account-sidebar nav a.active svg {
+    stroke-width: 2.3;
+  }
+
+  .account-sidebar nav a:active {
+    transform: scale(.97);
+  }
+
+  .account-sidebar-logout {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid rgba(255,255,255,.09);
+  }
+
+  .account-sidebar-logout button {
+    width: 66px;
+    min-height: 50px;
+    margin: 0 auto;
+    padding: 4px 2px;
+    flex-direction: column;
+    gap: 2px;
+    color: #d7e3df;
+  }
+
+  .account-sidebar-logout button span {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    font-size: 8.5px;
+    font-weight: 750;
+    line-height: 1;
+  }
+
+  .account-app-content {
+    margin-left: 78px;
+    width: calc(100% - 78px);
+    background: #f4f6f2;
+  }
+
+  .account-dashboard {
+    max-width: 760px;
+    padding:
+      calc(14px + env(safe-area-inset-top))
+      14px
+      38px;
+  }
+
+  .dashboard-topbar {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .dashboard-topbar .eyebrow {
+    font-size: 11px;
+    letter-spacing: .08em;
+  }
+
+  .dashboard-topbar h1 {
+    font-size: clamp(30px, 7.8vw, 36px);
+    line-height: 1.03;
+    margin: 5px 0 6px;
+  }
+
+  .dashboard-topbar p {
+    font-size: 14px;
+    line-height: 1.42;
+    max-width: 480px;
+  }
+
+  .dashboard-user {
+    min-height: 52px;
+    padding: 7px 9px;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+
+  .dashboard-user strong {
+    font-size: 13px;
+  }
+
+  .dashboard-user small {
+    font-size: 11px;
+  }
+
+  .dashboard-user button {
+    font-size: 12px;
+    min-width: 48px;
+  }
+
+  .dashboard-kpis {
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .dashboard-kpis article {
+    min-height: 104px;
+    padding: 11px;
+    gap: 8px;
+    grid-template-columns: 34px minmax(0,1fr);
+    border-radius: 12px;
+    box-shadow: none;
+  }
+
+  .kpi-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .dashboard-kpis strong {
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+
+  .dashboard-kpis small {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  .dashboard-kpis p {
+    font-size: 10.5px;
+    line-height: 1.25;
+    margin-top: 4px;
+  }
+
+  .dashboard-section {
+    margin-top: 20px;
+  }
+
+  .dashboard-section-head {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .dashboard-section-head .eyebrow {
+    font-size: 10px;
+  }
+
+  .dashboard-section-head h2,
+  .dashboard-panel h2 {
+    font-size: 23px;
+    margin: 3px 0;
+  }
+
+  .dashboard-section-head p {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .stock-species-grid {
+    gap: 8px;
+  }
+
+  .stock-species-card {
+    height: 142px;
+    border-radius: 12px;
+  }
+
+  .stock-species-card > div {
+    padding: 11px;
+  }
+
+  .stock-species-card > div > strong {
+    font-size: 29px;
+  }
+
+  .stock-species-card h3 {
+    font-size: 17px;
+    margin: 2px 0;
+  }
+
+  .stock-species-card small {
+    font-size: 9px;
+  }
+
+  .inventory-page .section-shell,
+  .account-app-content .inventory-page .section-shell {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .inventory-heading {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .inventory-heading h1 {
+    font-size: 28px;
+    line-height: 1.05;
+  }
+
+  .inventory-heading p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .inventory-heading-actions {
+    gap: 7px;
+  }
+
+  .inventory-heading-actions .button {
+    min-height: 40px;
+    font-size: 11px;
+  }
+
+  .inventory-list {
+    gap: 8px;
+  }
+
+  .inventory-list article {
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .scan-workspace,
+  .scanner-result {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .account-sidebar {
+    width: 74px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .account-sidebar nav a,
+  .account-sidebar-logout button {
+    width: 64px;
+  }
+
+  .account-app-content {
+    margin-left: 74px;
+    width: calc(100% - 74px);
+  }
+
+  .account-dashboard {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .dashboard-topbar h1 {
+    font-size: 30px;
+  }
+
+  .dashboard-topbar p {
+    font-size: 13.5px;
+  }
+
+  .dashboard-kpis article {
+    min-height: 100px;
+    padding: 10px;
+  }
+
+  .dashboard-kpis small {
+    font-size: 11px;
+  }
+
+  .dashboard-kpis p {
+    font-size: 10px;
+  }
+}
+
+/* New legal, consent, contact and conversion surfaces */
+.cookie-consent {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dce5de;
+  border-radius: 16px;
+  bottom: 20px;
+  box-shadow: 0 18px 50px rgba(11,46,37,.18);
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  left: 50%;
+  max-width: 920px;
+  padding: 18px 20px;
+  position: fixed;
+  transform: translateX(-50%);
+  width: min(calc(100% - 28px),920px);
+  z-index: 220;
+}
+
+.cookie-consent strong { color: var(--forest); font-size: 15px; }
+.cookie-consent p { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 5px 0 0; }
+.cookie-consent p a { color: var(--forest); font-weight: 800; text-decoration: underline; }
+.cookie-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+
+.floating-whatsapp {
+  align-items: center;
+  background: #173f35;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  bottom: 24px;
+  box-shadow: 0 10px 26px rgba(15,55,46,.2);
+  color: white;
+  display: flex;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 16px;
+  position: fixed;
+  right: 24px;
+  z-index: 110;
+}
+.floating-whatsapp > span { align-items:center; background:#b8d96b; border-radius:50%; color:#173f35; display:flex; font-size:9px; font-weight:900; height:27px; justify-content:center; width:27px; }
+.floating-whatsapp strong { font-size: 12px; }
+
+body:has(.account-app-shell) > .floating-whatsapp,
+body:has(.account-app-shell) > .cookie-consent {
+  display: none;
+}
+
+.legal-page {
+  background: #f7f9f5;
+  padding: 72px 0 90px;
+}
+.legal-shell { max-width: 860px; }
+.legal-shell > h1 { color:var(--forest); font-size:clamp(38px,6vw,58px); letter-spacing:-.045em; line-height:1; margin:10px 0 18px; }
+.legal-lead { color:var(--muted); font-size:17px; line-height:1.7; margin-bottom:38px; }
+.legal-shell article { background:white; border:1px solid var(--line); border-radius:14px; margin-top:12px; padding:22px; }
+.legal-shell article h2 { color:var(--forest); font-size:20px; margin:0 0 10px; }
+.legal-shell article p { color:#5e6d67; font-size:14px; line-height:1.7; margin:0; }
+.legal-shell article a { color:var(--forest); font-weight:750; text-decoration:underline; }
+.legal-updated { color:#7b8882; font-size:11px; margin-top:24px; }
+
+.contact-options { display:grid; gap:10px; grid-template-columns:repeat(2,minmax(0,1fr)); margin:0 0 18px; }
+.contact-option { background:white; border:1px solid var(--line); border-radius:12px; display:flex; flex-direction:column; padding:16px; }
+.contact-option strong { color:var(--forest); }
+.contact-option span { color:var(--muted); font-size:12px; margin-top:4px; }
+
+.public-contact-form { background:white; border:1px solid var(--line); border-radius:16px; display:grid; gap:14px; padding:22px; }
+.public-contact-form label { color:#53605b; display:flex; flex-direction:column; font-size:12px; font-weight:750; gap:6px; }
+.public-contact-form input,
+.public-contact-form textarea { border:1px solid var(--line); border-radius:9px; font:inherit; min-height:44px; padding:10px 12px; }
+.public-contact-form textarea { min-height:130px; resize:vertical; }
+.hp-field { position:absolute!important; left:-10000px!important; width:1px!important; height:1px!important; opacity:0!important; pointer-events:none!important; }
+
+.not-found-page { align-items:center; background:#f5f8f4; display:flex; justify-content:center; min-height:70vh; padding:50px 20px; }
+.not-found-card { background:white; border:1px solid var(--line); border-radius:20px; max-width:560px; padding:42px; text-align:center; }
+.not-found-card .auth-logo-mark { margin-bottom:18px; }
+.not-found-card h1 { color:var(--forest); font-size:38px; letter-spacing:-.04em; margin:8px 0 12px; }
+.not-found-card p { color:var(--muted); line-height:1.6; }
+.not-found-actions { display:flex; gap:10px; justify-content:center; margin-top:24px; }
+
+.site-settings-form label > span { color:var(--muted); font-size:10px; font-weight:500; }
+
+@media(max-width:620px){
+  .cookie-consent { align-items:stretch; bottom:10px; flex-direction:column; gap:12px; padding:14px; }
+  .cookie-actions { display:grid; grid-template-columns:1fr 1fr; }
+  .cookie-actions .button { min-height:42px; padding:0 10px; }
+  .floating-whatsapp { bottom:84px; right:12px; min-height:44px; padding:0 12px; }
+  .floating-whatsapp strong { display:none; }
+  .legal-page { padding:50px 0 74px; }
+  .legal-shell > h1 { font-size:38px; }
+  .legal-lead { font-size:15px; margin-bottom:26px; }
+  .legal-shell article { padding:17px; }
+  .contact-options { grid-template-columns:1fr; }
+  .public-contact-form { padding:16px; }
+  .not-found-card { padding:30px 20px; }
+  .not-found-card h1 { font-size:31px; }
+  .not-found-actions { flex-direction:column; }
+}
