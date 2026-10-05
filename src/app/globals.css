@@ -2311,8 +2311,8 @@ body:not(:has(.account-app-shell)) button {
     display: block;
     max-width: 60px;
     color: inherit;
-    font-size: 8.5px;
-    font-weight: 720;
+    font-size: 9.5px;
+    font-weight: 760;
     line-height: 1.05;
     letter-spacing: -.01em;
     text-align: center;
@@ -2362,8 +2362,8 @@ body:not(:has(.account-app-shell)) button {
     overflow: visible;
     clip: auto;
     white-space: normal;
-    font-size: 8.5px;
-    font-weight: 750;
+    font-size: 9.5px;
+    font-weight: 760;
     line-height: 1;
   }
 
