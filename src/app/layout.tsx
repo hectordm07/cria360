@@ -1,20 +1,26 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { CookieConsent } from "@/components/cookie-consent";
+import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 import { MobileAppNav } from "@/components/mobile-app-nav";
 import { PwaRegister } from "@/components/pwa-register";
+import { SiteAnalytics } from "@/components/site-analytics";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getPublicSiteSettings } from "@/lib/site-settings";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app"),
   title: { default: "Venta de animales y criaderos en Perú | CRIA360", template: "%s | CRIA360" },
-  description: "Encuentra animales de criaderos en Perú con procedencia, salud y genealogía. Publica gratis y protege cada ejemplar con una placa QR CRIA360.",
+  description: "Encuentra animales de criaderos en Perú con procedencia, salud y genealogía. Publica gratis y protege cada ejemplar con una placa QR o NFC CRIA360.",
   applicationName: "CRIA360",
   manifest: "/manifest.webmanifest",
+  alternates: { canonical: "/" },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : undefined,
   icons: {
     icon: [
       { url: "/icons/granja-conectada-192.png", sizes: "192x192", type: "image/png" },
@@ -24,8 +30,18 @@ export const metadata: Metadata = {
   },
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "CRIA360" },
   formatDetection: { telephone: false },
-  openGraph: { title: "CRIA360 · Animales con origen verificable", description: "Marketplace de animales, criaderos y placas inteligentes con trazabilidad.", locale: "es_PE", type: "website", siteName: "CRIA360" },
-  twitter: { card: "summary_large_image", title: "CRIA360 · Animales con origen verificable", description: "Marketplace, genealogía y placas inteligentes para criaderos." },
+  openGraph: {
+    title: "CRIA360 · Animales con origen verificable",
+    description: "Marketplace, identidad y gestión para criaderos con trazabilidad, genealogía y placas inteligentes.",
+    locale: "es_PE",
+    type: "website",
+    siteName: "CRIA360",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CRIA360 · Animales con origen verificable",
+    description: "Marketplace, genealogía y placas inteligentes para criaderos.",
+  },
 };
 
 export const viewport: Viewport = {
@@ -35,10 +51,46 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const settings = await getPublicSiteSettings();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app";
+  const graph = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: settings.legal_name || "CRIA360",
+      url: siteUrl,
+      ...(settings.contact_email ? { email: settings.contact_email } : {}),
+      ...(settings.whatsapp_number ? { telephone: `+${settings.whatsapp_number.replace(/\D/g, "")}` } : {}),
+      ...(settings.google_business_url ? { sameAs: [settings.google_business_url] } : {}),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "CRIA360",
+      url: siteUrl,
+      inLanguage: "es-PE",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${siteUrl}/marketplace?q={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ];
+
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body><SiteHeader /><main>{children}</main><SiteFooter /><MobileAppNav /><PwaRegister /></body>
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replace(/</g, "\\u003c") }} />
+        <SiteHeader />
+        <main>{children}</main>
+        <SiteFooter />
+        <MobileAppNav />
+        <FloatingWhatsApp number={settings.whatsapp_number} />
+        <CookieConsent />
+        <SiteAnalytics />
+        <PwaRegister />
+      </body>
     </html>
   );
 }
