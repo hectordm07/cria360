@@ -1,8 +1,6 @@
-const CACHE_NAME = "cria360-shell-v2-brand";
+const CACHE_NAME = "cria360-shell-v4-mobile-fix";
 const APP_SHELL = [
-  "/",
   "/offline",
-  "/manifest.webmanifest",
   "/icons/granja-conectada-192.png",
   "/icons/granja-conectada-512.png",
 ];
@@ -21,6 +19,10 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+self.addEventListener("message", (event) => {
+  if (event.data?.type === "SKIP_WAITING") self.skipWaiting();
+});
+
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -29,17 +31,9 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
-    const privateRoute = url.pathname.startsWith("/auth") || url.pathname.startsWith("/cuenta");
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (!privateRoute && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(async () => (await caches.match(request)) || caches.match("/offline")),
+      fetch(request, { cache: "no-store" })
+        .catch(async () => (await caches.match("/offline"))),
     );
     return;
   }
