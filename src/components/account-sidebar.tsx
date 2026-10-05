@@ -1,0 +1,19 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Icon } from "@/components/icon";
+
+const navigation = [
+  { href: "/cuenta", label: "Resumen", icon: "store" as const },
+  { href: "/cuenta/animales", label: "Inventario", icon: "health" as const },
+  { href: "/cuenta/animales/nuevo", label: "Registrar animal", icon: "spark" as const },
+  { href: "/placas-inteligentes", label: "Placas QR + NFC", icon: "tag" as const },
+  { href: "/marketplace", label: "Marketplace", icon: "users" as const },
+  { href: "/planes", label: "Plan y servicios", icon: "verified" as const },
+];
+
+export function AccountSidebar({ breederName, plan }: { breederName: string; plan: string }) {
+  const pathname = usePathname();
+  return <aside className="account-sidebar"><div className="account-sidebar-brand"><span>C</span><div><strong>Panel CRIA360</strong><small>{breederName}</small></div></div><nav aria-label="Panel del criadero">{navigation.map((item) => { const active = item.href === "/cuenta" ? pathname === item.href : pathname.startsWith(item.href); return <Link className={active ? "active" : ""} href={item.href} key={item.href}><Icon name={item.icon} size={19} /><span>{item.label}</span></Link>; })}</nav><div className="account-plan-mini"><small>PLAN ACTUAL</small><strong>{plan}</strong><Link href="/planes">Comparar planes</Link></div></aside>;
+}
