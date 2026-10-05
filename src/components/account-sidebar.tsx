@@ -12,6 +12,7 @@ const navigation = [
   { href: "/cuenta/finanzas?tipo=venta", label: "Ventas", icon: "spark" as const },
   { href: "/cuenta/finanzas?tipo=compra", label: "Compras", icon: "store" as const },
   { href: "/cuenta/finanzas?tipo=gasto", label: "Gastos", icon: "tag" as const },
+  { href: "/cuenta/soporte", label: "Soporte", icon: "users" as const },
   { href: "/placas-inteligentes", label: "Placas QR + NFC", icon: "tag" as const },
   { href: "/marketplace", label: "Marketplace", icon: "users" as const },
   { href: "/planes", label: "Plan y servicios", icon: "verified" as const },
