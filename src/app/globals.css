@@ -1067,11 +1067,11 @@ main { min-height: 70vh; }
 
 /* CRIA360 brand, farm plans and publication workspace */
 .brand-mark svg, .sidebar-brand-symbol svg { height: 100%; width: 100%; }
-.brand-mark svg path:first-child, .sidebar-brand-symbol svg path:first-child { fill: currentColor; opacity: .16; stroke: currentColor; stroke-width: 2; }
-.brand-mark svg path:not(:first-child), .sidebar-brand-symbol svg path:not(:first-child) { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.6; }
+.brand-mark .logo-plate { fill: #173f35; }.brand-mark .logo-hole { fill: #bfd765; }.brand-mark .logo-bird { fill: white; }.brand-mark .logo-eye { fill: #173f35; }.brand-mark .logo-comb { fill: none; stroke: #bfd765; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.4; }
 .brand-word small { letter-spacing: .02em; text-transform: none; }
+.header-inner nav a, .header-actions > a { font-size: 12px; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; }
 .account-sidebar-brand .sidebar-brand-symbol { align-items: center; background: var(--lime); border-radius: 13px; color: #173f35; display: flex; height: 46px; padding: 6px; width: 46px; }
-.account-sidebar-brand .sidebar-brand-symbol svg { height: 34px; width: 34px; }
+.account-sidebar-brand .sidebar-brand-symbol { font-size: 11px; font-weight: 900; letter-spacing: -.04em; justify-content: center; padding: 0; }
 .photo-dropzone { align-items: center; background: #f5f8f3; border: 1.5px dashed #9fb5aa; border-radius: 14px; color: var(--forest); cursor: pointer; display: flex!important; flex-direction: column; gap: 7px; justify-content: center; min-height: 150px; padding: 24px; text-align: center; }
 .photo-dropzone strong { font-size: 17px; }
 .photo-dropzone span { color: var(--muted); font-size: 13px; font-weight: 500; }
