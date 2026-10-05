@@ -27,16 +27,16 @@ export default function Home() {
       <section className="commerce-hero">
         <div className="section-shell commerce-hero-grid">
           <div className="commerce-copy">
-            <span className="eyebrow light"><Icon name="verified" /> Marketplace e inventario multiespecie</span>
-            <h1>Cada animal merece una <em>identidad confiable.</em></h1>
-            <p>Registra, identifica, gestiona y publica animales de comercio permitido. Toda su información, desde el criadero hasta el nuevo propietario.</p>
+            <span className="eyebrow light"><Icon name="verified" /> Tecnología para granjas y criaderos</span>
+            <h1>Identidad que protege. <em>Gestión que hace crecer.</em></h1>
+            <p>Identifica tus animales con placas QR o NFC y administra inventario, genealogía, vacunas, fotografías y publicaciones desde un solo panel.</p>
             <form className="hero-search" action="/marketplace">
               <label className="sr-only" htmlFor="home-search">Buscar animales</label>
               <input id="home-search" name="q" placeholder="¿Qué animal, raza o criadero buscas?" />
               <button type="submit">Buscar</button>
             </form>
             <div className="hero-quick-links"><span>Explorar:</span><Link href="/categorias/aves">aves</Link><Link href="/categorias/vacunos">vacunos</Link><Link href="/categorias/porcinos">porcinos</Link><Link href="/categorias/equinos">equinos</Link></div>
-            <div className="commerce-actions"><Link className="button button-gold" href="/marketplace">Explorar animales</Link><Link className="button button-outline-light" href="/registro">Registrar mi criadero</Link></div>
+            <div className="commerce-actions"><Link className="button button-gold" href="/placas-inteligentes">Comprar placas</Link><Link className="button button-outline-light" href="/registro">Crear mi granja</Link></div>
           </div>
           <div className="commerce-hero-image">
             <Image src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1600&q=88" alt="Criadero de ganado vacuno en pastoreo" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
