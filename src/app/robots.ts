@@ -4,7 +4,11 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app"
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/cuenta/", "/auth/", "/api/"],
+    },
     sitemap: `${baseUrl}/sitemap.xml`,
     host: baseUrl,
   };
