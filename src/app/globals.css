@@ -1067,11 +1067,28 @@ main { min-height: 70vh; }
 
 /* CRIA360 brand, farm plans and publication workspace */
 .brand-mark svg, .sidebar-brand-symbol svg { height: 100%; width: 100%; }
-.brand-mark .logo-plate { fill: #173f35; }.brand-mark .logo-hole { fill: #bfd765; }.brand-mark .logo-bird { fill: white; }.brand-mark .logo-eye { fill: #173f35; }.brand-mark .logo-comb { fill: none; stroke: #bfd765; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.4; }
+.brand-mark .logo-plate { fill: #173f35; }.brand-mark .logo-hole { fill: #d6ae4f; }.brand-mark .logo-monogram { fill: white; font-family: Arial,sans-serif; font-size: 10px; font-weight: 900; letter-spacing: -.7px; }
 .brand-word small { letter-spacing: .02em; text-transform: none; }
 .header-inner nav a, .header-actions > a { font-size: 12px; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; }
 .account-sidebar-brand .sidebar-brand-symbol { align-items: center; background: var(--lime); border-radius: 13px; color: #173f35; display: flex; height: 46px; padding: 6px; width: 46px; }
 .account-sidebar-brand .sidebar-brand-symbol { font-size: 11px; font-weight: 900; letter-spacing: -.04em; justify-content: center; padding: 0; }
+body:has(.account-app-shell) > .site-header, body:has(.account-app-shell) > .site-footer, body:has(.account-app-shell) > .mobile-app-nav { display: none; }
+body:has(.account-app-shell) { background: #f3f6f2; padding-bottom: 0; }
+body:has(.account-app-shell) > main { min-height: 100vh; }
+.account-app-shell { min-height: 100vh; }
+.account-sidebar { height: 100vh; min-height: 100vh; top: 0; }
+.account-dashboard, .account-app-content .inventory-page { font-family: Arial, var(--font-geist-sans), sans-serif; }
+.dashboard-topbar h1, .dashboard-section-head h2, .dashboard-panel h2, .inventory-heading h1 { font-family: var(--font-geist-sans),sans-serif; font-weight: 720; letter-spacing: -.045em; }
+.dashboard-topbar h1 { font-size: clamp(32px,3vw,44px); }
+.dashboard-kpis article { box-shadow: 0 8px 24px rgba(21,65,53,.045); }
+.commerce-hero-image img { object-position: center; }
+.finance-tabs { background: white; border: 1px solid var(--line); border-radius: 13px; display: inline-flex; gap: 5px; margin-bottom: 22px; padding: 5px; }
+.finance-tabs a { border-radius: 9px; color: var(--muted); font-size: 13px; font-weight: 800; padding: 10px 18px; }
+.finance-tabs a.active { background: var(--forest); color: white; }
+.finance-summary { display: grid; gap: 14px; grid-template-columns: repeat(3,1fr); margin-bottom: 24px; }
+.finance-summary article { background: white; border: 1px solid var(--line); border-radius: 15px; display: flex; flex-direction: column; padding: 22px; }
+.finance-summary small { color: var(--muted); font-weight: 750; }.finance-summary strong { color: var(--forest); font-size: 29px; margin: 10px 0 6px; }.finance-summary span { color: #85918c; font-size: 12px; }
+@media (max-width: 680px) { .finance-summary { grid-template-columns: 1fr; }.finance-tabs { display: grid; grid-template-columns: repeat(3,1fr); width: 100%; }.finance-tabs a { padding: 10px 8px; text-align: center; } }
 .photo-dropzone { align-items: center; background: #f5f8f3; border: 1.5px dashed #9fb5aa; border-radius: 14px; color: var(--forest); cursor: pointer; display: flex!important; flex-direction: column; gap: 7px; justify-content: center; min-height: 150px; padding: 24px; text-align: center; }
 .photo-dropzone strong { font-size: 17px; }
 .photo-dropzone span { color: var(--muted); font-size: 13px; font-weight: 500; }
