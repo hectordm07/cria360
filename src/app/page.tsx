@@ -36,7 +36,7 @@ export default function Home() {
               <button type="submit">Buscar</button>
             </form>
             <div className="hero-quick-links"><span>Explorar:</span><Link href="/categorias/aves">aves</Link><Link href="/categorias/vacunos">vacunos</Link><Link href="/categorias/porcinos">porcinos</Link><Link href="/categorias/equinos">equinos</Link></div>
-            <div className="commerce-actions"><Link className="button button-gold" href="/placas-inteligentes">Comprar placas</Link><Link className="button button-outline-light" href="/registro">Crear mi granja</Link></div>
+            <div className="commerce-actions"><Link className="button button-gold" href="/registro" data-analytics-cta="crear-granja-hero">Crear mi granja</Link><Link className="button button-outline-light" href="/placas-inteligentes">Comprar placas</Link></div>
           </div>
           <div className="commerce-hero-image">
             <Image src="/images/hero-granja-movil-v2.webp" alt="Productor avícola gestionando su granja desde el celular" fill preload sizes="(max-width: 900px) 100vw, 48vw" />
@@ -71,7 +71,7 @@ export default function Home() {
         <div className="article-grid">{blogPosts.slice(0, 3).map((post) => <article className="article-card" key={post.slug}><Link href={`/blog/${post.slug}`} className="article-image"><Image src={post.image} alt={post.imageAlt} fill sizes="(max-width: 620px) 100vw, 33vw" /></Link><div><span>{post.category} · {post.readingTime}</span><Link href={`/blog/${post.slug}`}><h3>{post.title}</h3></Link><p>{post.description}</p><Link className="article-link" href={`/blog/${post.slug}`}>Leer guía</Link></div></article>)}</div>
       </div></section>
 
-      <section className="section-shell cta-panel commerce-cta"><div><span className="eyebrow light">Empieza con el primer animal</span><h2>Crea la vitrina digital de tu criadero.</h2><p>Publica, documenta la procedencia y conecta con compradores que buscan información clara.</p></div><div className="cta-actions"><Link className="button button-white" href="/registro">Publicar gratis</Link><Link className="button button-ghost" href="/planes">Ver planes</Link></div></section>
+      <section className="section-shell cta-panel commerce-cta"><div><span className="eyebrow light">Empieza con el primer animal</span><h2>Crea la vitrina digital de tu criadero.</h2><p>Publica, documenta la procedencia y conecta con compradores que buscan información clara.</p></div><div className="cta-actions"><Link className="button button-white" href="/registro" data-analytics-cta="crear-granja-final">Crear mi granja</Link><Link className="text-link light-link" href="/planes">Ver planes</Link></div></section>
     </>
   );
 }
