@@ -29,7 +29,11 @@ export default async function BulkImportPage() {
   if (!profile || !breeder) redirect("/registro");
 
   const paid = profile.plan === "criador" || profile.plan === "profesional";
-  const plan = paid ? paidPlans[profile.plan] : null;
+  const plan = profile.plan === "criador"
+    ? paidPlans.criador
+    : profile.plan === "profesional"
+      ? paidPlans.profesional
+      : null;
 
   return <section className="inventory-page bulk-import-page"><div className="section-shell">
     <div className="inventory-heading">
