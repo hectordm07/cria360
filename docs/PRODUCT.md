@@ -13,6 +13,13 @@ Criaderos pequeños y medianos de aves, porcinos, vacunos, ovinos, caprinos y eq
 | Granja Pro | S/ 229.90/mes o S/ 2,299/año | 1,000 animales, hasta 5 usuarios | Ilimitadas | Operación profesional |
 | Empresa | A medida | Multi-sede o necesidades especiales | Según contrato | Asociación, integrador o empresa |
 
+### Funciones por plan
+
+- **Gratis:** registro manual de animales.
+- **Granja:** incluye carga masiva desde Excel, respetando el límite de 150 animales del plan.
+- **Granja Pro:** incluye carga masiva desde Excel y capacidad de hasta 1,000 animales.
+- La importación valida columnas, omite placas duplicadas y conserva historial de cada lote cargado.
+
 El plan anual equivale a pagar aproximadamente 10 meses y usar 12 (cerca de 17% de ahorro frente al pago mensual). La estructura debe revisarse con entrevistas, conversión real y costos de soporte/infraestructura antes de ampliar descuentos.
 
 ## Monetización recomendada
