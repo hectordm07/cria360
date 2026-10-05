@@ -39,7 +39,7 @@ export default function Home() {
             <div className="commerce-actions"><Link className="button button-gold" href="/placas-inteligentes">Comprar placas</Link><Link className="button button-outline-light" href="/registro">Crear mi granja</Link></div>
           </div>
           <div className="commerce-hero-image">
-            <Image src="/images/hero-granja-movil.png" alt="Productor avícola gestionando su granja desde el celular" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
+            <Image src="/images/hero-granja-movil-v2.webp" alt="Productor avícola gestionando su granja desde el celular" fill preload sizes="(max-width: 900px) 100vw, 48vw" />
             <div className="hero-trust-card"><span className="trust-icon"><Icon name="shield" /></span><div><strong>Información antes de contactar</strong><small>Identidad · origen · salud · responsable</small></div></div>
           </div>
         </div>
