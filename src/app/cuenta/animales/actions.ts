@@ -79,3 +79,31 @@ export async function createAnimal(formData: FormData) {
   revalidatePath("/cuenta/animales");
   redirect("/cuenta/animales?created=1");
 }
+
+
+export async function exitAnimal(formData: FormData) {
+  const supabase = await createClient();
+  const { data: authData } = await supabase.auth.getUser();
+  const user = authData.user;
+  if (!user) redirect("/ingresar");
+
+  const animalId = text(formData, "animal_id");
+  const reason = text(formData, "reason");
+  const note = text(formData, "note");
+
+  if (!animalId || !["vendido", "transferido", "fallecido"].includes(reason)) {
+    redirect("/cuenta/escanear?error=salida");
+  }
+
+  const { error } = await supabase.rpc("register_animal_inventory_exit", {
+    p_animal_id: animalId,
+    p_reason: reason,
+    p_note: note || null,
+  });
+
+  if (error) redirect("/cuenta/escanear?error=salida");
+
+  revalidatePath("/cuenta");
+  revalidatePath("/cuenta/animales");
+  redirect("/cuenta/escanear?exit=1");
+}
