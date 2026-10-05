@@ -31,6 +31,24 @@ export async function createAnimal(formData: FormData) {
   };
   const nullable = (key: string) => text(formData, key) || null;
 
+  const photos = formData.getAll("photos").filter((value): value is File => value instanceof File && value.size > 0);
+  if (photos.length > 5 || photos.some((photo) => photo.size > 5 * 1024 * 1024 || !["image/jpeg", "image/png", "image/webp"].includes(photo.type))) {
+    redirect("/cuenta/animales/nuevo?error=fotos");
+  }
+  const uploadedPaths: string[] = [];
+  const imageUrls: string[] = [];
+  for (const photo of photos) {
+    const extension = photo.name.split(".").pop()?.toLowerCase() || "jpg";
+    const path = `${user.id}/${crypto.randomUUID()}.${extension}`;
+    const { error: uploadError } = await supabase.storage.from("animal-photos").upload(path, photo, { cacheControl: "3600", upsert: false });
+    if (uploadError) {
+      if (uploadedPaths.length) await supabase.storage.from("animal-photos").remove(uploadedPaths);
+      redirect("/cuenta/animales/nuevo?error=fotos");
+    }
+    uploadedPaths.push(path);
+    imageUrls.push(supabase.storage.from("animal-photos").getPublicUrl(path).data.publicUrl);
+  }
+
   const { error } = await supabase.from("animals").insert({
     owner_id: user.id,
     breeder_id: breeder.id,
@@ -50,9 +68,13 @@ export async function createAnimal(formData: FormData) {
     price_pen: numberOrNull("price_pen"),
     inventory_status: text(formData, "inventory_status") || "activo",
     publication_status: text(formData, "publication_status") || "borrador",
+    image_urls: imageUrls,
   });
 
-  if (error) redirect("/cuenta/animales/nuevo?error=guardar");
+  if (error) {
+    if (uploadedPaths.length) await supabase.storage.from("animal-photos").remove(uploadedPaths);
+    redirect("/cuenta/animales/nuevo?error=guardar");
+  }
   revalidatePath("/cuenta");
   revalidatePath("/cuenta/animales");
   redirect("/cuenta/animales?created=1");
