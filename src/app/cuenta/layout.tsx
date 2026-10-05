@@ -11,5 +11,6 @@ export default async function AccountLayout({ children }: { children: React.Reac
     supabase.from("breeders").select("name").eq("owner_id", data.user.id).maybeSingle(),
   ]);
   if (!profile?.onboarding_completed || !breeder) redirect("/registro");
-  return <div className="account-app-shell"><AccountSidebar breederName={breeder.name} plan={profile.plan === "gratis" ? "Gratis" : profile.plan} /><div className="account-app-content">{children}</div></div>;
+  const planLabel = profile.plan === "criador" ? "Granja" : profile.plan === "profesional" ? "Granja Pro" : "Gratis";
+  return <div className="account-app-shell"><AccountSidebar breederName={breeder.name} plan={planLabel} /><div className="account-app-content">{children}</div></div>;
 }
