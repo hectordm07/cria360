@@ -1136,7 +1136,7 @@ body:has(.account-app-shell) > main { min-height: 100vh; }
 /* Approved identity 01: Granja conectada — shared across web and app. */
 .brand-mark, .brand-inverse .brand-mark { width:48px; height:48px; flex:none; background:transparent; border-radius:0; transform:none; }
 .brand-mark::after, .auth-logo-mark::after { content:none; }
-.brand-word { font-family:var(--font-geist-sans),Arial,sans-serif; font-size:24px; font-weight:850; letter-spacing:-.065em; line-height:1; }
+.brand-word { display:block; font-family:var(--font-geist-sans),Arial,sans-serif; font-size:24px; font-weight:850; letter-spacing:-.065em; line-height:1; }
 .brand-word small { position:static; display:block; margin-top:5px; font-size:9px; font-weight:550; letter-spacing:.02em; line-height:1.2; }
 .brand-word > span { color:#cfa343; }
 .auth-logo-mark { width:68px; height:68px; background:transparent; border-radius:0; }
