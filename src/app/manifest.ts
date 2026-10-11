@@ -5,8 +5,8 @@ export default function manifest(): MetadataRoute.Manifest {
     id: "/",
     name: "CRIA360 · Tu granja, conectada",
     short_name: "CRIA360",
-    description: "Marketplace, identidad y gestión responsable para criaderos de animales.",
-    start_url: "/cuenta",
+    description: "Tu criadero en el celular: inventario, ventas, gastos e identidad QR.",
+    start_url: "/app",
     scope: "/",
     display: "standalone",
     orientation: "portrait",
@@ -26,4 +26,5 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
   };
 }
+
 

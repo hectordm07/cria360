@@ -5,6 +5,7 @@ import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 import { MobileAppNav } from "@/components/mobile-app-nav";
 import { PwaRegister } from "@/components/pwa-register";
 import { PwaInstallProvider } from "@/components/pwa-install-provider";
+import { AppExperience } from "@/components/app-experience";
 import { SiteAnalytics } from "@/components/site-analytics";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -16,6 +17,7 @@ import "./inventory.css";
 import "./marketplace.css";
 import "./mobile-first.css";
 import "./miniapp.css";
+import "./account-mobile.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
@@ -90,6 +92,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable} ${editorialSerif.variable}`}>
       <body>
         <PwaInstallProvider>
+        <AppExperience>
         <a className="skip-link" href="#main-content">Ir al contenido</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replace(/</g, "\\u003c") }} />
         <SiteHeader />
@@ -100,9 +103,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <CookieConsent />
         <SiteAnalytics />
         <PwaRegister />
+        </AppExperience>
         </PwaInstallProvider>
       </body>
     </html>
   );
 }
+
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { DailySummary } from "@/components/daily-summary";
+import { AccountHomeSummary } from "@/components/account-home-summary";
 import { Icon } from "@/components/icon";
 import { FinanceChart, InventoryStatusChart, SpeciesChart, type ChartItem } from "@/components/dashboard-charts";
 import { financeMonths, integer, pen, summarizeDay, summarizeFinance } from "@/lib/dashboard-data";
@@ -61,14 +61,7 @@ export default async function AccountPage() {
   const stat = (value: number) => animalResult.error ? "—" : integer.format(value);
 
   return <section className="account-dashboard analytics-dashboard">
-    <header className="dashboard-topbar"><div><h1>Hola, {firstName}</h1><p>{breeder.name} · Resumen de tu criadero</p></div><Link className="button button-primary" href="/cuenta/animales/nuevo"><Icon name="spark" size={16} />Registrar animal</Link></header>
-    <div className="dashboard-today-layout">{financeResult.error ? <p className="form-notice error" role="alert">No pudimos cargar el resumen de hoy. <a href="/cuenta">Recargar</a></p> : <DailySummary summary={daily} dateLabel={dateLabel} />}
-    <nav className="daily-quick-actions" aria-label="Acciones de tu criadero">
-      <Link href="/cuenta/animales"><Icon name="store" /><span>Inventario</span></Link>
-      <Link href="/cuenta/finanzas/nuevo?tipo=gasto"><Icon name="tag" /><span>Nuevo gasto</span></Link>
-      <Link href="/cuenta/finanzas/nuevo?tipo=compra"><Icon name="spark" /><span>Nueva compra</span></Link>
-      <Link href="/cuenta/escanear"><Icon name="scan" /><span>Escanear QR</span></Link>
-    </nav></div>
+    <AccountHomeSummary firstName={firstName} breederName={breeder.name} dateLabel={dateLabel} summary={financeResult.error ? null : daily} />
     <div className="dashboard-section-head"><div><h2>Tu inventario</h2><p>Animales, publicaciones e identidad</p></div><Link className="text-link" href="/cuenta/animales">Ver fichas</Link></div>
     {animalResult.error && <p className="form-notice error" role="alert">No pudimos cargar el inventario. <a href="/cuenta">Recargar el panel</a></p>}
     <section className="dashboard-kpis" aria-label="Resumen del inventario">
@@ -101,3 +94,4 @@ export default async function AccountPage() {
     </section>
   </section>;
 }
+

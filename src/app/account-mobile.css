@@ -1,0 +1,117 @@
+/* Account screens share app chrome; the public website keeps its own layout. */
+body:has(.app-experience) { padding: 0; background: #f5f7f4; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body .app-experience :is(.site-header, .site-footer, .mobile-app-nav, .floating-whatsapp) { display: none; }
+.app-experience > main { min-height: 100dvh; }
+.account-mobile-header, .account-bottom-nav, .standalone-account-return, .standalone-launch { display: none; }
+.app-example-label { color: #52665b; font-size: 13px; line-height: 1.5; margin: 0 0 20px; }
+.app-experience .auth-page { display: block; min-height: 100svh; background: #edf3e7; padding: max(28px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom)); }
+.app-experience .auth-benefits { display: none; }
+.app-experience .auth-panel { width: 100%; max-width: 480px; margin: 0 auto; background: #fff; border: 1px solid #dce5df; border-radius: 24px; padding: 32px 24px; box-shadow: 0 16px 40px #173f3509; }
+.app-experience .auth-panel h2 { font-family: var(--ui-font); font-size: 28px; line-height: 1.2; letter-spacing: -.03em; }
+.app-experience .auth-panel > p { font-size: 17px; line-height: 1.6; }
+.app-experience .auth-panel :where(button, .text-link) { min-height: 54px; font-size: 16px; text-transform: none; }
+.app-experience .auth-panel small { font-size: 14px; line-height: 1.6; }
+.app-experience .auth-logo-mark { width: 80px; height: 80px; }
+.app-experience .auth-logo-mark svg { width: 100%; height: 100%; }
+.app-experience .register-page { display: block; background: #edf3e7; padding: 24px 16px; }
+.app-experience .register-copy { display: none; }
+.app-experience .register-form { max-width: 560px; width: 100%; margin: 0 auto; background: #fff; padding: 24px 20px; border: 1px solid #dce5df; border-radius: 20px; }
+.app-experience .register-form h2 { font-size: 28px; }
+.app-experience .register-form :where(p,label) { font-size: 16px; }
+.app-experience .register-form :where(input,select,button) { min-height: 52px; font-size: 16px; }
+.app-experience .register-form small { font-size: 14px; }
+
+/* Apply the app layout even when an installed window reports a wide viewport. */
+@media (max-width: 1000px), (display-mode: standalone), (display-mode: minimal-ui) {
+  .account-app-shell { display: block; min-height: 100dvh; }
+  .account-app-shell .account-app-content { width: 100%; margin-left: 0; padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .account-mobile-header { display: flex; position: sticky; top: 0; z-index: 110; align-items: center; gap: 12px; background: #173f35; color: #fffef9; padding: calc(12px + env(safe-area-inset-top)) 16px 12px; min-height: 72px; }
+  .account-mobile-header > button, .account-mobile-help { display: flex; justify-content: center; align-items: center; flex: 0 0 48px; width: 48px; min-height: 48px; border: 1px solid #52776a; border-radius: 12px; background: transparent; color: #fffef9; }
+  .account-mobile-brand { display: flex; gap: 10px; align-items: center; min-width: 0; flex: 1; color: inherit; }
+  .account-mobile-brand > svg { width: 34px; height: 34px; flex-shrink: 0; }
+  .account-mobile-brand > span { min-width: 0; }
+  .account-mobile-brand strong { display: block; font-size: clamp(17px,2.5vw,24px); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .account-mobile-brand small { display: block; font-size: clamp(12px,1.7vw,16px); color: #dcebc2; margin-top: 3px; }
+  .account-app-shell .account-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 122; width: min(320px,88vw); height: 100dvh; padding: calc(20px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); gap: 16px; grid-template-rows: auto minmax(0,1fr) auto auto; transform: translateX(-100%); visibility: hidden; transition: transform 180ms ease, visibility 180ms; }
+  .account-app-shell .account-sidebar[data-expanded="true"] { width: min(320px,88vw); transform: translateX(0); visibility: visible; }
+  .account-app-shell .account-sidebar-brand { flex-direction: row; padding: 0 0 16px; gap: 10px; }
+  .account-app-shell .account-sidebar-brand > div { display: flex; flex: 1; }
+  .account-app-shell .account-sidebar-brand strong { font-size: 20px; }
+  .account-app-shell .account-sidebar .sidebar-expand-toggle { display: flex; justify-content: center; align-items: center; flex: 0 0 44px; min-height: 44px; }
+  .account-app-shell .account-sidebar :is(nav a, .account-sidebar-logout button), .account-app-shell .account-sidebar[data-expanded="true"] :is(nav a, .account-sidebar-logout button) { width: 100%; min-height: 50px; flex-direction: row; justify-content: flex-start; gap: 12px; padding: 10px 12px; margin: 0; }
+  .account-app-shell .account-sidebar :is(nav a > span, .account-sidebar-logout button span), .account-app-shell .account-sidebar[data-expanded="true"] :is(nav a > span, .account-sidebar-logout button span) { max-width: none; width: auto; display: block; position: static; height: auto; clip: auto; overflow: visible; font-size: 16px; line-height: 1.4; text-align: left; white-space: normal; }
+  .account-app-shell .account-sidebar .account-plan-mini { display: flex; }
+  .account-app-shell .sidebar-backdrop { display: block; position: fixed; inset: 0; z-index: 121; border: 0; border-radius: 0; background: #081c1566; }
+  .account-bottom-nav { position: fixed; display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); inset: auto 0 0; z-index: 115; gap: 2px; padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #dce5df; box-shadow: 0 -4px 20px #173f3508; }
+  .account-bottom-nav > a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 58px; padding: 5px 2px; border-radius: 12px; color: #52665b; font-size: clamp(11px,1.7vw,16px); font-weight: 600; line-height: 1.2; }
+  .account-bottom-nav > a[aria-current="page"] { background: #e9f1e1; color: #173f35; }
+  .account-bottom-nav > a:nth-child(3) > svg { background: #173f35; color: #fff; width: 36px; height: 32px; border-radius: 9px; padding: 5px; }
+  .account-app-content .account-dashboard { padding: 24px 18px 32px; width: 100%; }
+  .account-app-content .dashboard-topbar { display: flex; flex-direction: column; align-items: stretch; gap: 16px; margin-bottom: 20px; }
+  .account-app-content .dashboard-topbar h1 { font-size: clamp(28px,4vw,36px); margin: 0 0 6px; line-height: 1.2; }
+  .account-app-content .dashboard-topbar p { font-size: 15px; line-height: 1.5; margin: 0; }
+  .account-app-content .dashboard-topbar > .button { width: 100%; min-height: 50px; font-size: 16px; text-transform: none; }
+  .account-app-content .dashboard-today-layout { grid-template-columns: minmax(0,1fr); gap: 16px; margin-bottom: 28px; }
+  .account-app-content .daily-summary { padding: 20px; border-radius: 20px; }
+  .account-app-content .daily-summary-heading { flex-wrap: wrap; }
+  .account-app-content .daily-summary-heading h2 { font-size: clamp(20px,2.8vw,28px); }
+  .account-app-content .daily-summary-heading > span { font-size: 14px; }
+  .account-app-content .daily-sales { padding: 22px 0; }
+  .account-app-content .daily-sales > div > span { font-size: 16px; }
+  .account-app-content .daily-sales strong { font-size: clamp(36px,5vw,48px); }
+  .account-app-content .daily-balance { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; padding: 20px 0; }
+  .account-app-content .daily-balance > div:last-child { text-align: right; }
+  .account-app-content .daily-balance dt { font-size: 14px; line-height: 1.4; }
+  .account-app-content .daily-balance dd { font-size: clamp(24px,3.6vw,34px); }
+  .account-app-content .daily-sale-button { min-height: 56px; font-size: 16px; }
+  .account-app-content .daily-summary .daily-summary-note { font-size: 13px; }
+  .account-app-content .daily-quick-actions { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .account-app-content .dashboard-today-layout .daily-quick-actions > a { min-height: 88px; flex-direction: column; gap: 10px; padding: 16px 10px; font-size: 15px; line-height: 1.4; }
+  .account-app-content .dashboard-today-layout .daily-quick-actions > a svg { width: 26px; height: 26px; }
+  .account-app-content .dashboard-kpis { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .account-app-content .dashboard-kpis article { padding: 16px; gap: 12px; }
+  .account-app-content .dashboard-kpis strong { font-size: 32px; }
+  .account-app-content .dashboard-kpis :where(small,p) { font-size: 14px; }
+  .account-app-content .dashboard-section-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .account-app-content :is(.dashboard-section-head h2, .dashboard-panel h2) { font-size: 24px; }
+  .account-app-content .dashboard-section-head p { font-size: 15px; }
+  .account-app-content :is(.dashboard-report-grid,.dashboard-lower-grid) { grid-template-columns: minmax(0,1fr); }
+  .account-app-content .finance-metric-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .account-app-content .finance-metric-grid strong { font-size: 25px; }
+  .account-app-content .finance-metric-grid :where(small,span) { font-size: 14px; }
+  .account-app-content .quick-action-grid { grid-template-columns: minmax(0,1fr); }
+  .account-app-content :is(.inventory-page, .quick-entry-page) { padding-top: 24px; }
+  .account-app-content :is(.inventory-page,.quick-entry-page) .section-shell { padding-inline: 18px; }
+  .account-app-content .inventory-heading h1 { font-size: 28px; }
+  .account-app-content .inventory-heading p { font-size: 15px; }
+  .account-app-content .animal-form :is(.form-grid,.photo-upload-grid) { grid-template-columns: minmax(0,1fr); }
+  .app-experience .account-app-content :is(.animal-form,.quick-finance-form) label { font-size: 16px; gap: 8px; }
+  .app-experience .account-app-content .animal-form legend { font-size: 18px; }
+  .app-experience .account-app-content :is(.animal-form,.quick-finance-form) :is(input,select,textarea) { min-height: 52px; font-size: 16px; padding: 12px 14px; }
+  .app-experience .account-app-content .animal-form > .button { min-height: 54px; font-size: 16px; }
+  body:has(.account-app-shell) .cookie-consent { bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .mobile-preview-device { box-sizing: content-box; max-width: calc(100% - 12px); }
+}
+
+@media (display-mode: standalone), (display-mode: minimal-ui) {
+  body:has(.site-experience), body:has(.app-experience) { padding-top: 0; padding-bottom: 0; }
+  body :is(.site-experience,.app-experience) :is(.site-header,.site-footer,.mobile-app-nav,.floating-whatsapp) { display: none; }
+  .standalone-account-return { display: flex; align-items: center; min-height: 56px; color: #173f35; background: #f5f7f4; padding: calc(12px + env(safe-area-inset-top)) 20px 12px; font-size: 16px; font-weight: 600; }
+  .standalone-launch { display: grid; justify-items: center; align-content: center; gap: 20px; min-height: 100dvh; color: #173f35; font-size: 20px; background: #f5f7f4; }
+  .standalone-launch svg { width: 72px; height: 72px; }
+  body:has(.standalone-launch) :is(.landing-page,.standalone-account-return) { display: none; }
+  .app-experience .auth-panel > .text-link { display: none; }
+}
+@media (hover: none) and (pointer: coarse) {
+  .app-experience .account-app-content :is(.dashboard-topbar p,.daily-sales > div > span,.daily-balance dt,.dashboard-today-layout .daily-quick-actions > a,.dashboard-kpis small,.dashboard-section-head p) { font-size: clamp(15px,2.2vw,22px); }
+  .app-experience :is(.auth-panel > p,.register-form label) { font-size: clamp(16px,2.4vw,24px); }
+  .app-experience .account-app-content :is(.animal-form,.quick-finance-form) :is(input,select,textarea) { min-height: clamp(52px,7vw,72px); font-size: clamp(16px,2.4vw,24px); }
+}
+@media (max-width: 380px) {
+  .account-mobile-header { gap: 8px; padding-inline: 12px; }
+  .account-mobile-brand > svg { display: none; }
+  .account-app-content .account-dashboard { padding-inline: 14px; }
+  .account-app-content .daily-summary { padding: 16px; }
+  .account-bottom-nav > a { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .account-app-shell .account-sidebar { transition: none; } }
