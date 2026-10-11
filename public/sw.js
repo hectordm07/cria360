@@ -1,4 +1,4 @@
-const CACHE_NAME = "cria360-shell-v8-inventory-cards";
+const CACHE_NAME = "cria360-shell-v9-species-marketplace";
 const APP_SHELL = [
   "/offline",
   "/icons/granja-conectada-192.png",

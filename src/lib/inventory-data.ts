@@ -1,4 +1,4 @@
-import { animalCategories } from "@/lib/category-data";
+import { categoryForSpecies } from "@/lib/category-data";
 
 export type InventoryAnimal = {
   id: string;
@@ -11,15 +11,16 @@ export type InventoryAnimal = {
   publication_status: string;
   price_pen: number | string | null;
   created_at: string;
+  image_urls?: string[] | null;
 };
 
 const normalize = (value: string) => value.trim().toLocaleLowerCase("es-PE");
 
 export function inventoryType(species: string) {
-  const category = animalCategories.find(item => item.marketplaceSpecies.some(value => normalize(value) === normalize(species)));
+  const category = categoryForSpecies(species);
   return category
-    ? { key: category.slug, label: category.shortName, symbol: category.symbol, tone: category.tone }
-    : { key: `species:${normalize(species)}`, label: species.trim() || "Sin especificar", symbol: "+", tone: "slate" };
+    ? { key: category.slug, label: category.shortName, symbol: category.symbol, tone: category.tone, image: category.image, imageAlt: category.imageAlt }
+    : { key: `species:${normalize(species)}`, label: species.trim() || "Sin especificar", symbol: "+", tone: "slate", image: null as string | null, imageAlt: species.trim() };
 }
 
 export function inventoryGroups(animals: InventoryAnimal[]) {
@@ -27,6 +28,7 @@ export function inventoryGroups(animals: InventoryAnimal[]) {
   for (const animal of animals) {
     const type = inventoryType(animal.species);
     const group = groups.get(type.key) ?? { ...type, total: 0, active: 0, reserved: 0 };
+    if (!group.image && animal.image_urls?.[0]) group.image = animal.image_urls[0];
     group.total++;
     if (animal.inventory_status === "activo") group.active++;
     if (animal.inventory_status === "reservado") group.reserved++;

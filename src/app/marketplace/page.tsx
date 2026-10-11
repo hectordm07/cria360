@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MarketplaceBrowser } from "@/components/marketplace-browser";
 import { featuredAnimals } from "@/lib/demo-data";
+import { getCategory } from "@/lib/category-data";
 
 export const metadata: Metadata = {
   title: "Venta de animales de criaderos en Perú",
@@ -8,7 +9,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/marketplace" },
 };
 
-export default function MarketplacePage() {
+export default async function MarketplacePage({ searchParams }: { searchParams: Promise<{ especie?: string | string[] }> }) {
+  const params = await searchParams;
+  const requested = typeof params.especie === "string" ? params.especie : "";
+  const initialSpecies = getCategory(requested)?.slug ?? "";
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -22,6 +26,7 @@ export default function MarketplacePage() {
   };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd).replace(/</g, "\\u003c") }} />
-    <MarketplaceBrowser />
+    <MarketplaceBrowser key={initialSpecies} initialSpecies={initialSpecies} />
   </>;
 }
+

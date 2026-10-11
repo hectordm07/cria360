@@ -1,35 +1,64 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
 import { AnimalCard } from "@/components/animal-card";
 import { featuredAnimals } from "@/lib/demo-data";
 import { animalCategories } from "@/lib/category-data";
+import { filterMarketplace, marketplacePageSize, type MarketplaceFilters } from "@/lib/marketplace-data";
+import { Icon } from "./icon";
 
-export function MarketplaceBrowser() {
-  const [query, setQuery] = useState("");
-  const [species, setSpecies] = useState("");
-  const [location, setLocation] = useState("");
-  const [sex, setSex] = useState("");
-  const [price, setPrice] = useState("");
-  const [verified, setVerified] = useState(false);
-  const [sort, setSort] = useState("recent");
+const emptyFilters: MarketplaceFilters = { query: "", species: "", location: "", sex: "", price: "", verified: false, sort: "recent" };
+const locations = [...new Set(featuredAnimals.map(animal => animal.location))].sort((a, b) => a.localeCompare(b, "es"));
+const screenQueries = ["(max-width: 359px)", "(max-width: 1050px)"];
+const subscribeColumns = (callback: () => void) => {
+  const queries = screenQueries.map(query => window.matchMedia(query));
+  queries.forEach(query => query.addEventListener("change", callback));
+  return () => queries.forEach(query => query.removeEventListener("change", callback));
+};
+const getColumns = () => window.matchMedia(screenQueries[0]).matches ? 1 : window.matchMedia(screenQueries[1]).matches ? 2 : 3;
 
-  const results = useMemo(() => {
-    const normalized = query.toLocaleLowerCase("es");
-    const category = animalCategories.find((item) => item.slug === species);
-    const filtered = featuredAnimals.filter((animal) => {
-      const searchable = `${animal.name} ${animal.breed} ${animal.breeder} ${animal.species}`.toLocaleLowerCase("es");
-      const matchesSpecies = !category || category.marketplaceSpecies.includes(animal.species);
-      const matchesPrice = !price || (animal.priceValue != null && (price === "2500" ? animal.priceValue <= 2500 : price === "8000" ? animal.priceValue > 2500 && animal.priceValue <= 8000 : animal.priceValue > 8000));
-      return (!normalized || searchable.includes(normalized)) && matchesSpecies && (!location || animal.location === location) && (!sex || animal.sex === sex) && matchesPrice && (!verified || animal.verified);
-    });
-    return [...filtered].sort((a, b) => sort === "price-asc" ? (a.priceValue ?? Infinity) - (b.priceValue ?? Infinity) : sort === "price-desc" ? (b.priceValue ?? -1) - (a.priceValue ?? -1) : 0);
-  }, [location, price, query, sex, sort, species, verified]);
+export function MarketplaceBrowser({ initialSpecies = "" }: { initialSpecies?: string }) {
+  const [filters, setFilters] = useState<MarketplaceFilters>({ ...emptyFilters, species: initialSpecies });
+  const [page, setPage] = useState(1);
+  const resultsHeading = useRef<HTMLHeadingElement>(null);
+  const columns = useSyncExternalStore(subscribeColumns, getColumns, () => 3);
+  const pageSize = marketplacePageSize(columns);
+  const results = useMemo(() => filterMarketplace(featuredAnimals, filters), [filters]);
+  const totalPages = Math.max(1, Math.ceil(results.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const start = (currentPage - 1) * pageSize;
+  const visibleResults = results.slice(start, start + pageSize);
+  const activeCount = [filters.location, filters.sex, filters.price, filters.verified].filter(Boolean).length;
+  const speciesLabel = animalCategories.find(category => category.slug === filters.species)?.shortName ?? "Todas las especies";
 
-  const clear = () => { setQuery(""); setSpecies(""); setLocation(""); setSex(""); setPrice(""); setVerified(false); };
+  function update<Key extends keyof MarketplaceFilters>(key: Key, value: MarketplaceFilters[Key]) {
+    setFilters(previous => ({ ...previous, [key]: value }));
+    setPage(1);
+  }
+  function clear() { setFilters(emptyFilters); setPage(1); }
+  function changePage(value: number) {
+    setPage(value);
+    resultsHeading.current?.focus({ preventScroll: true });
+    resultsHeading.current?.scrollIntoView({ block: "start", behavior: "auto" });
+  }
 
-  return <>
-    <section className="market-hero market-hero-modern"><div className="section-shell"><span className="eyebrow light">Marketplace multiespecie</span><h1>Animales con identidad,<br />origen y responsable.</h1><p>Explora publicaciones legales de criaderos. Compara información antes de contactar o acordar una compra.</p><div className="market-search modern-search"><input aria-label="Buscar" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Animal, raza o criadero" /><select aria-label="Especie" value={species} onChange={(event) => setSpecies(event.target.value)}><option value="">Todas las especies</option>{animalCategories.map((category) => <option value={category.slug} key={category.slug}>{category.name}</option>)}</select><button type="button">{results.length} resultados</button></div></div></section>
-    <section className="section-shell market-body"><aside className="filters modern-filters"><div><strong>Filtrar animales</strong><small>Encuentra el ejemplar adecuado</small></div><label>Ubicación<select value={location} onChange={(event) => setLocation(event.target.value)}><option value="">Todo el Perú</option>{[...new Set(featuredAnimals.map((animal) => animal.location))].map((item) => <option key={item}>{item}</option>)}</select></label><label>Sexo<select value={sex} onChange={(event) => setSex(event.target.value)}><option value="">Todos</option><option>Macho</option><option>Hembra</option></select></label><label>Precio<select value={price} onChange={(event) => setPrice(event.target.value)}><option value="">Cualquier precio</option><option value="2500">Hasta S/ 2,500</option><option value="8000">S/ 2,501 a S/ 8,000</option><option value="more">Más de S/ 8,000</option></select></label><label className="check-row"><input type="checkbox" checked={verified} onChange={(event) => setVerified(event.target.checked)} /> Identidad verificada</label><button className="filter-reset" onClick={clear} type="button">Limpiar filtros</button></aside><div className="results"><div className="results-head"><div><span className="eyebrow">Publicaciones disponibles</span><p><strong>{results.length} animales</strong> encontrados</p></div><select aria-label="Ordenar" value={sort} onChange={(event) => setSort(event.target.value)}><option value="recent">Más recientes</option><option value="price-asc">Menor precio</option><option value="price-desc">Mayor precio</option></select></div>{results.length ? <div className="animal-grid two-col">{results.map((animal) => <AnimalCard animal={animal} key={animal.id} />)}</div> : <div className="market-empty"><strong>No encontramos publicaciones con esos filtros</strong><p>Prueba otra especie, ubicación o rango de precio.</p><button className="button button-secondary" onClick={clear} type="button">Ver todos los animales</button></div>}</div></section>
-  </>;
+  return <div className="marketplace-page">
+    <section className="market-hero market-hero-modern"><div className="section-shell"><div className="market-intro"><div><span className="eyebrow light">Marketplace CRIA360</span><h1>Encuentra el animal<br />para tu criadero.</h1><p>Explora por especie, compara sus fichas y conoce al criadero.</p></div><Link className="button button-outline-light" href="/registro">Publicar un animal <span aria-hidden="true">↗</span></Link></div>
+      <form className="market-search modern-search" onSubmit={event => { event.preventDefault(); resultsHeading.current?.scrollIntoView({ block: "start", behavior: "auto" }); }}><label className="market-query"><Icon name="search" /><span className="sr-only">Buscar animales</span><input value={filters.query} onChange={event => update("query", event.target.value)} placeholder="Animal, raza, código o criadero" /></label><label><span className="sr-only">Tipo de animal</span><select value={filters.species} onChange={event => update("species", event.target.value)}><option value="">Todas las especies</option>{animalCategories.map(category => <option value={category.slug} key={category.slug}>{category.name}</option>)}</select></label><button type="submit">Buscar</button></form>
+      <div className="market-quick-types" aria-label="Tipos de animal"><button type="button" aria-pressed={!filters.species} onClick={() => update("species", "")}>Todas</button>{animalCategories.filter(category => category.slug !== "otras-especies").map(category => <button key={category.slug} type="button" aria-pressed={filters.species === category.slug} onClick={() => update("species", category.slug)}>{category.shortName}</button>)}</div>
+    </div></section>
+    <section className="section-shell market-body">
+      <details className="market-filter-panel"><summary><span>Filtrar animales</span><span>{activeCount ? `${activeCount} filtros` : "Refinar búsqueda"}</span><Icon name="menu" size={18} /></summary><div className="filters modern-filters">
+        <label>Ubicación<select value={filters.location} onChange={event => update("location", event.target.value)}><option value="">Todo el Perú</option>{locations.map(item => <option key={item}>{item}</option>)}</select></label>
+        <label>Sexo<select value={filters.sex} onChange={event => update("sex", event.target.value)}><option value="">Todos</option><option>Macho</option><option>Hembra</option></select></label>
+        <label>Precio<select value={filters.price} onChange={event => update("price", event.target.value)}><option value="">Cualquier precio</option><option value="2500">Hasta S/ 2,500</option><option value="8000">Más de S/ 2,500 a S/ 8,000</option><option value="more">Más de S/ 8,000</option></select></label>
+        <label className="check-row"><input type="checkbox" checked={filters.verified} onChange={event => update("verified", event.target.checked)} /> Identidad verificada</label><button className="filter-reset" onClick={clear} type="button">Limpiar filtros</button>
+      </div></details>
+      <div className="results"><div className="results-head"><div><span className="eyebrow">Explora el catálogo</span><h2 ref={resultsHeading} tabIndex={-1}>{speciesLabel}</h2><p role="status" aria-live="polite">{results.length} {results.length === 1 ? "animal encontrado" : "animales encontrados"}</p></div><label><span className="sr-only">Ordenar publicaciones</span><select value={filters.sort} onChange={event => update("sort", event.target.value)}><option value="recent">Destacados</option><option value="price-asc">Menor precio</option><option value="price-desc">Mayor precio</option></select></label></div>
+        <p className="market-demo-note">Catálogo de muestra · Fichas e imágenes ilustrativas.</p>
+        {results.length ? <><div className="animal-grid marketplace-grid">{visibleResults.map(animal => <AnimalCard animal={animal} key={animal.id} />)}</div><nav className="market-pagination" aria-label="Páginas del catálogo"><p>{start + 1}–{Math.min(start + pageSize, results.length)} de {results.length}</p>{totalPages > 1 && <div><button className="button button-secondary" type="button" disabled={currentPage === 1} onClick={() => changePage(currentPage - 1)} aria-label="Página anterior">←</button><span>Página {currentPage} de {totalPages}</span><button className="button button-secondary" type="button" disabled={currentPage === totalPages} onClick={() => changePage(currentPage + 1)} aria-label="Página siguiente">→</button></div>}</nav></> : <div className="market-empty"><Icon name="search" size={30} /><strong>No encontramos animales</strong><p>Prueba otro tipo, ubicación o precio.</p><button className="button button-secondary" onClick={clear} type="button">Limpiar filtros</button></div>}
+      </div>
+    </section>
+  </div>;
 }

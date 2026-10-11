@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { SubmitAnimalButton } from "@/components/submit-animal-button";
 import { createAnimal } from "../actions";
+import { animalCategories } from "@/lib/category-data";
 
 export const metadata: Metadata = { title: "Registrar animal", robots: { index: false, follow: false } };
 
@@ -21,7 +22,7 @@ export default async function NewAnimalPage({ searchParams }: { searchParams: Pr
     <form action={createAnimal} className="animal-form">
       <fieldset className="photo-upload-fieldset"><legend>Galería del animal</legend><label className="photo-dropzone"><strong>Agregar fotografías</strong><span>Hasta 5 imágenes · JPG, PNG o WebP · máximo 5 MB cada una</span><input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple /></label></fieldset>
       <fieldset><legend>Datos principales</legend><div className="form-grid">
-        <label>Nombre del animal<input name="name" required placeholder="Ej. Tornado" /></label><label>Especie<select name="species" defaultValue={breeder.primary_species} required><option>Aves</option><option>Porcinos</option><option>Vacunos</option><option>Ovinos</option><option>Caprinos</option><option>Equinos</option><option>Otro</option></select></label>
+        <label>Nombre del animal<input name="name" required placeholder="Ej. Tornado" /></label><label>Tipo de animal<select name="species" defaultValue={breeder.primary_species} required>{animalCategories.map(category => <option key={category.slug} value={category.marketplaceSpecies.at(-1)}>{category.shortName}</option>)}</select></label>
         <label>Raza<input name="breed" placeholder="Ej. Holstein" /></label><label>Sexo<select name="sex" defaultValue="sin_especificar"><option value="macho">Macho</option><option value="hembra">Hembra</option><option value="sin_especificar">Sin especificar</option></select></label>
         <label>Fecha de nacimiento<input name="birth_date" type="date" /></label><label>Color o señas<input name="color" /></label><label>Peso (kg)<input name="weight_kg" type="number" min="0" step="0.01" /></label><label>N.º de identificación<input name="identification" placeholder="Arete, anillo u otro" /></label>
       </div></fieldset>
@@ -31,3 +32,4 @@ export default async function NewAnimalPage({ searchParams }: { searchParams: Pr
     </form>
   </div></section>;
 }
+

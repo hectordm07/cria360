@@ -8,7 +8,7 @@ export async function readInventoryDetails(client: Awaited<ReturnType<typeof cre
   const rows: InventoryAnimal[] = [];
   for (let offset = 0; ; offset += 1000) {
     const { data, error } = await client.from("animals")
-      .select("id,public_code,name,species,breed,sex,inventory_status,publication_status,price_pen,created_at")
+      .select("id,public_code,name,species,breed,sex,inventory_status,publication_status,price_pen,created_at,image_urls")
       .eq("owner_id", ownerId).order("created_at", { ascending: false }).order("id", { ascending: true })
       .range(offset, offset + 999);
     if (error) return { rows: [], error: true };

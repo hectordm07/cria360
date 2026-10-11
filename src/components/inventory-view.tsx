@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { inventoryGroups, inventoryType, type InventoryAnimal } from "@/lib/inventory-data";
 import { integer, pen } from "@/lib/dashboard-data";
+import { AnimalPhoto } from "./animal-photo";
 
 const statuses: Record<string, string> = { activo: "Activo", reservado: "Reservado", vendido: "Vendido", transferido: "Transferido", fallecido: "Fallecido", publicado: "Publicado", borrador: "Borrador", pausado: "Pausado" };
 const sexes: Record<string, string> = { macho: "Macho", hembra: "Hembra", sin_especificar: "Sexo sin especificar" };
@@ -23,9 +24,9 @@ export function InventoryView({ animals }: { animals: InventoryAnimal[] }) {
     <section className="inventory-types" aria-labelledby="inventory-types-title">
       <div className="inventory-section-heading"><div><h2 id="inventory-types-title">Tu inventario por tipo de animal</h2><p>Selecciona una tarjeta para ver sus ejemplares.</p></div><button className="inventory-all-filter" type="button" aria-pressed={selected === null} onClick={() => selectType(null)}>Todos · {integer.format(animals.length)}</button></div>
       <div className="inventory-type-grid">{groups.map(group => <button key={group.key} type="button" className={`inventory-type-card tone-${group.tone}`} aria-pressed={selected === group.key} aria-controls="inventory-results" onClick={() => selectType(group.key)}>
-        <span className="inventory-type-top"><span className="inventory-type-symbol" aria-hidden="true">{group.symbol}</span><span className="inventory-type-selected" aria-hidden="true">{selected === group.key ? "✓" : "↗"}</span></span>
+        <span className="inventory-type-photo"><AnimalPhoto src={group.image} alt={group.imageAlt} sizes="(max-width: 359px) 75vw, (max-width: 600px) 40vw, 280px" /><span className="inventory-type-selected" aria-hidden="true">{selected === group.key ? "✓" : "↗"}</span></span>
         <span className="inventory-type-label">{group.label}</span><span className="inventory-type-total">{integer.format(group.total)} <span>{group.total === 1 ? "ejemplar" : "ejemplares"}</span></span>
-        <span className="inventory-type-states"><span>{integer.format(group.active)} activos</span><span>{integer.format(group.reserved)} reservados</span></span>
+        <span className="inventory-type-states"><span>{integer.format(group.active)} {group.active === 1 ? "activo" : "activos"}</span><span>{integer.format(group.reserved)} {group.reserved === 1 ? "reservado" : "reservados"}</span></span>
       </button>)}</div>
     </section>
     <section id="inventory-results" className="inventory-results" aria-labelledby="inventory-results-title">

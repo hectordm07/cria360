@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,
     remotePatterns: [
+      { protocol: "https", hostname: "kyzxcccexuulxqohqtzu.supabase.co", pathname: "/storage/v1/object/public/animal-photos/**" },
       {
         protocol: "https",
         hostname: "images.unsplash.com",
@@ -44,3 +45,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
