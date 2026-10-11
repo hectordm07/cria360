@@ -1,0 +1,100 @@
+/* Match the public header breakpoint: phones and compact tablets get one column. */
+.landing-app-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; color: #e2efc9; font-size: 13px; font-weight: 600; }
+.miniapp-install-page { padding: 56px 0 72px; }
+.miniapp-install-page .install-grid { grid-template-columns: 1.2fr .8fr; gap: 40px 64px; }
+.miniapp-install-page .install-copy { min-width: 0; }
+.miniapp-install-page .install-copy h1 { font-family: var(--display-font); font-size: clamp(38px, 5vw, 60px); letter-spacing: -.035em; }
+.miniapp-install-page .install-copy > p { font-size: 17px; }
+.miniapp-install-page .install-button { min-height: 54px; font-size: 15px; text-transform: none; margin-top: 16px; }
+.install-open-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; margin-top: 12px; }
+.install-app-tile { justify-self: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: min(100%, 350px); min-height: 330px; background: #e8efdf; border: 1px solid #d4e0c8; border-radius: 28px; color: #173f35; padding: 32px 24px; text-align: center; }
+.install-app-symbol { width: 116px; height: 116px; background: #173f35; border-radius: 27px; padding: 19px; margin-bottom: 20px; box-shadow: 0 12px 24px #173f351a; }
+.install-app-symbol svg { display: block; width: 100%; height: 100%; }
+.install-app-tile > strong { font-size: 28px; letter-spacing: -.04em; }
+.install-app-tile > span { font-size: 15px; }
+.install-app-tile > p { font-size: 13px; margin: 20px 0 0; color: #52665b; }
+.miniapp-platform-steps { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.miniapp-platform-steps article { border: 1px solid #dce5df; border-radius: 18px; padding: 24px; background: #fff; scroll-margin-top: 100px; }
+.miniapp-platform-steps h2 { font-size: 22px; margin: 10px 0 16px; color: #173f35; }
+.miniapp-platform-steps ol { padding-left: 22px; margin: 0; display: grid; gap: 14px; color: #52665b; font-size: 16px; line-height: 1.6; }
+.miniapp-install-note { grid-column: 1 / -1; max-width: 72ch; color: #52665b; font-size: 14px; margin: 0; }
+.mobile-preview-page { text-align: center; padding-top: 40px; padding-bottom: 48px; }
+.mobile-preview-page h1 { font-size: clamp(28px, 4vw, 40px); color: #173f35; letter-spacing: -.04em; margin: 12px 0; }
+.mobile-preview-page > p { color: #52665b; font-size: 16px; max-width: 64ch; margin: 0 auto 24px; }
+.mobile-preview-controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
+.mobile-preview-controls button { min-height: 44px; border: 1px solid #c7d4c7; background: #fff; color: #173f35; border-radius: 10px; padding: 10px 16px; font-size: 14px; }
+.mobile-preview-controls button[aria-pressed="true"] { background: #173f35; color: #fff; border-color: #173f35; }
+.mobile-preview-device { max-width: 100%; margin: 0 auto; height: 740px; border: 6px solid #173f35; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 50px #173f351a; background: #fffef9; }
+.mobile-preview-device iframe { display: block; width: 100%; height: 100%; border: 0; }
+.mobile-preview-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 24px; }
+
+@media (max-width: 1000px) {
+  body:not(:has(.account-app-shell)) { padding-top: calc(72px + env(safe-area-inset-top)); padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
+  body:not(:has(.account-app-shell)) .site-header { position: fixed; inset: 0 0 auto; width: 100%; padding-top: env(safe-area-inset-top); z-index: 90; }
+  body:not(:has(.account-app-shell)) .header-inner { height: 72px; min-height: 72px; gap: 12px; padding-inline: 18px; }
+  .header-inner .header-actions { margin-left: auto; gap: 0; }
+  .header-inner .header-actions .login-link { display: none; }
+  .header-inner .header-actions .button { min-height: 44px; padding-inline: 14px; font-size: 12px; text-transform: none; }
+  .header-inner .brand { gap: 8px; flex-shrink: 0; }
+  .header-inner .brand-mark { width: 40px; height: 40px; flex-basis: 40px; }
+  .header-inner .brand-word { font-size: 24px; }
+  .header-inner .brand-word small { font-size: 8px; }
+  body:not(:has(.account-app-shell)) .header-inner .site-navigation.is-open { gap: 8px; padding: 16px 20px; }
+  body:not(:has(.account-app-shell)) .header-inner .site-navigation.is-open > a { min-height: 44px; display: flex; align-items: center; font-size: 15px; text-transform: none; }
+  .landing-page .section-shell { padding-inline: clamp(20px, 4vw, 36px); }
+  .landing-hero-grid { grid-template-columns: minmax(0, 1fr); padding-top: 32px; padding-bottom: 28px; gap: 24px; }
+  .landing-hero-copy { padding: 0; }
+  .landing-hero-copy h1 { font-size: clamp(38px, 6vw, 56px); line-height: 1.08; max-width: 20ch; margin-bottom: 20px; }
+  .landing-hero-copy > p { font-size: 17px; line-height: 1.65; max-width: 52ch; }
+  .landing-hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0 18px; max-width: 560px; }
+  .landing-page .landing-hero-actions .button { min-height: 52px; font-size: 14px; padding-inline: 14px; text-transform: none; }
+  .landing-hero-points { gap: 10px 18px; }
+  .landing-hero-points li { font-size: 13px; }
+  .landing-hero-photo { min-height: 0; height: clamp(260px, 65vw, 420px); max-width: 700px; width: 100%; border-radius: 20px; }
+  .landing-hero-photo figcaption { left: 14px; right: 14px; bottom: 14px; padding: 14px; }
+  .landing-hero-photo figcaption strong { font-size: 16px; }
+  .landing-hero-photo figcaption span { font-size: 13px; }
+  .landing-benefits ul { grid-template-columns: 1fr 1fr; gap: 18px 12px; padding-block: 24px; }
+  .landing-benefits li { font-size: 14px; align-items: flex-start; gap: 10px; }
+  .landing-overview, .landing-identity, .landing-start, .landing-faq { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 48px; }
+  .landing-page h2 { font-size: clamp(32px, 5vw, 42px); }
+  .landing-page p { font-size: 16px; }
+  .landing-feature-list dt { font-size: 16px; }
+  .landing-feature-list dd { font-size: 15px; }
+  .landing-phone-stage { padding: 22px 12px; border-radius: 20px; }
+  .landing-phone { max-width: 360px; }
+  .landing-page .landing-preview-caption { font-size: 13px; line-height: 1.5; }
+  .landing-identity > div:last-child { grid-row: 1; }
+  .landing-identity-visual { padding: 24px; }
+  .landing-identity li { font-size: 15px; }
+  .landing-species { padding-block: 24px 48px; }
+  .landing-section-heading { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .landing-species-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; }
+  .landing-process ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+  .landing-page .animal-grid, .landing-page .article-grid { grid-template-columns: minmax(0, 1fr); }
+  .landing-final > div { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .landing-final > div > div:last-child { width: 100%; align-items: stretch; }
+  body:not(:has(.account-app-shell)) .mobile-app-nav { position: fixed; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); inset: auto 0 0; align-items: center; gap: 4px; padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); background: #fffef9; border-top: 1px solid #dce5df; z-index: 80; box-shadow: 0 -4px 20px #173f3508; }
+  .mobile-app-nav > a { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; min-height: 54px; min-width: 0; color: #52665b; font-size: 12px; font-weight: 600; text-transform: none; }
+  .mobile-app-nav > a[aria-current="page"] { color: #173f35; background: #eef3e9; border-radius: 12px; }
+  .mobile-app-nav > a.primary .mobile-nav-icon { margin-top: 0; width: 34px; height: 30px; border-radius: 10px; }
+  body:not(:has(.account-app-shell)) .cookie-consent { bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .miniapp-install-page { padding: 32px 0 48px; }
+  .miniapp-install-page .install-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .miniapp-install-page .install-copy h1 { font-size: clamp(38px, 6vw, 52px); }
+  .miniapp-install-page .install-button { width: 100%; min-height: 54px; }
+  .miniapp-platform-steps { grid-template-columns: 1fr; }
+  .install-app-tile { width: 100%; min-height: 240px; padding: 24px; }
+}
+@media (max-width: 380px) {
+  body:not(:has(.account-app-shell)) .header-inner { padding-inline: 12px; gap: 8px; }
+  .header-inner .brand-word { font-size: 21px; }
+  .header-inner .brand-word small { display: none; }
+  .header-inner .header-actions .button { font-size: 12px; padding-inline: 10px; }
+  .landing-hero-actions { grid-template-columns: 1fr; }
+  .landing-hero-points { flex-direction: column; }
+  .mobile-app-nav > a { font-size: 11px; }
+}
+@media (max-width: 1000px) and (hover: none) and (pointer: coarse) {
+  .landing-page .landing-hero-copy > p { font-size: clamp(17px, 2.3vw, 22px); }
+}

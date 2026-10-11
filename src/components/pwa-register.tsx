@@ -6,9 +6,10 @@ export function PwaRegister() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
 
+    const wasControlled = Boolean(navigator.serviceWorker.controller);
     let refreshing = false;
     const onControllerChange = () => {
-      if (refreshing) return;
+      if (refreshing || !wasControlled) return;
       refreshing = true;
       window.location.reload();
     };
@@ -32,3 +33,4 @@ export function PwaRegister() {
 
   return null;
 }
+

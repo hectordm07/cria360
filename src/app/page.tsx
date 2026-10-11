@@ -33,13 +33,14 @@ export default function Home() {
     <section className="landing-hero">
       <div className="section-shell landing-hero-grid">
         <div className="landing-hero-copy">
+          <span className="landing-app-label"><Icon name="store" size={16} /> Tu mini app para el criadero</span>
           <h1>Tu criadero,<br /><em>en la palma de tu mano.</em></h1>
           <p>Organiza tus animales, registra ventas y gastos y consulta su historia con QR o NFC. Todo desde el celular, en un solo lugar.</p>
-          <div className="landing-hero-actions"><Link className="button button-gold" href="/registro" data-analytics-cta="crear-granja-hero">Empezar gratis<Icon name="spark" size={16} /></Link><Link className="button button-outline-light" href="#gestion">Explorar el panel</Link></div>
+          <div className="landing-hero-actions"><Link className="button button-gold" href="/registro" data-analytics-cta="crear-granja-hero">Empezar gratis<Icon name="spark" size={16} /></Link><Link className="button button-outline-light" href="/instalar">Añadir a mi celular</Link></div>
           <ul className="landing-hero-points"><li><Icon name="check" size={16} /> Plan gratuito: hasta 5 animales</li><li><Icon name="check" size={16} /> Desde tu celular o computadora</li></ul>
         </div>
         <figure className="landing-hero-photo">
-          <Image src="/images/hero-granja-movil-v2.webp" alt="Productor avícola consultando su celular junto a los animales de su granja" fill preload sizes="(max-width: 760px) 100vw, 50vw" />
+          <Image src="/images/hero-granja-movil-v2.webp" alt="Productor avícola consultando su celular junto a los animales de su granja" fill preload sizes="(max-width: 1000px) 100vw, 50vw" />
           <figcaption><Icon name="tag" size={20} /><div><strong>Tu granja, conectada.</strong><span>Una placa. Una ficha siempre actualizada.</span></div></figcaption>
         </figure>
       </div>

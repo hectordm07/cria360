@@ -9,8 +9,8 @@ import { Icon } from "./icon";
 const items = [
   { href: "/", label: "Inicio", icon: "store" as const },
   { href: "/marketplace", label: "Comprar", icon: "spark" as const },
-  { href: "/registro", label: "Publicar", icon: "tag" as const, primary: true },
-  { href: "/blog", label: "Guía", icon: "health" as const },
+  { href: "/cuenta", label: "Mi criadero", icon: "health" as const, primary: true },
+  { href: "/instalar", label: "Instalar", icon: "verified" as const },
 ];
 
 export function MobileAppNav() {
@@ -20,7 +20,7 @@ export function MobileAppNav() {
   useEffect(() => {
     router.prefetch("/");
     router.prefetch("/marketplace");
-    router.prefetch("/blog");
+    router.prefetch("/instalar");
     router.prefetch("/ingresar");
   }, [router]);
 
@@ -42,3 +42,4 @@ export function MobileAppNav() {
     </nav>
   );
 }
+

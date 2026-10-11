@@ -1,59 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-type InstallPrompt = Event & {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-};
+import Link from "next/link";
+import { usePwaInstall } from "./pwa-install-provider";
 
 export function InstallAppButton() {
-  const [prompt, setPrompt] = useState<InstallPrompt | null>(null);
-  const [installed, setInstalled] = useState(false);
-  const [isIos, setIsIos] = useState(false);
-
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      setInstalled(window.matchMedia("(display-mode: standalone)").matches);
-      setIsIos(/iphone|ipad|ipod/i.test(navigator.userAgent));
-    });
-
-    const handlePrompt = (event: Event) => {
-      event.preventDefault();
-      setPrompt(event as InstallPrompt);
-    };
-    const handleInstalled = () => {
-      setInstalled(true);
-      setPrompt(null);
-    };
-
-    window.addEventListener("beforeinstallprompt", handlePrompt);
-    window.addEventListener("appinstalled", handleInstalled);
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("beforeinstallprompt", handlePrompt);
-      window.removeEventListener("appinstalled", handleInstalled);
-    };
-  }, []);
-
-  async function install() {
-    if (!prompt) return;
-    await prompt.prompt();
-    await prompt.userChoice;
-    setPrompt(null);
-  }
-
-  if (installed) {
-    return <p className="install-success">CRIA360 ya está instalada en este dispositivo.</p>;
-  }
-
-  if (prompt) {
-    return <button className="button button-gold install-button" type="button" onClick={install}>Instalar CRIA360</button>;
-  }
-
-  if (isIos) {
-    return <p className="install-hint">En Safari, toca <strong>Compartir</strong> y luego <strong>Agregar a inicio</strong>.</p>;
-  }
-
-  return <p className="install-hint">Abre esta página desde Chrome o Safari en tu celular para instalarla.</p>;
+  const { prompt, installed, isIos, install } = usePwaInstall();
+  if (installed) return <div className="install-ready"><p className="install-success">Ya estás usando CRIA360 como mini app.</p><Link className="button button-primary" href="/cuenta">Abrir mi criadero</Link></div>;
+  if (prompt) return <button className="button button-primary install-button" type="button" onClick={install}>Añadir CRIA360 a mi celular</button>;
+  return <div className="install-manual"><a className="button button-primary install-button" href={isIos ? "#instalar-iphone" : "#instalar-android"}>Ver cómo añadirla a mi celular</a><p className="install-hint">{isIos ? "En Safari: Compartir → Añadir a pantalla de inicio." : "En Chrome: menú ⋮ → Añadir a pantalla de inicio → Instalar."}</p></div>;
 }
