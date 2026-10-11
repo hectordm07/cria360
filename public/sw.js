@@ -1,4 +1,4 @@
-const CACHE_NAME = "cria360-shell-v4-mobile-fix";
+const CACHE_NAME = "cria360-shell-v5-design-system";
 const APP_SHELL = [
   "/offline",
   "/icons/granja-conectada-192.png",
@@ -52,3 +52,4 @@ self.addEventListener("fetch", (event) => {
     );
   }
 });
+

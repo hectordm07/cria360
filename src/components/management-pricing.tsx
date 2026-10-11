@@ -69,8 +69,8 @@ export function ManagementPricing() {
   return (
     <>
       <div className="billing-toggle" role="group" aria-label="Frecuencia de pago">
-        <button type="button" className={billing === "monthly" ? "active" : ""} onClick={() => setBilling("monthly")}>Mensual</button>
-        <button type="button" className={billing === "annual" ? "active" : ""} onClick={() => setBilling("annual")}>
+        <button type="button" aria-pressed={billing === "monthly"} className={billing === "monthly" ? "active" : ""} onClick={() => setBilling("monthly")}>Mensual</button>
+        <button type="button" aria-pressed={billing === "annual"} className={billing === "annual" ? "active" : ""} onClick={() => setBilling("annual")}>
           Anual <span>2 meses gratis</span>
         </button>
       </div>
@@ -115,3 +115,4 @@ export function ManagementPricing() {
     </>
   );
 }
+

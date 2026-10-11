@@ -32,7 +32,7 @@ export default function Home() {
             <p>Identifica tus animales con placas QR o NFC y administra inventario, genealogía, vacunas, fotografías y publicaciones desde un solo panel.</p>
             <form className="hero-search" action="/marketplace">
               <label className="sr-only" htmlFor="home-search">Buscar animales</label>
-              <input id="home-search" name="q" placeholder="¿Qué animal, raza o criadero buscas?" />
+              <input id="home-search" type="search" name="q" autoComplete="off" placeholder="Animal, raza o criadero…" />
               <button type="submit">Buscar</button>
             </form>
             <div className="hero-quick-links"><span>Explorar:</span><Link href="/categorias/aves">aves</Link><Link href="/categorias/vacunos">vacunos</Link><Link href="/categorias/porcinos">porcinos</Link><Link href="/categorias/equinos">equinos</Link></div>
@@ -75,3 +75,4 @@ export default function Home() {
     </>
   );
 }
+

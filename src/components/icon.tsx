@@ -1,7 +1,9 @@
-type IconName = "tag" | "tree" | "health" | "store" | "spark" | "check" | "verified" | "pin" | "shield" | "users" | "scan" | "logout";
+type IconName = "tag" | "tree" | "health" | "store" | "spark" | "check" | "verified" | "pin" | "shield" | "users" | "scan" | "logout" | "menu" | "close";
 
 export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, React.ReactNode> = {
+    menu: <><path d="M4 6h16M4 12h16M4 18h16" /></>,
+    close: <><path d="m6 6 12 12M18 6 6 18" /></>,
     tag: <><path d="M20 13 13 20l-9-9V4h7l9 9Z"/><path d="M8.5 8.5h.01"/></>,
     tree: <><circle cx="12" cy="5" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M12 7.5v4m0 0H6v4m6-4h6v4"/></>,
     health: <><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/><path d="M8 12h2l1-2 2 4 1-2h2"/></>,
@@ -17,3 +19,4 @@ export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   };
   return <svg aria-hidden="true" fill="none" height={size} viewBox="0 0 24 24" width={size} stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8">{paths[name]}</svg>;
 }
+

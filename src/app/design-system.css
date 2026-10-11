@@ -1,0 +1,194 @@
+/* CRIA360 shared design foundation. Loaded after legacy page styles. */
+:root {
+  --ui-font: var(--font-geist-sans), Arial, sans-serif;
+  --ui-surface: #f5f7f4;
+  --ui-border: #dce5df;
+  --ui-radius: 16px;
+  --ui-rail: 80px;
+  --muted: #52665b;
+}
+body { font-family: var(--ui-font); line-height: 1.5; }
+button, input, select, textarea { font-family: inherit; }
+a, button, input, select, textarea, summary { touch-action: manipulation; -webkit-tap-highlight-color: rgba(183,214,108,.22); }
+:where(a, button, input, select, textarea, summary):focus-visible { outline: 3px solid #397f65; outline-offset: 4px; }
+.account-sidebar :focus-visible, .commerce-hero :focus-visible, .management-pricing :focus-visible { outline-color: #e0f7ac; }
+h1, h2, h3 { text-wrap: balance; scroll-margin-top: 100px; }
+p { text-wrap: pretty; }
+:where(.dashboard-kpis, .management-price, .inventory-list, .stock-species-grid) { font-variant-numeric: tabular-nums; }
+:where(.account-app-content, .dashboard-topbar > div, .dashboard-section-head > div, .dashboard-panel, .quick-action-grid span) { min-width: 0; }
+:where(.breeder-summary h2, .dashboard-user strong, .inventory-list h2) { overflow-wrap: anywhere; }
+.skip-link { position: fixed; left: 16px; top: 12px; transform: translateY(-160%); z-index: 300; padding: 12px 18px; background: #fff; color: var(--forest); border-radius: 8px; font-weight: 700; }
+.skip-link:focus { transform: none; }
+#main-content { scroll-margin-top: 84px; }
+.site-menu-toggle, .sidebar-expand-toggle { display: none; }
+.sidebar-backdrop { display: none; }
+
+/* Public website: familiar forest palette with a clearer editorial hierarchy. */
+body:not(:has(.account-app-shell)) .section-shell { max-width: 1280px; }
+body:not(:has(.account-app-shell)) .header-inner { height: 80px; gap: 24px; }
+body:not(:has(.account-app-shell)) .header-inner nav { gap: clamp(16px,2vw,28px); }
+body:not(:has(.account-app-shell)) .header-inner nav a { font-size: 11px; letter-spacing: .04em; white-space: nowrap; }
+:where(.header-inner nav a, .header-actions a, .hero-quick-links a, .text-link, .article-link, .footer-grid a, .button) { text-transform: uppercase; }
+body:not(:has(.account-app-shell)) .commerce-hero-grid { min-height: 620px; padding-top: 36px; padding-bottom: 36px; gap: 40px; padding-right: 28px; }
+.commerce-copy { padding: 28px 0; }
+body:not(:has(.account-app-shell)) .commerce-copy h1 { font-family: var(--ui-font); font-size: clamp(38px,4.3vw,64px); font-weight: 650; line-height: 1.08; letter-spacing: -.045em; margin: 20px 0; }
+.commerce-copy h1 em { font-style: normal; }
+body:not(:has(.account-app-shell)) .commerce-copy > p { font-size: 17px; color: #d2e0d8; }
+.commerce-hero-image { min-height: 520px; border-radius: 24px; }
+.commerce-hero-image img { object-position: 72% center; }
+body:not(:has(.account-app-shell)) .hero-search { margin-top: 24px; border: 1px solid #dce5df; }
+.hero-search { min-width: 0; }
+.hero-search input { min-width: 0; font-size: 16px; }
+.hero-search:focus-within { box-shadow: 0 0 0 4px rgba(183,214,108,.5); }
+.hero-search input:focus-visible { outline: 2px solid #397f65; outline-offset: -3px; border-radius: 8px; }
+.hero-search button:hover { background: #edbb5d; }
+body:not(:has(.account-app-shell)) :where(.retail-heading h2, .id-showcase-copy h2, .flow-grid h3, .commerce-cta h2, .article-card h3) { font-family: var(--ui-font); font-weight: 650; line-height: 1.2; }
+.retail-section { padding-top: 72px; padding-bottom: 72px; }
+.species-grid, .animal-grid { gap: 18px; }
+body:not(:has(.account-app-shell)) :where(.species-card, .animal-card, .article-card) { border-radius: var(--ui-radius); }
+.species-card > div:last-child { min-width: 0; }
+.species-card strong { font-size: 17px; }
+.species-card small { font-size: 13px; line-height: 1.5; }
+.management-plan-grid { align-items: stretch; }
+.management-plan-grid article { display: flex; flex-direction: column; }
+.management-plan-grid ul { flex: 1; }
+.management-plan-grid li { align-items: flex-start; line-height: 1.5; }
+.management-plan-grid li svg { flex-shrink: 0; margin-top: 2px; }
+.management-plan-grid article.popular .management-price { color: var(--forest); }
+.management-plan-grid article.popular :where(.management-price em, .billing-detail, .annual-equivalent) { color: #52665b; }
+.management-plan-grid article.popular .annual-saving { color: #356028; }
+.billing-toggle button:hover { background: rgba(255,255,255,.15); color: white; }
+.billing-toggle button.active:hover { background: #edf4e3; color: var(--forest); }
+
+/* Account panel: one scrollable navigation area, with logout always accessible. */
+.account-app-shell { grid-template-columns: 248px minmax(0,1fr); }
+.account-sidebar { display: grid; grid-template-rows: auto minmax(0,1fr) auto auto; height: 100dvh; min-height: 0; padding: 20px 14px; gap: 14px; overflow: hidden; }
+.account-sidebar-brand { padding: 0 2px 16px; gap: 10px; }
+.account-sidebar nav { overflow-y: auto; overscroll-behavior: contain; min-height: 0; margin: 0; scrollbar-width: thin; }
+.account-sidebar nav a { flex-shrink: 0; min-height: 44px; }
+.account-plan-mini { margin: 0; padding: 12px; }
+.account-sidebar-logout { margin: 0; padding-top: 10px; }
+.account-sidebar-logout button { min-height: 44px; width: 100%; justify-content: flex-start; padding: 0 12px; }
+.account-app-content { background: var(--ui-surface); min-width: 0; }
+.account-dashboard { font-family: var(--ui-font); max-width: 1520px; margin: 0 auto; padding: 32px clamp(20px,3vw,40px) 48px; }
+.dashboard-topbar { align-items: flex-start; gap: 20px; }
+.dashboard-topbar h1 { font-size: clamp(26px,2.4vw,36px); letter-spacing: -.035em; }
+.dashboard-user { min-width: 0; max-width: 320px; }
+.dashboard-kpis { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.dashboard-kpis article { gap: 12px; padding: 18px; border-radius: var(--ui-radius); min-height: 112px; }
+.dashboard-kpis article > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dashboard-kpis strong { font-family: var(--ui-font); font-size: 32px; font-weight: 650; line-height: 1.15; }
+.dashboard-kpis small { font-size: 12px; color: #52665b; }
+.dashboard-kpis p { font-size: 12px; color: #52665b; margin: 2px 0 0; }
+.dashboard-section-head { gap: 16px; }
+.dashboard-section-head h2, .dashboard-panel h2 { font-size: 24px; letter-spacing: -.025em; }
+.stock-species-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.stock-species-card { height: 180px; }
+.stock-species-card > div { padding: 18px; grid-template-columns: minmax(0,1fr) auto; gap: 4px 8px; }
+.stock-species-card h3 { font-family: var(--ui-font); font-size: 19px; line-height: 1.2; margin: 3px 0; font-weight: 650; }
+.stock-species-card > div > strong { font-family: var(--ui-font); font-size: 38px; font-weight: 650; }
+.stock-species-card p { font-size: 12px; }
+.quick-action-grid > a { min-width: 0; }
+.quick-action-grid strong { overflow-wrap: anywhere; }
+.account-app-content .inventory-page { font-family: var(--ui-font); }
+.account-app-content .animal-form :where(input, select, textarea) { color: var(--ink); background-color: white; }
+@media (max-width: 1100px) {
+  .dashboard-kpis { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .dashboard-topbar { flex-wrap: wrap; }
+  .dashboard-user { max-width: 100%; }
+}
+@media (max-width: 1000px) {
+  body:not(:has(.account-app-shell)) .header-inner { height: 72px; gap: 12px; }
+  body:not(:has(.account-app-shell)) .header-inner .site-navigation { display: none; }
+  body:not(:has(.account-app-shell)) .header-inner .site-navigation.is-open { display: flex; position: absolute; top: 100%; left: 0; right: 0; background: #fbfcf9; border-bottom: 1px solid var(--ui-border); padding: 16px 24px; flex-direction: column; gap: 4px; box-shadow: 0 16px 24px rgba(18,59,49,.1); }
+  .site-navigation a { min-height: 44px; display: flex; align-items: center; border-radius: 8px; padding: 8px; }
+  .site-navigation a:hover { background: #edf4e8; }
+  .site-menu-toggle { display: flex; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; color: var(--forest); background: transparent; border: 1px solid var(--ui-border); border-radius: 10px; }
+  .header-actions { margin-left: auto; gap: 12px; }
+}
+@media (max-width: 900px) {
+  body:not(:has(.account-app-shell)) .commerce-hero-grid { grid-template-columns: 1fr; gap: 20px; min-height: auto; }
+  .commerce-copy { padding: 20px 0 0; }
+  .commerce-hero-image { min-height: 380px; }
+  .dashboard-lower-grid { grid-template-columns: 1fr; }
+  .stock-species-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 760px) {
+  .account-app-shell { display: block; }
+  .account-sidebar { position: fixed; width: var(--ui-rail); inset: 0 auto 0 0; grid-template-rows: auto minmax(0,1fr) auto; padding: calc(8px + env(safe-area-inset-top)) 6px calc(8px + env(safe-area-inset-bottom)); gap: 8px; }
+  .account-sidebar-brand { display: flex; flex-direction: column; gap: 4px; margin: 0; min-height: 0; padding: 0 0 8px; }
+  .account-sidebar-brand .sidebar-brand-symbol { height: 36px; width: 36px; flex-basis: 36px; }
+  .sidebar-expand-toggle { display: flex; justify-content: center; align-items: center; width: 44px; min-height: 44px; padding: 8px; color: #e7f0e9; border: 1px solid #648478; border-radius: 10px; background: transparent; flex-shrink: 0; }
+  .sidebar-expand-toggle:hover { background: #28594b; }
+  .account-sidebar nav { gap: 4px; }
+  .account-sidebar nav a, .account-sidebar-logout button { width: 64px; min-height: 56px; padding: 6px 2px; flex-direction: column; justify-content: center; gap: 4px; margin: 0 auto; }
+  .account-sidebar nav a > span, .account-sidebar nav a.active > span, .account-sidebar-logout button span { display: block; position: static; width: auto; height: auto; overflow: visible; clip: auto; margin: 0; max-width: 62px; font-size: 10px; line-height: 1.15; font-weight: 650; white-space: normal; text-align: center; }
+  .account-sidebar nav a svg { width: 21px; height: 21px; }
+  .account-sidebar nav a.active { background: #b7d66c; color: #123b31; }
+  .account-sidebar-brand > div, .account-sidebar .account-plan-mini { display: none; }
+  .account-sidebar-logout { padding-top: 6px; }
+  .account-sidebar-logout button { min-height: 52px; border: 1px solid #648478; }
+  .account-app-content { margin-left: var(--ui-rail); width: calc(100% - var(--ui-rail)); }
+  .account-sidebar[data-expanded="true"] { width: min(280px,85vw); padding-left: 12px; padding-right: 12px; z-index: 122; }
+  .account-sidebar[data-expanded="true"] .account-sidebar-brand { flex-direction: row; }
+  .account-sidebar[data-expanded="true"] .account-sidebar-brand > div { display: flex; flex: 1; }
+  .account-sidebar[data-expanded="true"] nav a, .account-sidebar[data-expanded="true"] .account-sidebar-logout button { width: 100%; flex-direction: row; justify-content: flex-start; min-height: 46px; padding: 8px 12px; gap: 12px; }
+  .account-sidebar[data-expanded="true"] nav a > span, .account-sidebar[data-expanded="true"] .account-sidebar-logout button span { max-width: none; font-size: 13px; text-align: left; }
+  .sidebar-backdrop { display: block; position: fixed; inset: 0; border: 0; border-radius: 0; background: rgba(8,28,21,.35); z-index: 121; }
+  .account-dashboard { padding: 18px 12px 32px; }
+  .dashboard-topbar h1 { font-size: 24px; line-height: 1.18; margin: 6px 0; }
+  .dashboard-topbar p { font-size: 13px; line-height: 1.5; }
+  .dashboard-user { display: none; }
+  .dashboard-kpis { gap: 8px; }
+  .dashboard-kpis article { align-items: flex-start; flex-direction: column; gap: 8px; padding: 12px; min-height: 126px; }
+  .kpi-icon { height: 30px; width: 30px; border-radius: 8px; }
+  .dashboard-kpis strong { font-size: 27px; }
+  .dashboard-kpis small, .dashboard-kpis p { font-size: 11px; line-height: 1.35; }
+  .dashboard-section { margin-top: 24px; }
+  .dashboard-section-head { align-items: flex-start; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+  .dashboard-section-head h2, .dashboard-panel h2 { font-size: 21px; }
+  .dashboard-section-head p { font-size: 12px; line-height: 1.5; }
+  .stock-species-grid { gap: 8px; }
+  .stock-species-card { height: 156px; }
+  .stock-species-card > div { display: flex; flex-direction: column; padding: 12px; gap: 3px; }
+  .stock-species-card > div > strong { font-size: 29px; order: -1; line-height: 1; }
+  .stock-species-card h3 { font-size: 14px; line-height: 1.25; }
+  .stock-species-card small { font-size: 9px; }
+  .stock-species-card p { display: none; }
+  .dashboard-lower-grid { margin-top: 24px; gap: 12px; }
+  .dashboard-panel { padding: 16px; }
+  .quick-action-grid { grid-template-columns: 1fr; gap: 8px; margin-top: 12px; }
+  .quick-action-grid > a { min-height: 58px; padding: 10px; }
+  .account-app-content .inventory-page .section-shell, .account-app-content .inventory-page .narrow-shell { padding-left: 12px; padding-right: 12px; }
+  .account-app-content .inventory-page .inventory-heading h1 { font-size: 23px; line-height: 1.2; }
+  .account-app-content .inventory-page .inventory-heading p { font-size: 13px; line-height: 1.45; }
+  .account-app-content .animal-form label { font-size: 12px; gap: 5px; margin-top: 8px; }
+  .account-app-content .animal-form legend { font-size: 15px; line-height: 1.25; }
+  .account-app-content .animal-form input,
+  .account-app-content .animal-form select,
+  .account-app-content .animal-form textarea { font-size: 16px; min-height: 44px; padding: 9px 10px; }
+  .account-app-content .animal-form input::placeholder, .account-app-content .animal-form textarea::placeholder { font-size: 14px; }
+  .account-app-content .animal-form > .button { font-size: 13px; min-height: 44px; }
+}
+@media (max-width: 620px) {
+  body:not(:has(.account-app-shell)) .header-inner { padding-left: 16px; padding-right: 16px; }
+  .header-actions .login-link { display: none; }
+  .header-actions .button { min-height: 40px; padding: 0 10px; font-size: 10px; }
+  body:not(:has(.account-app-shell)) .commerce-hero-grid { padding: 24px 18px; }
+  body:not(:has(.account-app-shell)) .commerce-copy h1 { font-size: clamp(34px,8.5vw,46px); line-height: 1.1; }
+  body:not(:has(.account-app-shell)) .commerce-copy > p { font-size: 15px; line-height: 1.6; }
+  .commerce-hero-image { min-height: 320px; border-radius: 18px; }
+  .hero-search { grid-template-columns: minmax(0,1fr) auto; }
+  .hero-search input { padding: 0 10px; min-height: 48px; font-size: 14px; }
+  .hero-search button { min-width: 72px; font-size: 13px; min-height: 44px; }
+  .retail-section { padding-top: 44px; padding-bottom: 44px; }
+  .species-grid, .animal-grid { gap: 12px; }
+  .species-card small { display: none; }
+  .species-card strong { font-size: 15px; }
+  .management-plan-grid article { padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+

@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getPublicSiteSettings } from "@/lib/site-settings";
 import "./globals.css";
+import "./design-system.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
@@ -81,9 +82,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
+        <a className="skip-link" href="#main-content">Ir al contenido</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replace(/</g, "\\u003c") }} />
         <SiteHeader />
-        <main>{children}</main>
+        <main id="main-content" tabIndex={-1}>{children}</main>
         <SiteFooter />
         <MobileAppNav />
         <FloatingWhatsApp number={settings.whatsapp_number} />
@@ -94,3 +96,4 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     </html>
   );
 }
+

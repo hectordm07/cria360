@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Icon } from "@/components/icon";
 import { LogoMark } from "@/components/logo-mark";
@@ -24,20 +25,30 @@ const navigation = [
 export function AccountSidebar({ breederName, plan }: { breederName: string; plan: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [expanded, setExpanded] = useState(false);
+  const toggleButton = useRef<HTMLButtonElement>(null);
 
   const isActive = (item: (typeof navigation)[number]) => {
     if ("type" in item && item.type) {
-      return pathname === item.path && searchParams.get("tipo") === item.type;
+      return pathname === item.path && (searchParams.get("tipo") ?? "venta") === item.type;
+    }
+    if (item.href === "/cuenta/animales") {
+      return pathname === item.href || pathname.startsWith("/cuenta/animales/importar");
     }
     return pathname === item.href;
   };
 
-  return <aside className="account-sidebar">
-    <div className="account-sidebar-brand"><Link className="sidebar-brand-symbol" href="/" aria-label="CRIA360, inicio"><LogoMark inverse /></Link><div><strong>CRIA<span>360</span></strong><small>Tu granja, conectada.</small><small title={breederName}>{breederName}</small></div></div>
-    <nav aria-label="Panel del criadero">
+  return <><aside className="account-sidebar" data-expanded={expanded} onKeyDown={(event) => {
+    if (event.key === "Escape" && expanded) {
+      setExpanded(false);
+      toggleButton.current?.focus();
+    }
+  }}>
+    <div className="account-sidebar-brand"><Link className="sidebar-brand-symbol" href="/" aria-label="CRIA360, inicio"><LogoMark inverse /></Link><div><strong translate="no">CRIA<span>360</span></strong><small>Tu granja, conectada.</small><small title={breederName}>{breederName}</small></div><button ref={toggleButton} className="sidebar-expand-toggle" type="button" aria-label={expanded ? "Contraer panel" : "Ampliar panel"} aria-expanded={expanded} aria-controls="account-navigation" onClick={() => setExpanded(!expanded)}><Icon name={expanded ? "close" : "menu"} /></button></div>
+    <nav id="account-navigation" aria-label="Panel del criadero">
       {navigation.map((item) => {
         const active = isActive(item);
-        return <Link className={active ? "active" : ""} href={item.href} key={item.href} title={item.label} aria-label={item.label}><Icon name={item.icon} size={19} /><span>{item.label}</span></Link>;
+        return <Link className={active ? "active" : ""} href={item.href} key={item.href} title={item.label} aria-label={item.label} aria-current={active ? "page" : undefined} onClick={() => setExpanded(false)}><Icon name={item.icon} size={19} /><span>{item.label}</span></Link>;
       })}
     </nav>
     <div className="account-plan-mini"><small>PLAN DE GESTIÓN</small><strong>{plan}</strong><Link href="/planes">Ver beneficios del plan</Link></div>
@@ -47,5 +58,6 @@ export function AccountSidebar({ breederName, plan }: { breederName: string; pla
         <span>Salir</span>
       </button>
     </form>
-  </aside>;
+  </aside>{expanded && <button className="sidebar-backdrop" type="button" aria-label="Contraer panel" onClick={() => { setExpanded(false); toggleButton.current?.focus(); }} />}</>;
 }
+
