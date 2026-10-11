@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CRIA360</string>
+    <string name="shortcut_inventory">Inventario</string>
+    <string name="shortcut_sale">Registrar venta</string>
+    <string name="shortcut_scan">Escanear QR</string>
+    <string name="asset_statements" translatable="false">[{\"relation\":[\"delegate_permission/common.handle_all_urls\"],\"target\":{\"namespace\":\"web\",\"site\":\"https://cria360.vercel.app\"}}]</string>
+</resources>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102e27"/><stop offset="1" stop-color="#245849"/></linearGradient></defs>
+  <rect width="1024" height="500" fill="url(#bg)"/>
+  <circle cx="874" cy="248" r="232" fill="none" stroke="#fffef9" stroke-opacity=".05" stroke-width="1"/>
+  <circle cx="874" cy="248" r="192" fill="none" stroke="#fffef9" stroke-opacity=".08" stroke-width="1"/>
+  <g transform="translate(61 43) scale(.54)" fill="none">
+    <path d="M9 43A39 39 0 0 1 57 10M16 73A39 39 0 0 0 60 85" stroke="#faf8f1" stroke-width="7"/>
+    <path d="M77 23A39 39 0 0 1 82 69" stroke="#cfa343" stroke-width="7"/>
+    <circle cx="70" cy="16" r="7" fill="#faf8f1"/><circle cx="10" cy="57" r="7" fill="#faf8f1"/><circle cx="73" cy="79" r="7" fill="#cfa343"/>
+    <path d="M23 48 48 28 73 48" stroke="#faf8f1" stroke-width="6" stroke-linecap="square"/>
+    <path d="M29 46V76H42V57H54V76H67V46L48 31 29 46Z" fill="#faf8f1"/>
+    <path d="M44 41H52V49H44Z" fill="#173f35"/>
+  </g>
+  <g font-family="DejaVu Sans, sans-serif">
+    <text x="129" y="83" font-size="28" font-weight="700" fill="#fffef9">CRIA<tspan fill="#cfa343">360</tspan></text>
+    <text x="64" y="188" font-size="47" font-weight="700" letter-spacing="-1.3" fill="#fffef9">Tu criadero,</text>
+    <text x="64" y="248" font-size="47" font-weight="700" letter-spacing="-1.3" fill="#fffef9">en tu celular.</text>
+    <text x="66" y="303" font-size="19" fill="#d3e1d7">Inventario · Ventas · Identidad QR</text>
+    <rect x="64" y="349" width="316" height="49" rx="24" fill="#cfa343"/>
+    <text x="87" y="380" font-size="17" font-weight="700" fill="#173f35">Gestión para criaderos</text>
+    <text x="67" y="441" font-size="14" fill="#b4c9bf">Tu granja, conectada.</text>
+  </g>
+  <circle cx="815" cy="251" r="145" fill="#173f35" stroke="#537869" stroke-width="1"/>
+  <g transform="translate(719 155) scale(2)" fill="none">
+    <path d="M9 43A39 39 0 0 1 57 10M16 73A39 39 0 0 0 60 85" stroke="#faf8f1" stroke-width="7"/>
+    <path d="M77 23A39 39 0 0 1 82 69" stroke="#cfa343" stroke-width="7"/>
+    <circle cx="70" cy="16" r="7" fill="#faf8f1"/><circle cx="10" cy="57" r="7" fill="#faf8f1"/><circle cx="73" cy="79" r="7" fill="#cfa343"/>
+    <path d="M23 48 48 28 73 48" stroke="#faf8f1" stroke-width="6" stroke-linecap="square"/>
+    <path d="M29 46V76H42V57H54V76H67V46L48 31 29 46Z" fill="#faf8f1"/>
+    <path d="M44 41H52V49H44Z" fill="#173f35"/>
+  </g>
+</svg>

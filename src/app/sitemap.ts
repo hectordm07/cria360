@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contacto",
     "/aviso-legal",
     "/privacidad",
+    "/eliminar-cuenta",
     "/cookies",
   ].map((path) => ({
     url: `${baseUrl}${path}`,

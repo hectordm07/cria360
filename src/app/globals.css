@@ -3604,3 +3604,13 @@ body:has(.account-app-shell) > .cookie-consent {
     width: 100%;
   }
 }
+
+
+/* Account privacy is reachable from the Android app and the public website. */
+.deletion-confirm { display: flex !important; align-items: flex-start; gap: 12px; }
+.deletion-confirm input[type="checkbox"] { width: 20px; min-width: 20px; height: 20px; margin-top: 3px; }
+.my-account-card { max-width: 780px; padding: 24px; margin-top: 20px; background: #fff; border: 1px solid var(--ui-border, #e4e8e3); border-radius: 20px; }
+.my-account-card h2 { margin-bottom: 12px; }
+.my-account-card p { margin: 12px 0; }
+.my-account-email { overflow-wrap: anywhere; }
+.my-account-card .button { margin-top: 8px; }

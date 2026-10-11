@@ -1,0 +1,52 @@
+plugins { id 'com.android.application' }
+
+def signingPath = providers.environmentVariable('CRIA360_KEYSTORE_PATH').orNull
+def signingPassword = providers.environmentVariable('CRIA360_KEYSTORE_PASSWORD').orNull
+def signingAlias = providers.environmentVariable('CRIA360_KEY_ALIAS').orElse('cria360-upload').get()
+def signingKeyPassword = providers.environmentVariable('CRIA360_KEY_PASSWORD').orNull
+def hasReleaseKey = signingPath && signingPassword && signingKeyPassword
+
+android {
+    namespace 'app.cria360.android'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'app.cria360.android'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '1.0.0'
+    }
+    signingConfigs {
+        if (hasReleaseKey) {
+            release {
+                storeFile file(signingPath)
+                storePassword signingPassword
+                keyAlias signingAlias
+                keyPassword signingKeyPassword
+            }
+        }
+    }
+    buildTypes {
+        release {
+            if (hasReleaseKey) signingConfig signingConfigs.release
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// A release must never silently ship unsigned or use a debug key.
+tasks.configureEach { task ->
+    if (task.name in ['assembleRelease', 'bundleRelease', 'packageRelease', 'signReleaseBundle']) {
+        task.doFirst {
+            if (!hasReleaseKey) throw new GradleException('Configura las variables CRIA360_KEYSTORE_PATH, CRIA360_KEYSTORE_PASSWORD y CRIA360_KEY_PASSWORD antes de generar la versión de publicación.')
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.7.4'
+}

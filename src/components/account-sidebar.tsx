@@ -16,6 +16,7 @@ const navigation = [
   { href: "/cuenta/finanzas?tipo=compra", label: "Compras", icon: "store" as const, path: "/cuenta/finanzas", type: "compra" },
   { href: "/cuenta/finanzas?tipo=gasto", label: "Gastos", icon: "tag" as const, path: "/cuenta/finanzas", type: "gasto" },
   { href: "/cuenta/soporte", label: "Soporte", icon: "users" as const, exact: true },
+  { href: "/cuenta/mi-cuenta", label: "Mi cuenta", icon: "shield" as const, exact: true },
   { href: "/cuenta/configuracion", label: "Configuración", icon: "shield" as const, exact: true },
   { href: "/placas-inteligentes", label: "Placas QR + NFC", icon: "tag" as const, exact: true },
   { href: "/marketplace", label: "Marketplace", icon: "users" as const, exact: true },

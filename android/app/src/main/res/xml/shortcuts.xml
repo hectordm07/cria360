@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="inventory" android:enabled="true" android:shortcutShortLabel="@string/shortcut_inventory">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="app.cria360.android" android:targetClass="com.google.androidbrowserhelper.trusted.LauncherActivity" android:data="https://cria360.vercel.app/cuenta/animales" />
+    </shortcut>
+    <shortcut android:shortcutId="sale" android:enabled="true" android:shortcutShortLabel="@string/shortcut_sale">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="app.cria360.android" android:targetClass="com.google.androidbrowserhelper.trusted.LauncherActivity" android:data="https://cria360.vercel.app/cuenta/finanzas/nuevo?tipo=venta" />
+    </shortcut>
+    <shortcut android:shortcutId="scan" android:enabled="true" android:shortcutShortLabel="@string/shortcut_scan">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="app.cria360.android" android:targetClass="com.google.androidbrowserhelper.trusted.LauncherActivity" android:data="https://cria360.vercel.app/cuenta/escanear" />
+    </shortcut>
+</shortcuts>
