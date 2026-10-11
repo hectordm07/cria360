@@ -1,4 +1,4 @@
-const CACHE_NAME = "cria360-shell-v5-design-system";
+const CACHE_NAME = "cria360-shell-v7-landing-mobile";
 const APP_SHELL = [
   "/offline",
   "/icons/granja-conectada-192.png",

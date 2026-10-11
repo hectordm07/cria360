@@ -1,19 +1,57 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { FinanceChart } from "@/components/dashboard-charts";
+import { financeMonths, pen, summarizeFinance } from "@/lib/dashboard-data";
+import { readFinance } from "@/lib/dashboard-server";
 import { createClient } from "@/lib/supabase/server";
 import { createTransaction } from "./actions";
 
 export const metadata: Metadata = { title: "Ventas, compras y gastos", robots: { index: false, follow: false } };
 const labels = { venta: "Ventas", compra: "Compras", gasto: "Gastos" } as const;
+const singular = { venta: "venta", compra: "compra", gasto: "gasto" } as const;
 type Kind = keyof typeof labels;
 type Movement = { id: string; type: Kind; concept: string; amount_pen: number; transaction_date: string; payment_status: string };
 
 export default async function FinancePage({ searchParams }: { searchParams: Promise<{ tipo?: string; ok?: string; error?: string }> }) {
-  const params = await searchParams; const type: Kind = params.tipo === "compra" || params.tipo === "gasto" ? params.tipo : "venta";
-  const supabase = await createClient(); const { data: { user } } = await supabase.auth.getUser(); if (!user) redirect("/ingresar");
-  const start = new Date(); start.setDate(1); const startDate = start.toISOString().slice(0, 10);
-  const { data } = await supabase.from("farm_transactions").select("id,type,concept,amount_pen,transaction_date,payment_status").eq("owner_id", user.id).order("transaction_date", { ascending: false });
-  const rows = (data ?? []) as Movement[]; const month = rows.filter(x => x.transaction_date >= startDate); const sum = (kind: Kind) => month.filter(x => x.type === kind).reduce((n, x) => n + Number(x.amount_pen), 0); const balance = sum("venta") - sum("compra") - sum("gasto"); const pending = month.filter(x => x.type === "venta" && x.payment_status === "pendiente").reduce((n, x) => n + Number(x.amount_pen), 0); const filtered = rows.filter(x => x.type === type).slice(0, 12);
-  return <section className="inventory-page finance-page"><div className="section-shell"><div className="inventory-heading"><div><span className="eyebrow">Control económico</span><h1>Movimientos de la granja</h1><p>Registra ingresos y egresos para conocer la rentabilidad real.</p></div></div><nav className="finance-tabs" aria-label="Tipo de movimiento">{Object.entries(labels).map(([key, label]) => <Link className={type === key ? "active" : ""} href={`/cuenta/finanzas?tipo=${key}`} key={key}>{label}</Link>)}</nav>{params.ok && <p className="form-notice success">Movimiento registrado.</p>}{params.error && <p className="form-notice error">No pudimos guardar. Revisa los datos.</p>}<div className="finance-summary"><article><small>Ventas del mes</small><strong>S/ {sum("venta").toFixed(2)}</strong><span>Ingresos registrados</span></article><article><small>Balance mensual</small><strong>S/ {balance.toFixed(2)}</strong><span>Ventas menos compras y gastos</span></article><article><small>Por cobrar</small><strong>S/ {pending.toFixed(2)}</strong><span>Ventas pendientes</span></article></div><div className="support-grid"><form action={createTransaction} className="finance-form"><input type="hidden" name="type" value={type} /><h2>Registrar {labels[type].slice(0, -1).toLowerCase()}</h2><label>Concepto<input name="concept" required minLength={2} maxLength={120} placeholder="Ej. Venta de huevos" /></label><div className="form-row"><label>Monto (S/)<input name="amount_pen" type="number" min="0.01" step="0.01" required /></label><label>Fecha<input name="transaction_date" type="date" defaultValue={new Date().toISOString().slice(0, 10)} required /></label></div><label>Estado<select name="payment_status"><option value="pagado">Pagado</option><option value="pendiente">Pendiente</option></select></label><label>Notas<textarea name="notes" rows={3} /></label><button className="button button-primary" type="submit">Guardar movimiento</button></form><div className="transaction-list"><h2>{labels[type]} recientes</h2>{filtered.length ? filtered.map(row => <article key={row.id}><div><strong>{row.concept}</strong><small>{new Date(`${row.transaction_date}T12:00:00`).toLocaleDateString("es-PE")} · {row.payment_status}</small></div><span>S/ {Number(row.amount_pen).toFixed(2)}</span></article>) : <p>Aún no hay {labels[type].toLowerCase()}.</p>}</div></div></div></section>;
+  const params = await searchParams;
+  const type: Kind = params.tipo === "compra" || params.tipo === "gasto" ? params.tipo : "venta";
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/ingresar");
+  const periods = financeMonths();
+  const [finance, recent] = await Promise.all([
+    readFinance(supabase, user.id, periods),
+    supabase.from("farm_transactions").select("id,type,concept,amount_pen,transaction_date,payment_status")
+      .eq("owner_id", user.id).eq("type", type).order("transaction_date", { ascending: false }).limit(12),
+  ]);
+  const financial = summarizeFinance(finance.rows, periods);
+  const rows = (recent.data ?? []) as Movement[];
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Lima", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+  const date = new Intl.DateTimeFormat("es-PE", { dateStyle: "medium", timeZone: "UTC" });
+
+  return <section className="inventory-page finance-page analytics-finance"><div className="section-shell">
+    <div className="inventory-heading"><div><h1>Movimientos de tu granja</h1><p>Ingresos, egresos y evolución de los últimos 6 meses.</p></div></div>
+    <nav className="finance-tabs" aria-label="Tipo de movimiento">{Object.entries(labels).map(([key, label]) => <Link className={type === key ? "active" : ""} aria-current={type === key ? "page" : undefined} href={`/cuenta/finanzas?tipo=${key}`} key={key}>{label}</Link>)}</nav>
+    {params.ok && <p className="form-notice success" role="status">Movimiento registrado.</p>}
+    {params.error && <p className="form-notice error" role="alert">No pudimos guardar el movimiento. Revisa el concepto, monto y fecha e inténtalo nuevamente.</p>}
+    {finance.error ? <p className="form-notice error" role="alert">No pudimos cargar el resumen económico. <a href={`/cuenta/finanzas?tipo=${type}`}>Recargar movimientos</a></p> : <>
+      <div className="finance-metric-grid">
+        <article><small>Ventas del mes</small><strong>{pen.format(financial.current.sales)}</strong><span>Pagadas y pendientes</span></article>
+        <article><small>Compras y gastos</small><strong>{pen.format(financial.current.purchases + financial.current.expenses)}</strong><span>Egresos registrados este mes</span></article>
+        <article className={financial.balance < 0 ? "negative-balance" : "positive-balance"}><small>Balance registrado</small><strong>{pen.format(financial.balance)}</strong><span>Ventas menos compras y gastos</span></article>
+        <article><small>Por cobrar</small><strong>{pen.format(financial.pending)}</strong><span>Ventas pendientes de este mes</span></article>
+      </div>
+      <FinanceChart months={financial.months} />
+    </>}
+    <div className="support-grid">
+      <form action={createTransaction} className="finance-form"><input type="hidden" name="type" value={type} /><h2>Registrar {singular[type]}</h2>
+        <label>Concepto<input name="concept" required minLength={2} maxLength={120} autoComplete="off" placeholder="Ej. Venta de huevos…" /></label>
+        <div className="form-row"><label>Monto (S/)<input name="amount_pen" type="number" inputMode="decimal" min="0.01" step="0.01" required /></label><label>Fecha<input name="transaction_date" type="date" defaultValue={today} required /></label></div>
+        <label>Estado<select name="payment_status"><option value="pagado">Pagado</option><option value="pendiente">Pendiente</option></select></label>
+        <label>Notas<textarea name="notes" rows={3} /></label><button className="button button-primary" type="submit">Guardar movimiento</button>
+      </form>
+      <div className="transaction-list"><h2>{labels[type]} recientes</h2>{recent.error ? <p role="alert">No pudimos cargar la lista. Recarga la página.</p> : rows.length ? rows.map(row => <article key={row.id}><div><strong>{row.concept}</strong><small>{date.format(new Date(`${row.transaction_date}T12:00:00Z`))} · {row.payment_status}</small></div><span>{pen.format(Number(row.amount_pen))}</span></article>) : <p>Registra tu primera {singular[type]} para verla aquí.</p>}</div>
+    </div>
+  </div></section>;
 }

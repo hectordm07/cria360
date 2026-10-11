@@ -1,7 +1,8 @@
-type IconName = "tag" | "tree" | "health" | "store" | "spark" | "check" | "verified" | "pin" | "shield" | "users" | "scan" | "logout" | "menu" | "close";
+type IconName = "tag" | "tree" | "health" | "store" | "spark" | "check" | "verified" | "pin" | "shield" | "users" | "scan" | "logout" | "menu" | "close" | "search";
 
 export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, React.ReactNode> = {
+    search: <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></>,
     menu: <><path d="M4 6h16M4 12h16M4 18h16" /></>,
     close: <><path d="m6 6 12 12M18 6 6 18" /></>,
     tag: <><path d="M20 13 13 20l-9-9V4h7l9 9Z"/><path d="M8.5 8.5h.01"/></>,

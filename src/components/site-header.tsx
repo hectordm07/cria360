@@ -16,8 +16,8 @@ export function SiteHeader() {
     }
   }}><div className="section-shell header-inner">
     <Logo />
-    <nav id="site-navigation" className={open ? "site-navigation is-open" : "site-navigation"} aria-label="Navegación principal" onClick={() => setOpen(false)}><Link href="/#especies">Para granjas</Link><Link href="/placas-inteligentes">Placas QR + NFC</Link><Link href="/marketplace">Animales</Link><Link href="/blog">Guía de crianza</Link><Link href="/planes">Planes</Link></nav>
-    <div className="header-actions"><AccountLink /><Link className="button button-small button-primary" href="/registro">Crear mi granja</Link></div>
+    <nav id="site-navigation" className={open ? "site-navigation is-open" : "site-navigation"} aria-label="Navegación principal" onClick={() => setOpen(false)}><Link href="/#gestion">Para granjas</Link><Link href="/placas-inteligentes">Placas QR + NFC</Link><Link href="/marketplace">Animales</Link><Link href="/blog">Guía de crianza</Link><Link href="/planes">Planes</Link><Link className="mobile-menu-account" href="/ingresar">Ingresar a mi cuenta</Link></nav>
+    <div className="header-actions"><AccountLink /><Link className="button button-small button-primary" href="/registro">Empezar gratis</Link></div>
     <button ref={menuButton} className="site-menu-toggle" type="button" aria-controls="site-navigation" aria-expanded={open} aria-label={open ? "Cerrar menú" : "Abrir menú"} onClick={() => setOpen(!open)}><Icon name={open ? "close" : "menu"} /></button>
   </div></header>;
 }

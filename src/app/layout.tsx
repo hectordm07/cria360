@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import { CookieConsent } from "@/components/cookie-consent";
 import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 import { MobileAppNav } from "@/components/mobile-app-nav";
@@ -10,9 +10,11 @@ import { SiteHeader } from "@/components/site-header";
 import { getPublicSiteSettings } from "@/lib/site-settings";
 import "./globals.css";
 import "./design-system.css";
+import "./landing-analytics.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
+const editorialSerif = Source_Serif_4({ variable: "--font-editorial", subsets: ["latin"], display: "swap", preload: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app"),
@@ -80,7 +82,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   ];
 
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="es" className={`${geistSans.variable} ${geistMono.variable} ${editorialSerif.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">Ir al contenido</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replace(/</g, "\\u003c") }} />

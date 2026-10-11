@@ -8,6 +8,8 @@
   --muted: #52665b;
 }
 body { font-family: var(--ui-font); line-height: 1.5; }
+::selection { color: #123b31; background: #dcebc2; }
+input, textarea { caret-color: #23664d; }
 button, input, select, textarea { font-family: inherit; }
 a, button, input, select, textarea, summary { touch-action: manipulation; -webkit-tap-highlight-color: rgba(183,214,108,.22); }
 :where(a, button, input, select, textarea, summary):focus-visible { outline: 3px solid #397f65; outline-offset: 4px; }
@@ -21,6 +23,7 @@ p { text-wrap: pretty; }
 .skip-link:focus { transform: none; }
 #main-content { scroll-margin-top: 84px; }
 .site-menu-toggle, .sidebar-expand-toggle { display: none; }
+.header-inner nav .mobile-menu-account { display: none; }
 .sidebar-backdrop { display: none; }
 
 /* Public website: familiar forest palette with a clearer editorial hierarchy. */
@@ -100,7 +103,8 @@ body:not(:has(.account-app-shell)) :where(.species-card, .animal-card, .article-
 @media (max-width: 1000px) {
   body:not(:has(.account-app-shell)) .header-inner { height: 72px; gap: 12px; }
   body:not(:has(.account-app-shell)) .header-inner .site-navigation { display: none; }
-  body:not(:has(.account-app-shell)) .header-inner .site-navigation.is-open { display: flex; position: absolute; top: 100%; left: 0; right: 0; background: #fbfcf9; border-bottom: 1px solid var(--ui-border); padding: 16px 24px; flex-direction: column; gap: 4px; box-shadow: 0 16px 24px rgba(18,59,49,.1); }
+  body:not(:has(.account-app-shell)) .header-inner .site-navigation.is-open { display: flex; position: absolute; top: 100%; left: 0; right: 0; background: #fbfcf9; border-bottom: 1px solid var(--ui-border); padding: 16px 24px; flex-direction: column; gap: 4px; box-shadow: 0 16px 24px rgba(18,59,49,.1); max-height: calc(100dvh - 80px); overflow-y: auto; overscroll-behavior: contain; }
+  .header-inner nav .mobile-menu-account { display: flex; border-top: 1px solid var(--ui-border); margin-top: 8px; padding-top: 12px; }
   .site-navigation a { min-height: 44px; display: flex; align-items: center; border-radius: 8px; padding: 8px; }
   .site-navigation a:hover { background: #edf4e8; }
   .site-menu-toggle { display: flex; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; color: var(--forest); background: transparent; border: 1px solid var(--ui-border); border-radius: 10px; }
@@ -136,6 +140,7 @@ body:not(:has(.account-app-shell)) :where(.species-card, .animal-card, .article-
   .account-sidebar[data-expanded="true"] nav a > span, .account-sidebar[data-expanded="true"] .account-sidebar-logout button span { max-width: none; font-size: 13px; text-align: left; }
   .sidebar-backdrop { display: block; position: fixed; inset: 0; border: 0; border-radius: 0; background: rgba(8,28,21,.35); z-index: 121; }
   .account-dashboard { padding: 18px 12px 32px; }
+  .account-sidebar nav { scrollbar-color: #648478 #173f35; }
   .dashboard-topbar h1 { font-size: 24px; line-height: 1.18; margin: 6px 0; }
   .dashboard-topbar p { font-size: 13px; line-height: 1.5; }
   .dashboard-user { display: none; }
@@ -173,7 +178,12 @@ body:not(:has(.account-app-shell)) :where(.species-card, .animal-card, .article-
 @media (max-width: 620px) {
   body:not(:has(.account-app-shell)) .header-inner { padding-left: 16px; padding-right: 16px; }
   .header-actions .login-link { display: none; }
-  .header-actions .button { min-height: 40px; padding: 0 10px; font-size: 10px; }
+  .header-actions .button { min-height: 44px; padding: 0 10px; font-size: 10px; white-space: nowrap; }
+  body:not(:has(.account-app-shell)) .header-inner { gap: 8px; }
+  .header-inner .brand { gap: 7px; flex-shrink: 0; }
+  .header-inner .brand-mark { width: 36px; height: 36px; flex-basis: 36px; }
+  .header-inner .brand-word { font-size: 20px; }
+  .header-inner .brand-word small { font-size: 7px; }
   body:not(:has(.account-app-shell)) .commerce-hero-grid { padding: 24px 18px; }
   body:not(:has(.account-app-shell)) .commerce-copy h1 { font-size: clamp(34px,8.5vw,46px); line-height: 1.1; }
   body:not(:has(.account-app-shell)) .commerce-copy > p { font-size: 15px; line-height: 1.6; }
@@ -186,6 +196,12 @@ body:not(:has(.account-app-shell)) :where(.species-card, .animal-card, .article-
   .species-card small { display: none; }
   .species-card strong { font-size: 15px; }
   .management-plan-grid article { padding: 24px; }
+}
+@media (max-width: 360px) {
+  body:not(:has(.account-app-shell)) .header-inner { padding-left: 12px; padding-right: 12px; }
+  .header-inner .brand-word { font-size: 18px; }
+  .header-inner .brand-word small { display: none; }
+  .header-actions .button { padding: 0 8px; font-size: 9px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
