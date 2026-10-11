@@ -13,7 +13,7 @@ const title = "App para criaderos: inventario, ventas y QR en Perú";
 const description = "Organiza tu criadero desde el celular con CRIA360: inventario por especie, ventas, compras, gastos y fichas QR/NFC. Empieza gratis con hasta 5 animales.";
 const shareImage = { url: "/images/hero-granja-movil-v2.webp", alt: "Gestiona tu criadero desde el celular con CRIA360" };
 export const metadata: Metadata = {
-  title, description, alternates: { canonical: "/" },
+  title: { absolute: `${title} | CRIA360` }, description, alternates: { canonical: "/" },
   openGraph: { title: `${title} | CRIA360`, description, url: "/", type: "website", locale: "es_PE", siteName: "CRIA360", images: [shareImage] },
   twitter: { card: "summary_large_image", title: `${title} | CRIA360`, description, images: [shareImage.url] },
 };
