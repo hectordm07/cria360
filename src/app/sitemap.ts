@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-data";
-import { featuredAnimals } from "@/lib/demo-data";
+import { animalCategories } from "@/lib/category-data";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app";
 
@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/cookies",
   ].map((path) => ({
     url: `${baseUrl}${path}`,
-    lastModified: new Date("2026-10-05"),
+    lastModified: new Date("2026-10-11"),
     changeFrequency: path === "/marketplace" ? "daily" as const : "weekly" as const,
     priority: path === "" ? 1 : path === "/marketplace" || path === "/venta-de-gallos" ? 0.9 : path === "/contacto" ? 0.8 : 0.6,
   }));
@@ -30,16 +30,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(post.updatedAt),
     changeFrequency: "monthly" as const,
     priority: 0.7,
-    images: [post.image],
+    images: [new URL(post.image, baseUrl).href],
   }));
 
-  const animalRoutes = featuredAnimals.map((animal) => ({
-    url: `${baseUrl}/animales/${animal.id}`,
-    lastModified: new Date("2026-10-05"),
-    changeFrequency: "weekly" as const,
+  const categoryRoutes = animalCategories.map(category => ({
+    url: `${baseUrl}/categorias/${category.slug}`,
+    lastModified: new Date("2026-10-11"),
+    changeFrequency: "monthly" as const,
     priority: 0.8,
-    images: [animal.image],
+    images: [new URL(category.image, baseUrl).href],
   }));
 
-  return [...staticRoutes, ...articleRoutes, ...animalRoutes];
+  return [...staticRoutes, ...articleRoutes, ...categoryRoutes];
 }
+

@@ -9,14 +9,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/marketplace" },
 };
 
-export default async function MarketplacePage({ searchParams }: { searchParams: Promise<{ especie?: string | string[] }> }) {
+export default async function MarketplacePage({ searchParams }: { searchParams: Promise<{ especie?: string | string[]; q?: string | string[] }> }) {
   const params = await searchParams;
   const requested = typeof params.especie === "string" ? params.especie : "";
   const initialSpecies = getCategory(requested)?.slug ?? "";
+  const initialQuery = typeof params.q === "string" ? params.q.trim().slice(0, 200) : "";
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Animales disponibles en CRIA360",
+    name: "Catálogo demostrativo de CRIA360",
     itemListElement: featuredAnimals.map((animal, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -26,7 +27,7 @@ export default async function MarketplacePage({ searchParams }: { searchParams: 
   };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd).replace(/</g, "\\u003c") }} />
-    <MarketplaceBrowser key={initialSpecies} initialSpecies={initialSpecies} />
+    <MarketplaceBrowser key={`${initialSpecies}:${initialQuery}`} initialSpecies={initialSpecies} initialQuery={initialQuery} />
   </>;
 }
 

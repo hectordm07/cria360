@@ -12,16 +12,24 @@ export function generateStaticParams() { return animalCategories.map(({ slug }) 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const category = getCategory((await params).slug);
   if (!category) return {};
-  return { title: `${category.name} de criaderos en Perú`, description: `${category.description} Explora publicaciones con identidad, procedencia y responsable.`, alternates: { canonical: `/categorias/${category.slug}` } };
+  return { title: `${category.name} de criaderos en Perú`, description: `${category.description} Explora publicaciones con identidad, procedencia y responsable.`, alternates: { canonical: `/categorias/${category.slug}` }, openGraph: { title: `${category.name} | CRIA360`, description: category.description, url: `/categorias/${category.slug}`, images: [{ url: category.image, alt: category.imageAlt }] } };
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const category = getCategory((await params).slug);
   if (!category) notFound();
   const animals = featuredAnimals.filter((animal) => matchesAnimalCategory(category.slug, animal.species));
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app";
+  const breadcrumb = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "CRIA360", item: baseUrl },
+    { "@type": "ListItem", position: 2, name: "Marketplace", item: `${baseUrl}/marketplace` },
+    { "@type": "ListItem", position: 3, name: category.name, item: `${baseUrl}/categorias/${category.slug}` },
+  ] };
   return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb).replace(/</g, "\\u003c") }} />
     <section className={`category-hero tone-${category.tone}`}><div className="section-shell category-hero-grid"><div><span className="eyebrow light">Categoría CRIA360</span><h1>{category.name}</h1><p>{category.description} Toda publicación debe cumplir las normas sanitarias y de tenencia aplicables.</p><div className="hero-actions"><Link className="button button-gold" href={`/marketplace?especie=${category.slug}`}>Ver publicaciones</Link><Link className="button button-outline-light" href="/registro">Publicar un animal</Link></div></div><div className="category-hero-photo"><Image src={category.image} alt={category.imageAlt} fill priority sizes="(max-width: 900px) 100vw, 44vw" /><span>{category.symbol}</span></div></div></section>
-    <section className="section-shell category-listing"><div className="retail-heading"><div><span className="eyebrow">Marketplace responsable</span><h2>{animals.length ? `${category.name} disponibles` : "Próximamente nuevas publicaciones"}</h2><p>Identidad, procedencia, estado sanitario declarado y datos del criadero en una sola ficha.</p></div><Link className="text-link" href="/marketplace">Explorar todas las especies</Link></div>{animals.length ? <div className="animal-grid">{animals.map((animal) => <AnimalCard animal={animal} key={animal.id} />)}</div> : <div className="market-empty"><strong>Sé el primer criadero en esta categoría</strong><p>Registra el animal, completa su información y publica cuando esté listo.</p><Link className="button button-primary" href="/registro">Crear publicación</Link></div>}</section>
+    <section className="section-shell category-listing"><div className="retail-heading"><div><span className="eyebrow">Marketplace responsable</span><h2>{animals.length ? `${category.name}: fichas de ejemplo` : "Próximamente nuevas publicaciones"}</h2><p>Explora fichas ilustrativas con identidad, procedencia y registros. Este catálogo muestra la experiencia; no son ofertas de venta.</p></div><Link className="text-link" href="/marketplace">Explorar todas las especies</Link></div>{animals.length ? <div className="animal-grid">{animals.map((animal) => <AnimalCard animal={animal} key={animal.id} />)}</div> : <div className="market-empty"><strong>Sé el primer criadero en esta categoría</strong><p>Registra el animal, completa su información y publica cuando esté listo.</p><Link className="button button-primary" href="/registro">Crear publicación</Link></div>}</section>
+    <nav className="section-shell category-related" aria-label="Explorar especies relacionadas"><h2>Explora otras crianzas</h2><div>{animalCategories.filter(item => item.slug !== category.slug).map(item => <Link key={item.slug} href={`/categorias/${item.slug}`}>{item.shortName}</Link>)}</div><Link className="text-link" href="/blog">Guías de crianza, alimentación y cuidado <span aria-hidden="true">→</span></Link></nav>
     <section className="responsible-band"><div className="section-shell responsible-band-grid"><Icon name="shield" size={38} /><div><strong>Comercio legal y responsable</strong><p>CRIA360 no admite fauna silvestre protegida, especies prohibidas, peleas, apuestas, maltrato ni publicaciones sin documentación obligatoria.</p></div><Link href="/blog/como-verificar-un-animal-antes-de-comprar">Conocer criterios</Link></div></section>
   </>;
 }

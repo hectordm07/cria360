@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { DailySummary } from "@/components/daily-summary";
 import { Icon } from "@/components/icon";
 import { FinanceChart, InventoryStatusChart, SpeciesChart, type ChartItem } from "@/components/dashboard-charts";
-import { financeMonths, integer, pen, summarizeFinance } from "@/lib/dashboard-data";
+import { financeMonths, integer, pen, summarizeDay, summarizeFinance } from "@/lib/dashboard-data";
 import { readFinance, readInventory } from "@/lib/dashboard-server";
 import { createClient } from "@/lib/supabase/server";
 
@@ -53,12 +54,22 @@ export default async function AccountPage() {
   const known = new Set(statusGroups.map(group => group.state));
   const unknownCount = records.filter(animal => !known.has(animal.inventory_status)).length;
   if (unknownCount) byStatus.push({ label: "Otros estados", value: unknownCount, color: "#8a8a8a" });
+  const daily = summarizeDay(financeResult.rows);
+  const dateLabel = new Intl.DateTimeFormat("es-PE", { timeZone: "America/Lima", day: "numeric", month: "short" }).format(new Date());
   const financial = summarizeFinance(financeResult.rows, periods);
   const publicationCapacity = profile.plan === "profesional" ? "Ilimitadas" : profile.plan === "criador" ? "30" : "1";
   const stat = (value: number) => animalResult.error ? "—" : integer.format(value);
 
   return <section className="account-dashboard analytics-dashboard">
     <header className="dashboard-topbar"><div><h1>Hola, {firstName}</h1><p>{breeder.name} · Resumen de tu criadero</p></div><Link className="button button-primary" href="/cuenta/animales/nuevo"><Icon name="spark" size={16} />Registrar animal</Link></header>
+    <div className="dashboard-today-layout">{financeResult.error ? <p className="form-notice error" role="alert">No pudimos cargar el resumen de hoy. <a href="/cuenta">Recargar</a></p> : <DailySummary summary={daily} dateLabel={dateLabel} />}
+    <nav className="daily-quick-actions" aria-label="Acciones de tu criadero">
+      <Link href="/cuenta/animales"><Icon name="store" /><span>Inventario</span></Link>
+      <Link href="/cuenta/finanzas/nuevo?tipo=gasto"><Icon name="tag" /><span>Nuevo gasto</span></Link>
+      <Link href="/cuenta/finanzas/nuevo?tipo=compra"><Icon name="spark" /><span>Nueva compra</span></Link>
+      <Link href="/cuenta/escanear"><Icon name="scan" /><span>Escanear QR</span></Link>
+    </nav></div>
+    <div className="dashboard-section-head"><div><h2>Tu inventario</h2><p>Animales, publicaciones e identidad</p></div><Link className="text-link" href="/cuenta/animales">Ver fichas</Link></div>
     {animalResult.error && <p className="form-notice error" role="alert">No pudimos cargar el inventario. <a href="/cuenta">Recargar el panel</a></p>}
     <section className="dashboard-kpis" aria-label="Resumen del inventario">
       <article><span className="kpi-icon green"><Icon name="store" /></span><div><small>Animales registrados</small><strong>{stat(records.length)}</strong><p>Inventario total</p></div></article>
@@ -68,7 +79,7 @@ export default async function AccountPage() {
     </section>
     {!animalResult.error && <section className="dashboard-report-grid" aria-label="Gráficos de inventario"><SpeciesChart items={bySpecies} /><InventoryStatusChart items={byStatus} /></section>}
     <section className="dashboard-financial-section" aria-label="Resumen económico">
-      <div className="dashboard-section-head"><div><h2>El mes en cifras</h2><p>Ventas y egresos registrados en {periods.at(-1)!.label}</p></div><Link className="text-link" href="/cuenta/finanzas">Registrar movimiento</Link></div>
+      <div className="dashboard-section-head"><div><h2>El mes en cifras</h2><p>Ventas y egresos registrados en {periods.at(-1)!.label}</p></div><Link className="text-link" href="/cuenta/finanzas">Ver movimientos</Link></div>
       {financeResult.error ? <p className="form-notice error" role="alert">No pudimos cargar los movimientos económicos. <a href="/cuenta">Recargar el panel</a></p> : <>
         <div className="finance-metric-grid">
           <article><small>Ventas registradas</small><strong>{pen.format(financial.current.sales)}</strong><span>Pagadas y pendientes</span></article>

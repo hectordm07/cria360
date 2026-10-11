@@ -9,6 +9,30 @@ export type FinanceMonth = { key: string; label: string; sales: number; purchase
 export const pen = new Intl.NumberFormat("es-PE", { style: "currency", currency: "PEN", maximumFractionDigits: 2 });
 export const integer = new Intl.NumberFormat("es-PE", { maximumFractionDigits: 0 });
 
+export function limaDate(now = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Lima", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
+}
+
+export function summarizeDay(rows: FinanceMovement[], now = new Date()) {
+  const today = limaDate(now);
+  const yesterday = new Date(`${today}T12:00:00Z`);
+  yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+  const previousDate = yesterday.toISOString().slice(0, 10);
+  let sales = 0, previousSales = 0, purchases = 0, expenses = 0;
+  for (const row of rows) {
+    const amount = Number(row.amount_pen);
+    if (!Number.isFinite(amount) || amount <= 0) continue;
+    if (row.transaction_date === previousDate && row.type === "venta") previousSales += amount;
+    if (row.transaction_date !== today) continue;
+    if (row.type === "venta") sales += amount;
+    if (row.type === "compra") purchases += amount;
+    if (row.type === "gasto") expenses += amount;
+  }
+  const round = (amount: number) => Math.round(amount * 100) / 100;
+  return { sales: round(sales), purchases: round(purchases), expenses: round(expenses), balance: round(sales - purchases - expenses),
+    change: previousSales > 0 ? Math.round((sales - previousSales) / previousSales * 1000) / 10 : null };
+}
+
 export function financeMonths(now = new Date()): FinanceMonth[] {
   const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Lima", year: "numeric", month: "2-digit" }).formatToParts(now);
   const year = Number(parts.find(part => part.type === "year")?.value);

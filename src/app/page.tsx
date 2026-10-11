@@ -2,29 +2,39 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { AnimalCard } from "@/components/animal-card";
-import { FinanceChart } from "@/components/dashboard-charts";
+import { DailySummary } from "@/components/daily-summary";
+import { ScrollImageMotion } from "@/components/scroll-image-motion";
 import { Icon } from "@/components/icon";
 import { blogPosts } from "@/lib/blog-data";
 import { animalCategories } from "@/lib/category-data";
 import { featuredAnimals } from "@/lib/demo-data";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
-const illustration = [
-  { key: "example-1", label: "Mes 1", sales: 1100, purchases: 600, expenses: 220 },
-  { key: "example-2", label: "Mes 2", sales: 1600, purchases: 900, expenses: 340 },
-  { key: "example-3", label: "Mes 3", sales: 1300, purchases: 650, expenses: 300 },
-  { key: "example-4", label: "Mes 4", sales: 2200, purchases: 1000, expenses: 500 },
-  { key: "example-5", label: "Mes 5", sales: 1900, purchases: 850, expenses: 420 },
-  { key: "example-6", label: "Mes 6", sales: 2600, purchases: 1100, expenses: 550 },
+const title = "App para criaderos: inventario, ventas y QR en Perú";
+const description = "Organiza tu criadero desde el celular con CRIA360: inventario por especie, ventas, compras, gastos y fichas QR/NFC. Empieza gratis con hasta 5 animales.";
+const shareImage = { url: "/images/hero-granja-movil-v2.webp", alt: "Gestiona tu criadero desde el celular con CRIA360" };
+export const metadata: Metadata = {
+  title, description, alternates: { canonical: "/" },
+  openGraph: { title: `${title} | CRIA360`, description, url: "/", type: "website", locale: "es_PE", siteName: "CRIA360", images: [shareImage] },
+  twitter: { card: "summary_large_image", title: `${title} | CRIA360`, description, images: [shareImage.url] },
+};
+const questions = [
+  { question: "¿Qué incluye el plan gratis?", answer: "Puedes registrar hasta 5 animales en un criadero, añadir fotografías y mantener una publicación activa. Las placas físicas QR y NFC se adquieren por separado." },
+  { question: "¿Puedo usar CRIA360 desde el celular?", answer: "Sí. Accede desde el navegador de tu celular o computadora. Puedes añadir CRIA360 a la pantalla de inicio para entrar directamente a tu panel, sin descargar una app de la tienda." },
+  { question: "¿Puedo registrar ventas y gastos?", answer: "Sí. Registra ventas, compras y gastos con monto, concepto, fecha y estado del pago. El panel muestra el resumen del día y la evolución de los últimos 6 meses." },
+  { question: "¿Cómo se organiza el inventario por especie?", answer: "Las tarjetas se crean según los animales de tu criadero: aves, patos, vacunos y otras especies. Cada tipo muestra su fotografía representativa y permite consultar sus fichas." },
 ];
 
 export default function Home() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app";
+  const application = { "@context": "https://schema.org", "@type": "SoftwareApplication", name: "CRIA360", url: siteUrl, description, applicationCategory: "BusinessApplication", operatingSystem: "Web", inLanguage: "es-PE", offers: { "@type": "Offer", name: "Plan Inicial", price: 0, priceCurrency: "PEN", url: `${siteUrl}/planes` }, featureList: ["Inventario por especie", "Registro de ventas, compras y gastos", "Identidad QR y NFC", "Genealogía e historial sanitario"] };
   return <div className="landing-page">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(application).replace(/</g, "\\u003c") }} />
+    <ScrollImageMotion />
     <section className="landing-hero">
       <div className="section-shell landing-hero-grid">
         <div className="landing-hero-copy">
-          <h1>Identidad que protege.<br /><em>Gestión que hace crecer.</em></h1>
-          <p>Identifica tus animales con placas QR o NFC y administra inventario, genealogía, vacunas y publicaciones desde un solo panel.</p>
+          <h1>Tu criadero,<br /><em>en la palma de tu mano.</em></h1>
+          <p>Organiza tus animales, registra ventas y gastos y consulta su historia con QR o NFC. Todo desde el celular, en un solo lugar.</p>
           <div className="landing-hero-actions"><Link className="button button-gold" href="/registro" data-analytics-cta="crear-granja-hero">Empezar gratis<Icon name="spark" size={16} /></Link><Link className="button button-outline-light" href="#gestion">Explorar el panel</Link></div>
           <ul className="landing-hero-points"><li><Icon name="check" size={16} /> Plan gratuito: hasta 5 animales</li><li><Icon name="check" size={16} /> Desde tu celular o computadora</li></ul>
         </div>
@@ -39,10 +49,10 @@ export default function Home() {
 
     <section className="section-shell landing-overview" id="gestion">
       <div className="landing-overview-copy"><h2>Tu criadero,<br /><em>de un vistazo.</em></h2><p>Menos registros dispersos. Más claridad para cuidar tus animales y organizar el trabajo de cada día.</p>
-        <dl className="landing-feature-list"><div><dt>Un inventario que puedes consultar</dt><dd>Fichas, fotografías y estados de cada animal.</dd></div><div><dt>Información que acompaña su crianza</dt><dd>Procedencia, padres y registros de salud en un solo lugar.</dd></div><div><dt>Las cifras de tu negocio, ordenadas</dt><dd>Gráficos de ventas, compras y gastos para seguir tus movimientos.</dd></div></dl>
+        <dl className="landing-feature-list"><div><dt>Un inventario que puedes consultar</dt><dd>Fichas, fotografías y estados de cada animal.</dd></div><div><dt>Información que acompaña su crianza</dt><dd>Procedencia, padres y registros de salud en un solo lugar.</dd></div><div><dt>Las cifras de tu negocio, ordenadas</dt><dd>Resumen diario, registro rápido de movimientos y gráficos de los últimos 6 meses.</dd></div></dl>
         <Link className="text-link" href="/cuenta">Entrar al panel <span aria-hidden="true">→</span></Link>
       </div>
-      <div className="landing-overview-visual"><FinanceChart months={illustration} illustrative /><p className="landing-preview-caption">Ejemplo ilustrativo. En tu cuenta verás los datos de tu criadero.</p></div>
+      <div className="landing-overview-visual"><div className="landing-phone-stage"><div className="landing-phone"><div className="landing-phone-top"><div><strong>Mi criadero</strong><span>CRIA360 · Inicio</span></div><Icon name="shield" size={22} /></div><div className="landing-phone-screen"><DailySummary summary={{ sales: 320, purchases: 60, expenses: 30, balance: 230, change: null }} dateLabel="Hoy" illustrative /><div className="daily-quick-actions"><Link href="/registro"><Icon name="store" /><span>Inventario</span></Link><Link href="/registro"><Icon name="tag" /><span>Nuevo gasto</span></Link></div><span className="landing-phone-footer" aria-hidden="true" /></div></div></div><p className="landing-preview-caption">Vista ilustrativa del panel móvil. En tu cuenta verás tus propios datos.</p><Link className="text-link" href="/instalar">Añadir CRIA360 a mi celular <span aria-hidden="true">→</span></Link></div>
     </section>
 
     <section className="section-shell landing-identity" aria-labelledby="identity-title">
@@ -70,6 +80,8 @@ export default function Home() {
     <section className="section-shell landing-guides"><div className="landing-section-heading"><div><h2>Para cuidar mejor,<br /><em>cada día.</em></h2><p>Guías de nutrición, salud y crianza.</p></div><Link className="text-link" href="/blog">Ver todas las guías <span aria-hidden="true">→</span></Link></div><div className="article-grid">{blogPosts.slice(0, 3).map(post => <article className="article-card" key={post.slug}><Link href={`/blog/${post.slug}`} className="article-image"><Image src={post.image} alt={post.imageAlt} fill sizes="(max-width: 620px) 100vw, 33vw" /></Link><div><span>{post.category} · {post.readingTime}</span><Link href={`/blog/${post.slug}`}><h3>{post.title}</h3></Link><p>{post.description}</p><Link className="article-link" href={`/blog/${post.slug}`}>Leer guía</Link></div></article>)}</div></section>
 
     <section className="section-shell landing-start" aria-labelledby="start-title"><div><h2 id="start-title">Empieza gratis.<br /><em>Crece a tu ritmo.</em></h2><p>Prueba CRIA360 con el plan Inicial: hasta 5 animales, ficha básica, fotografías y una publicación activa.</p><p>Cuando tu criadero lo necesite, elige Granja o Granja Pro para ampliar capacidad y acceder a la carga masiva desde Excel.</p><Link className="text-link" href="/planes">Comparar planes y precios <span aria-hidden="true">→</span></Link></div><div className="landing-start-detail"><strong>Plan Inicial</strong><span className="landing-start-price">Gratis</span><ul><li><Icon name="check" size={18} />Hasta 5 animales</li><li><Icon name="check" size={18} />Ficha básica y fotografías</li><li><Icon name="check" size={18} />1 publicación activa</li></ul><Link className="button button-primary" href="/registro" data-analytics-cta="plan-inicial-landing">Crear mi cuenta gratuita</Link><small>Las placas físicas se adquieren por separado.</small></div></section>
+
+    <section className="section-shell landing-faq" aria-labelledby="faq-title"><div><h2 id="faq-title">Antes de empezar.</h2><p>Lo esencial para gestionar tu criadero con CRIA360.</p><Link className="text-link" href="/planes">Conocer los planes <span aria-hidden="true">→</span></Link></div><div>{questions.map(item => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></section>
 
     <section className="landing-final"><div className="section-shell"><div><h2>Empieza con<br /><em>tu primer animal.</em></h2><p>Crea la vitrina digital de tu criadero y conecta cada ficha con su origen.</p></div><div><Link className="button button-gold" href="/registro" data-analytics-cta="crear-granja-final">Empezar gratis</Link><Link className="text-link" href="/planes">Conocer los planes <span aria-hidden="true">→</span></Link></div></div></section>
   </div>;

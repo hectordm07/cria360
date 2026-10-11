@@ -7,7 +7,7 @@ import { Icon } from "@/components/icon";
 import { LogoMark } from "@/components/logo-mark";
 
 const navigation = [
-  { href: "/cuenta", label: "Dashboard", icon: "store" as const, exact: true },
+  { href: "/cuenta", label: "Inicio", icon: "store" as const, exact: true },
   { href: "/cuenta/animales", label: "Inventario", icon: "health" as const, exact: true },
   { href: "/cuenta/escanear", label: "Escanear QR / NFC", icon: "scan" as const, exact: true },
   { href: "/cuenta/animales/nuevo", label: "Registrar animal", icon: "spark" as const, exact: true },
@@ -30,7 +30,7 @@ export function AccountSidebar({ breederName, plan }: { breederName: string; pla
 
   const isActive = (item: (typeof navigation)[number]) => {
     if ("type" in item && item.type) {
-      return pathname === item.path && (searchParams.get("tipo") ?? "venta") === item.type;
+      return (pathname === item.path || pathname.startsWith(`${item.path}/`)) && (searchParams.get("tipo") ?? "venta") === item.type;
     }
     if (item.href === "/cuenta/animales") {
       return pathname === item.href || pathname.startsWith("/cuenta/animales/importar");

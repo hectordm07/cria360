@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "CRIA360 · Tu granja, conectada",
     short_name: "CRIA360",
     description: "Marketplace, identidad y gestión responsable para criaderos de animales.",
-    start_url: "/",
+    start_url: "/cuenta",
     scope: "/",
     display: "standalone",
     orientation: "portrait",
@@ -14,6 +14,11 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#173f35",
     categories: ["business", "shopping", "utilities"],
     lang: "es-PE",
+    shortcuts: [
+      { name: "Registrar venta", short_name: "Venta", url: "/cuenta/finanzas/nuevo?tipo=venta" },
+      { name: "Registrar gasto", short_name: "Gasto", url: "/cuenta/finanzas/nuevo?tipo=gasto" },
+      { name: "Mi inventario", short_name: "Inventario", url: "/cuenta/animales" },
+    ],
     icons: [
       { src: "/icons/granja-conectada-192.png", sizes: "192x192", type: "image/png" },
       { src: "/icons/granja-conectada-512.png", sizes: "512x512", type: "image/png" },
@@ -21,3 +26,4 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
   };
 }
+

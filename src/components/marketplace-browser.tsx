@@ -18,8 +18,8 @@ const subscribeColumns = (callback: () => void) => {
 };
 const getColumns = () => window.matchMedia(screenQueries[0]).matches ? 1 : window.matchMedia(screenQueries[1]).matches ? 2 : 3;
 
-export function MarketplaceBrowser({ initialSpecies = "" }: { initialSpecies?: string }) {
-  const [filters, setFilters] = useState<MarketplaceFilters>({ ...emptyFilters, species: initialSpecies });
+export function MarketplaceBrowser({ initialSpecies = "", initialQuery = "" }: { initialSpecies?: string; initialQuery?: string }) {
+  const [filters, setFilters] = useState<MarketplaceFilters>({ ...emptyFilters, species: initialSpecies, query: initialQuery });
   const [page, setPage] = useState(1);
   const resultsHeading = useRef<HTMLHeadingElement>(null);
   const columns = useSyncExternalStore(subscribeColumns, getColumns, () => 3);

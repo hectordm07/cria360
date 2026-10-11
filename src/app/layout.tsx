@@ -13,6 +13,7 @@ import "./design-system.css";
 import "./landing-analytics.css";
 import "./inventory.css";
 import "./marketplace.css";
+import "./mobile-first.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
