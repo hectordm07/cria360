@@ -1,0 +1,157 @@
+:root {--ui-font:var(--font-nunito-sans),Arial,sans-serif;}
+/* A shared sans-serif hierarchy for the marketing site and account forms. */
+.site-experience :is(h1,h2,h3),.app-experience .signin-screen :is(h1,h2) {font-family:var(--ui-font);font-weight:650;letter-spacing:-.035em;line-height:1.15;}
+.site-experience :is(h1,h2) em,.app-experience .signin-screen h1 em {font-family:inherit;font-style:normal;font-weight:inherit;}
+body:not(:has(.account-app-shell)) .site-header .header-inner nav.site-navigation {align-items:center;gap:20px;}
+.site-header .site-navigation>.navigation-animals {margin:0;padding:0;align-self:center;border:0;}
+.site-header .site-navigation>:is(a,.navigation-animals>summary) {display:flex;align-items:center;min-height:44px;padding:0;line-height:1.2;font-family:var(--ui-font);font-size:11px;font-weight:650;letter-spacing:.025em;white-space:nowrap;}
+.site-header .site-navigation>.navigation-animals>summary {display:flex;align-items:center;min-height:44px;line-height:1.2;font:650 11px/1.2 var(--ui-font);letter-spacing:.025em;padding:0;}
+.site-header .navigation-animal-types {top:calc(100% + 10px);}
+.app-experience .animal-rows>li {padding:0;}
+.animal-row-link {display:flex;gap:12px;padding:16px 12px;width:100%;min-width:0;align-items:flex-start;color:inherit;text-decoration:none;box-sizing:border-box;transition:background .15s;}
+.animal-row-link:hover {background:#f2f6ee;}
+.animal-row-link:focus-visible {outline:3px solid #b78b34;outline-offset:-3px;}
+.animal-row-arrow {flex:0 0 24px;align-self:center;color:#69816e;font-size:20px;}
+.animal-delete-section {margin-top:28px;padding-top:20px;border-top:1px solid #dce4de;}
+.animal-delete-trigger {min-height:48px;border:1px solid #edc8c2;border-radius:10px;color:#a03931;background:#fff5f3;padding:12px 18px;font:500 14px var(--ui-font);cursor:pointer;}
+.app-experience .account-app-content .animal-form .animal-readonly {border:0;padding:0;background:transparent;display:grid;gap:16px;}
+.latam-landing {background:#fffefb;}
+.latam-landing h2 {font-size:clamp(28px,3.3vw,44px);line-height:1.18;}
+.latam-landing h3 {font-size:20px;line-height:1.3;}
+.latam-landing .button {font-size:14px;text-transform:none;font-weight:600;min-height:48px;}
+.latam-landing .text-link {font-size:14px;text-transform:none;}
+.latam-landing .landing-hero {background:#f0f5e9;color:#173f35;}
+.latam-landing .landing-hero-grid {padding-block:56px;gap:56px;}
+.latam-landing .landing-hero-copy {padding:8px 0;}
+.latam-landing .landing-hero-copy h1 {font-size:clamp(34px,4.1vw,58px);margin:22px 0;line-height:1.12;font-weight:650;}
+.latam-landing .landing-hero-copy h1 em {color:#427145;}
+.latam-landing .landing-hero-copy>p {color:#536458;font-size:17px;line-height:1.65;}
+.latam-landing .landing-hero-points li {color:#536458;font-size:12px;}
+.latam-landing .landing-hero-points svg {color:#427145;}
+.latam-landing .button-outline-light {color:#173f35;border-color:#9fb3a0;}
+.latam-landing .landing-hero-photo {min-height:480px;border-radius:24px;box-shadow:0 12px 35px #173f3510;}
+.latam-launch-badge {display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;background:#fff7de;color:#776021;border:1px solid #e8d69c;border-radius:30px;padding:9px 14px;}
+.latam-caption-icon {background:#edf3e7;border-radius:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;}
+.latam-facts {display:grid;grid-template-columns:repeat(3,1fr) 1.5fr;gap:24px;align-items:center;padding-block:32px;border-bottom:1px solid #e2e8dd;}
+.latam-facts>div {display:grid;gap:7px;}
+.latam-facts>div>strong {font-size:25px;letter-spacing:-.035em;color:#173f35;}
+.latam-facts>div>span,.latam-facts>p {font-size:13px;color:#5c6c61;line-height:1.55;margin:0;}
+.latam-facts>p {border-left:1px solid #d7e1d1;padding-left:24px;}
+.latam-facts>p strong {font-weight:500;}
+.latam-section {padding-block:76px;}
+.latam-section-heading {max-width:760px;margin:0 auto 36px;text-align:center;}
+.latam-section-heading h2 {margin:12px 0 16px;}
+.latam-section-heading p {max-width:60ch;margin:0 auto;color:#5c6c61;}
+.latam-feature-grid,.latam-use-cases {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
+.latam-feature-grid article {padding:28px;border:1px solid #e0e7dd;border-radius:18px;background:white;min-width:0;}
+.latam-feature-icon {width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:#eef4e6;border-radius:14px;color:#427145;margin-bottom:22px;}
+.latam-feature-grid h3 {margin:0 0 12px;}
+.latam-feature-grid p,.latam-use-cases p {font-size:14px;color:#5c6c61;line-height:1.65;margin:0;}
+.latam-soft {background:#f4f7f0;border-block:1px solid #e4eadf;}
+.latam-overview {display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.latam-overview h2 {margin:16px 0 22px;}
+.latam-overview>div>p {color:#5c6c61;}
+.latam-check-list {list-style:none;padding:0;display:grid;gap:14px;margin:24px 0;}
+.latam-check-list li {display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#536458;}
+.latam-check-list svg {flex-shrink:0;color:#427145;}
+.latam-product-example {background:white;border:1px solid #d7e2d0;border-radius:22px;overflow:hidden;box-shadow:0 20px 45px #173f350d;}
+.latam-example-top {display:flex;gap:12px;align-items:center;padding:22px;background:#173f35;color:white;}
+.latam-example-top strong,.latam-example-top span {display:block;}
+.latam-example-top span {font-size:12px;margin-top:4px;color:#d2dfd5;}
+.latam-example-body {padding:24px;}
+.latam-example-body h3 {margin:0 0 8px;}
+.latam-example-body>p {font-size:13px;color:#5c6c61;margin:0 0 20px;}
+.latam-example-folders {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.latam-example-folders>div {display:grid;border:1px solid #dde5d7;border-radius:12px;overflow:hidden;}
+.latam-example-folders .landing-species-photo {border-radius:0;}
+.latam-example-folders strong {font-size:16px;padding:12px 12px 4px;}
+.latam-example-folders>div>span:last-child {padding:0 12px 14px;font-size:12px;color:#5c6c61;}
+.latam-example-hint {display:flex;gap:8px;padding:14px;margin-top:22px;background:#f0f5e9;border-radius:10px;font-size:12px;color:#427145;}
+.latam-example-label {font-size:11px!important;text-align:center;margin:0 16px 20px;color:#5c6c61;}
+.latam-steps {display:grid;grid-template-columns:repeat(3,1fr);gap:32px;list-style:none;padding:0;margin:0;}
+.latam-steps li {text-align:center;}
+.latam-steps li>span {display:inline-flex;width:48px;height:48px;align-items:center;justify-content:center;background:#173f35;color:white;border-radius:50%;font-size:15px;font-weight:600;}
+.latam-steps h3 {margin:18px 0 10px;}
+.latam-steps p {font-size:14px;color:#5c6c61;max-width:32ch;margin:0 auto;}
+.latam-pricing {background:white;color:#173f35;padding-block:76px;}
+.latam-pricing .billing-toggle {background:#eef3e8;border:1px solid #d6e1ce;}
+.latam-pricing .billing-toggle button {color:#47604c;}
+.latam-pricing .billing-toggle button.active {background:#173f35;color:white;}
+.latam-pricing .billing-toggle button span {color:inherit;background:#dbe6b5;}
+.latam-pricing .management-plan-grid article {background:#fff;border:1px solid #d9e3d3;color:#173f35;transform:none;border-radius:18px;display:flex;flex-direction:column;padding:28px;}
+.latam-pricing .management-plan-grid article.popular {background:#f0f5e9;border:2px solid #427145;transform:none;}
+.latam-pricing .management-plan-grid h3 {font-family:var(--ui-font);font-size:26px;font-weight:650;}
+.latam-pricing .management-plan-grid article>small {color:#5c6c61;}
+.latam-pricing .management-plan-grid :is(.billing-detail,.annual-equivalent) {color:#5c6c61;}
+.latam-pricing .management-plan-grid .management-price {font-size:33px;line-height:1.3;}
+.latam-pricing .annual-saving {color:#427145;}
+.latam-pricing .management-plan-grid li svg {color:#427145;}
+.latam-pricing .management-plan-grid ul {flex:1;}
+.latam-pricing .pricing-note {color:#5c6c61;}
+.latam-plates-link {text-align:center;font-size:14px!important;color:#5c6c61;}
+.latam-plates-link a {color:#173f35;text-decoration:underline;}
+.latam-use-cases article {padding:28px;border-radius:18px;background:#f4f7f0;border:1px solid #e0e7dd;}
+.latam-use-cases article>span {font-size:11px;font-weight:650;letter-spacing:.06em;color:#627c52;}
+.latam-use-cases h3 {margin:18px 0 14px;}
+.latam-use-cases a {display:inline-flex;align-items:center;min-height:44px;font-size:13px;margin-top:16px;font-weight:600;}
+.latam-community {display:flex;align-items:center;gap:24px;border:1px solid #d9e3d3;border-radius:18px;padding:28px;margin-top:28px;}
+.latam-community>svg {color:#427145;flex-shrink:0;}
+.latam-community>div {flex:1;}
+.latam-community h3 {margin:0 0 10px;}
+.latam-community p {font-size:14px;margin:0;color:#5c6c61;}
+.latam-community>a {flex-shrink:0;}
+.latam-faq {max-width:850px;margin:auto;display:grid;gap:12px;}
+.latam-faq details {padding:20px 24px;border:1px solid #dde5d7;border-radius:12px;background:white;}
+.latam-faq summary {font-size:16px;font-weight:550;cursor:pointer;line-height:1.5;}
+.latam-faq p {font-size:14px;margin:16px 0 0;color:#5c6c61;}
+.latam-guides .article-card h3 {font-family:var(--ui-font);font-size:20px;line-height:1.3;font-weight:600;}
+.latam-landing .landing-final h2 {font-family:var(--ui-font);font-weight:650;}
+.app-experience .signin-home-link {display:inline-flex;align-items:center;min-height:44px;font-size:13px;color:#536458;margin-bottom:20px;}
+@media (min-width:901px) {
+ .app-experience .signin-screen {max-width:1120px;min-height:100svh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;padding:48px;gap:48px;}
+ .app-experience .signin-intro {border-radius:26px;padding:48px 36px;min-height:510px;display:flex;flex-direction:column;justify-content:center;}
+ .app-experience .signin-access {padding:0 20px;}
+ .app-experience .signin-screen .signin-intro h1 {font-size:42px;}
+}
+@media (max-width:1050px) and (min-width:901px) {body:not(:has(.account-app-shell)) .site-header .header-inner nav.site-navigation {gap:12px;}.site-header .site-navigation>a,.site-header .site-navigation>.navigation-animals>summary {font-size:10px;}.header-actions {gap:12px;}}
+@media (max-width:900px) {
+ body:not(:has(.account-app-shell)) .site-header .header-inner nav.site-navigation {align-items:stretch;gap:4px;}
+ .site-header .site-navigation>.navigation-animals {align-self:stretch;width:100%;}
+ .site-header .site-navigation>a,.site-header .site-navigation>.navigation-animals>summary {padding:12px;min-height:44px;line-height:1.3;font-size:13px;box-sizing:border-box;}
+ .site-header .navigation-animal-types {top:auto;}
+ .latam-landing .landing-hero-grid {grid-template-columns:1fr;gap:32px;padding-block:36px;}
+ .latam-landing .landing-hero-copy {padding:0;}
+ .latam-landing .landing-hero-photo {min-height:360px;}
+ .latam-facts {grid-template-columns:repeat(3,1fr);gap:16px;}
+ .latam-facts>p {grid-column:1/-1;border-left:0;padding:16px 0 0;border-top:1px solid #e0e7dd;text-align:center;}
+ .latam-overview {gap:32px;grid-template-columns:1fr;}
+ .latam-feature-grid {grid-template-columns:repeat(2,minmax(0,1fr));}
+ .latam-community {flex-wrap:wrap;}
+ .latam-community>a {margin-left:56px;}
+}
+@media (max-width:600px) {
+ .latam-section,.latam-pricing {padding-block:48px;}
+ .latam-section-heading {margin-bottom:26px;text-align:left;}
+ .latam-section-heading p {margin:0;font-size:15px;}
+ .latam-feature-grid,.latam-use-cases,.latam-steps {grid-template-columns:1fr;gap:14px;}
+ .latam-feature-grid article,.latam-use-cases article {padding:24px;}
+ .latam-feature-icon {margin-bottom:18px;}
+ .latam-facts>div>strong {font-size:21px;}
+ .latam-facts>div>span {font-size:11px;}
+ .latam-steps li {text-align:left;position:relative;padding-left:68px;}
+ .latam-steps li>span {position:absolute;left:0;top:2px;}
+ .latam-steps h3 {margin:0 0 8px;}
+ .latam-steps p {max-width:none;margin:0;}
+ .latam-community {gap:14px;padding:24px;align-items:flex-start;}
+ .latam-community>svg {display:none;}
+ .latam-community>div {flex-basis:100%;}
+ .latam-community>a {margin:0;}
+ .latam-faq details {padding:18px;}
+ .latam-landing .landing-final>div {gap:24px;flex-direction:column;align-items:flex-start;}
+ .latam-landing .landing-final>div>div:last-child {align-items:flex-start;}
+ .latam-landing .landing-hero-actions>a {flex:1;text-align:center;justify-content:center;}
+ .latam-pricing .management-plan-grid .popular-label {background:#173f35;color:white;}
+}
+@media (prefers-reduced-motion:reduce) {.animal-row-link {transition:none;}}
+
+.latam-pricing .billing-toggle button span {color:#173f35;}

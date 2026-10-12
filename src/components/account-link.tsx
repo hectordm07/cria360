@@ -24,5 +24,6 @@ export function AccountLink({ mobile = false }: { mobile?: boolean }) {
 
   return mobile
     ? <Link href={href} aria-label={label}><span className="mobile-nav-icon"><Icon name="users" size={21} /></span><span>{signedIn ? "Cuenta" : "Ingresar"}</span></Link>
-    : <Link className="login-link" href={href}>{label}</Link>;
+    : <Link className="login-link" href={href} target={signedIn ? undefined : "_blank"} rel={signedIn ? undefined : "noopener noreferrer"}>{label}</Link>;
 }
+

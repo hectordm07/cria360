@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
+import { Geist, Geist_Mono, Nunito_Sans, Source_Serif_4 } from "next/font/google";
 import { CookieConsent } from "@/components/cookie-consent";
 import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 import { MobileAppNav } from "@/components/mobile-app-nav";
@@ -21,14 +21,16 @@ import "./account-mobile.css";
 import "./account-home.css";
 import "./launch.css";
 import "./animal-editor.css";
+import "./latam.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
-const editorialSerif = Source_Serif_4({ variable: "--font-editorial", subsets: ["latin"], display: "swap", preload: true });
+const appSans = Nunito_Sans({ variable: "--font-nunito-sans", subsets: ["latin"], display: "swap" });
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap", preload: false });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap", preload: false });
+const editorialSerif = Source_Serif_4({ variable: "--font-editorial", subsets: ["latin"], display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app"),
-  title: { default: "Venta de animales y criaderos en Perú | CRIA360", template: "%s | CRIA360" },
+  title: { default: "Gestión de criaderos en Latinoamérica | CRIA360", template: "%s | CRIA360" },
   description: "Administra tu criadero desde el celular. Inventario, ventas, gastos e identidad QR y NFC. Prueba CRIA360 gratis durante 30 días desde tu primer registro.",
   applicationName: "CRIA360",
   manifest: "/manifest.webmanifest",
@@ -92,7 +94,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   ];
 
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable} ${editorialSerif.variable}`}>
+    <html lang="es" className={`${appSans.variable} ${geistSans.variable} ${geistMono.variable} ${editorialSerif.variable}`}>
       <body>
         <PwaInstallProvider>
         <AppExperience>

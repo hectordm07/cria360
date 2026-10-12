@@ -24,8 +24,8 @@ const plans = [
   {
     name: "Granja",
     note: "Criaderos pequeños y medianos",
-    monthly: 99.9,
-    annual: 999,
+    monthly: 29,
+    annual: 290,
     cta: "Solicitar Granja",
     popular: true,
     features: [
@@ -42,8 +42,8 @@ const plans = [
   {
     name: "Granja Pro",
     note: "Operación profesional",
-    monthly: 229.9,
-    annual: 2299,
+    monthly: 69,
+    annual: 690,
     cta: "Solicitar Granja Pro",
     features: [
       "Hasta 1,000 animales",
@@ -92,14 +92,14 @@ export function ManagementPricing() {
                 <><strong className="management-price">Gratis<em> / 30 días</em></strong><span className="billing-detail">Desde tu primer registro de correo. Sin tarjeta ni renovación automática.</span></>
               ) : billing === "monthly" ? (
                 <>
-                  <strong className="management-price">S/ {money(price)}<em> / mes</em></strong>
+                  <strong className="management-price">US$ {money(price)}<em> / mes</em></strong>
                   <span className="billing-detail">Pago mensual. Cambia de plan al siguiente periodo.</span>
                 </>
               ) : (
                 <>
-                  <strong className="management-price">S/ {money(price)}<em> / año</em></strong>
-                  <span className="annual-equivalent">Equivale a S/ {money(annualEquivalent)} / mes</span>
-                  <span className="annual-saving">Oferta anual: ahorras S/ {money(annualSaving)} · pagas 10 meses y usas 12</span>
+                  <strong className="management-price">US$ {money(price)}<em> / año</em></strong>
+                  <span className="annual-equivalent">Equivale a US$ {money(annualEquivalent)} / mes</span>
+                  <span className="annual-saving">Oferta anual: ahorras US$ {money(annualSaving)} · pagas 10 meses y usas 12</span>
                 </>
               )}
 
@@ -111,7 +111,7 @@ export function ManagementPricing() {
           );
         })}
       </div>
-      <p className="pricing-note">Precios de lanzamiento en Perú. Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
+      <p className="pricing-note">Precios en dólares estadounidenses (USD) para Latinoamérica. Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
     </>
   );
 }

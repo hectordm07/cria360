@@ -28,7 +28,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
       </ul>
     </div>
     <div className="signin-access">
-      <h2>Bienvenido a tu mini app</h2>
+      <Link className="signin-home-link" href="/">← Volver a CRIA360</Link><h2>Ingresa a CRIA360</h2>
       <p>Ingresa o crea tu cuenta con Google.</p>
       {params.error && <p className="auth-error" role="alert">No pudimos completar el acceso. Vuelve a intentarlo o <Link href="/contacto">contacta con soporte</Link>.</p>}
       <GoogleSignInButton preview={params.preview === "1"} />
