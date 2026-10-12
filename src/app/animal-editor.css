@@ -45,3 +45,5 @@
 .animal-action-dialog .animal-delete-choice {color:#a03931;background:#fff5f3;border-color:#f1cfcb}
 .animal-confirm-buttons {display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
 .animal-action-dialog button:disabled {opacity:.55;cursor:default}
+.app-experience .account-app-content .animal-form input.sr-only {width:1px;height:1px;min-height:0;padding:0;border:0;}
+.animal-photo-picker {position:relative;}

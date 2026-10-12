@@ -13,7 +13,7 @@ export function MobilePreview() {
   return <section className="mobile-preview-page section-shell">
     <span className="eyebrow">CRIA360 en tu celular</span>
     <h1>Así se ve tu mini app.</h1>
-    <p>Revisa el ingreso y el panel en tres tamaños de celular. Los datos del panel son ilustrativos.</p>
+    <p>Revisa el ingreso, el inventario y el formulario en tres tamaños de celular. Los datos son ilustrativos.</p>
     <div className="mobile-preview-mode-controls" aria-label="Pantalla de la mini app"><button type="button" aria-pressed={view === "home"} onClick={() => setView("home")}>Inicio de cuenta</button><button type="button" aria-pressed={view === "signin"} onClick={() => { setView("signin"); setWide(false); }}>Presentación de ingreso</button><button type="button" aria-pressed={view === "inventario"} onClick={() => setView("inventario")}>Inventario</button><button type="button" aria-pressed={view === "registro"} onClick={() => setView("registro")}>Formulario</button></div>
     <div className="mobile-preview-controls" aria-label="Tamaño de la vista móvil">{sizes.map(size => <button key={size.width} type="button" aria-pressed={width === size.width} onClick={() => setWidth(size.width)}>{size.name}</button>)}</div>
     {view !== "signin" && <div className="mobile-preview-mode-controls" aria-label="Comprobación de escala"><button type="button" aria-pressed={!wide} onClick={() => setWide(false)}>Celular</button><button type="button" aria-pressed={wide} onClick={() => setWide(true)}>Escala amplia corregida</button></div>}
