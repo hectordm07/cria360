@@ -23,7 +23,10 @@ function subscribeViewport(change: () => void) {
 }
 function viewportSnapshot() {
   if (!CSS.supports("zoom", "2")) return 1;
-  const deviceWidth = Math.min(window.screen.width, window.outerWidth || window.screen.width);
+  const visibleWidth = window.visualViewport
+    ? window.visualViewport.width * window.visualViewport.scale
+    : window.screen.width;
+  const deviceWidth = Math.min(window.screen.width, window.outerWidth || window.screen.width, visibleWidth);
   return mobileAppScale(window.innerWidth, deviceWidth, navigator.maxTouchPoints);
 }
 const serverViewport = () => 1;
