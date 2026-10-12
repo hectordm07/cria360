@@ -1,0 +1,50 @@
+.cria-checkout {background:linear-gradient(135deg,#f1f6f1 0%,#fcfaf6 55%,#edf3ef 100%);padding:42px 18px 90px;color:#183a30;min-height:75vh}
+.cria-checkout *{box-sizing:border-box}
+.cria-checkout-shell{max-width:1090px;margin:0 auto}
+.cria-checkout-back{display:inline-flex;align-items:center;gap:7px;color:#476158;font-size:13px;font-weight:750;text-decoration:none;margin-bottom:25px}
+.cria-checkout-heading{max-width:690px;margin-bottom:30px}
+.cria-checkout-eyebrow{display:inline-flex;align-items:center;gap:7px;color:#57836a;font-size:11px;font-weight:850;letter-spacing:.075em;text-transform:uppercase}
+.cria-checkout-heading h1{font-family:var(--font-nunito-sans),sans-serif;font-weight:850;font-size:clamp(29px,4vw,44px);letter-spacing:-.045em;line-height:1.1;margin:10px 0}
+.cria-checkout-heading p{font-size:15px;line-height:1.6;color:#62736b}
+.cria-checkout-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:24px;align-items:start}
+.cria-checkout-panel,.cria-checkout-summary{background:#fff;border:1px solid #dde7dc;border-radius:20px;padding:29px;box-shadow:0 15px 45px rgba(28,54,39,.05);min-width:0}
+.cria-checkout-section-title{display:flex;gap:12px;align-items:flex-start;margin-bottom:17px}
+.cria-checkout-number{flex:0 0 30px;width:30px;height:30px;display:grid;place-items:center;background:#e3efdb;color:#326342;border-radius:50%;font-size:13px;font-weight:900}
+.cria-checkout-section-title h2{font-size:19px;line-height:1.2;letter-spacing:-.025em;margin:2px 0 5px;color:#1d4235}
+.cria-checkout-section-title p{margin:0;color:#64736c;font-size:12px}
+.cria-checkout-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 30px}
+.cria-checkout-option{background:#fff;color:#1c4034;min-height:96px;border:1px solid #d9e4d9;border-radius:14px;padding:17px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;cursor:pointer;text-align:left;font:inherit}
+.cria-checkout-option.selected{background:#f2f8ed;border:2px solid #598b50;padding:16px}
+.cria-checkout-option span{display:grid;gap:7px}.cria-checkout-option strong{font-size:16px}.cria-checkout-option small{font-size:11px;color:#6a7b6f}
+.cria-checkout-option svg{color:#6d9971;flex-shrink:0}
+.cria-checkout-frequency{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:27px}
+.cria-checkout-frequency button{min-height:49px;padding:10px 6px;border:1px solid #d7e1d7;border-radius:11px;background:#fff;color:#244536;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.cria-checkout-frequency button.selected{border:2px solid #578753;background:#edf5e7}
+.cria-checkout-frequency span{color:#477b39;font-size:10px;margin-left:4px}
+.cria-checkout-benefits{border-top:1px solid #e7ece5;padding-top:20px}
+.cria-checkout-benefits h3{font-size:14px;margin-bottom:12px}
+.cria-checkout-benefits ul{list-style:none;padding:0;margin:0;display:grid;gap:11px}
+.cria-checkout-benefits li{display:flex;align-items:center;gap:9px;color:#576b5f;font-size:13px}
+.cria-checkout-benefits svg{color:#4e9a5e;flex-shrink:0}
+.cria-checkout-summary{position:sticky;top:92px}
+.cria-checkout-summary h2{font-size:29px;letter-spacing:-.035em;margin:10px 0 4px}
+.cria-checkout-summary>p{color:#63726b;font-size:12px;line-height:1.55}
+.cria-checkout-line{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid #ebefec;font-size:12px;color:#627368}
+.cria-checkout-line strong{color:#274939}
+.cria-checkout-line.discount strong{color:#337b40}
+.cria-checkout-total{padding:19px 0 13px;display:flex;gap:5px;align-items:baseline;flex-wrap:wrap}
+.cria-checkout-total span{flex-basis:100%;font-size:12px;font-weight:800;color:#4e6155}
+.cria-checkout-total strong{font-size:34px;font-weight:900;letter-spacing:-.04em;color:#173f35}
+.cria-checkout-total small{font-size:12px;color:#64736c}
+.cria-checkout-currency{display:flex;align-items:center;gap:7px;font-size:11px;color:#586a60;margin-bottom:17px}
+.cria-checkout-pay{display:flex;align-items:center;justify-content:center;gap:12px;min-height:53px;background:#1d644f;color:white!important;border-radius:12px;text-align:center;padding:13px 15px;text-decoration:none!important;font-size:14px;font-weight:850}
+.cria-checkout-pay:hover{background:#164b3b}
+.cria-checkout-note{display:flex;align-items:flex-start;gap:8px;font-size:11px!important;line-height:1.5!important;color:#63786c!important;margin:14px 0!important}
+.cria-checkout-note svg{flex-shrink:0;color:#527e62}
+.cria-checkout-activation{background:#f2f6ee;border:1px solid #dce9d7;border-radius:12px;padding:13px 14px;margin-top:20px}
+.cria-checkout-activation strong{display:flex;align-items:center;gap:6px;font-size:12px;color:#2b5c3e}
+.cria-checkout-activation p{font-size:11px;color:#536c5c;line-height:1.55;margin:9px 0}
+.cria-checkout-activation a{color:#225c45;font-size:12px;font-weight:850}
+.cria-checkout-terms{font-size:10px!important;margin-top:17px!important}
+@media(max-width:800px){.cria-checkout-grid{grid-template-columns:1fr}.cria-checkout-summary{position:static}}
+@media(max-width:550px){.cria-checkout{padding:21px 12px 65px}.cria-checkout-heading{margin-bottom:19px}.cria-checkout-heading p{font-size:13px}.cria-checkout-panel,.cria-checkout-summary{padding:17px;border-radius:15px}.cria-checkout-grid{gap:14px}.cria-checkout-options{gap:8px}.cria-checkout-option{padding:12px;min-height:83px}.cria-checkout-option.selected{padding:11px}.cria-checkout-option strong{font-size:14px}.cria-checkout-option small{font-size:10px}.cria-checkout-frequency span{display:block;margin:2px 0 0}.cria-checkout-frequency button{font-size:12px}.cria-checkout-heading h1{font-size:30px}}
