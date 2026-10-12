@@ -9,6 +9,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: { serverActions: { bodySizeLimit: "26mb" } },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,
@@ -45,4 +46,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
 

@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { canManageAccount } from "@/lib/trial-server";
+import { parseAnimalFields } from "@/lib/animal-form-data";
+import { inventoryType } from "@/lib/inventory-data";
 
 function text(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
@@ -24,15 +26,9 @@ export async function createAnimal(formData: FormData) {
     .single();
   if (!breeder) redirect("/registro");
 
-  const name = text(formData, "name");
-  const species = text(formData, "species");
-  if (!name || !species) redirect("/cuenta/animales/nuevo?error=campos");
-
-  const numberOrNull = (key: string) => {
-    const raw = text(formData, key);
-    return raw ? Number(raw) : null;
-  };
-  const nullable = (key: string) => text(formData, key) || null;
+  const parsed = parseAnimalFields(formData);
+  if (!parsed.fields) redirect("/cuenta/animales/nuevo?error=campos");
+  const { species } = parsed.fields;
 
   const photos = formData.getAll("photos").filter((value): value is File => value instanceof File && value.size > 0);
   if (photos.length > 5 || photos.some((photo) => photo.size > 5 * 1024 * 1024 || !["image/jpeg", "image/png", "image/webp"].includes(photo.type))) {
@@ -41,7 +37,7 @@ export async function createAnimal(formData: FormData) {
   const uploadedPaths: string[] = [];
   const imageUrls: string[] = [];
   for (const photo of photos) {
-    const extension = photo.name.split(".").pop()?.toLowerCase() || "jpg";
+    const extension = ({ "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" } as Record<string,string>)[photo.type];
     const path = `${user.id}/${crypto.randomUUID()}.${extension}`;
     const { error: uploadError } = await supabase.storage.from("animal-photos").upload(path, photo, { cacheControl: "3600", upsert: false });
     if (uploadError) {
@@ -55,22 +51,7 @@ export async function createAnimal(formData: FormData) {
   const { error } = await supabase.from("animals").insert({
     owner_id: user.id,
     breeder_id: breeder.id,
-    name,
-    species,
-    breed: nullable("breed"),
-    sex: text(formData, "sex") || "sin_especificar",
-    birth_date: nullable("birth_date"),
-    color: nullable("color"),
-    weight_kg: numberOrNull("weight_kg"),
-    identification: nullable("identification"),
-    plate_code: nullable("plate_code"),
-    father_name: nullable("father_name"),
-    mother_name: nullable("mother_name"),
-    health_status: nullable("health_status"),
-    description: nullable("description"),
-    price_pen: numberOrNull("price_pen"),
-    inventory_status: text(formData, "inventory_status") || "activo",
-    publication_status: text(formData, "publication_status") || "borrador",
+    ...parsed.fields,
     image_urls: imageUrls,
   });
 
@@ -80,10 +61,11 @@ export async function createAnimal(formData: FormData) {
     if (error.message.includes("plan_limit")) redirect("/cuenta/animales/nuevo?error=limite");
     redirect("/cuenta/animales/nuevo?error=guardar");
   }
-  revalidatePath("/cuenta");
-  revalidatePath("/cuenta/animales");
+  revalidatePath("/cuenta", "layout");
   revalidatePath("/marketplace");
-  redirect("/cuenta/animales?created=1");
+  revalidatePath("/animales", "layout");
+  revalidatePath("/criaderos", "layout");
+  redirect(`/cuenta/animales?tipo=${encodeURIComponent(inventoryType(species).key)}&created=1`);
 }
 
 
@@ -112,9 +94,55 @@ export async function exitAnimal(formData: FormData) {
 
   if (error) redirect("/cuenta/escanear?error=salida");
 
-  revalidatePath("/cuenta");
-  revalidatePath("/cuenta/animales");
+  revalidatePath("/cuenta", "layout");
   revalidatePath("/marketplace");
+  revalidatePath("/animales", "layout");
+  revalidatePath("/criaderos", "layout");
   redirect(`/cuenta/escanear?exit=1${returnCode ? `&code=${encodeURIComponent(returnCode)}` : ""}`);
 }
 
+
+export async function updateAnimal(_state: { error: string }, form: FormData) {
+  const client = await createClient();
+  const { data: auth } = await client.auth.getUser();
+  if (!auth.user) return { error: "Tu sesión terminó. Vuelve a ingresar." };
+  const userId = auth.user.id;
+  if (!(await canManageAccount(client, userId))) return { error: "Tu prueba terminó. Revisa los planes para continuar editando." };
+  const id = text(form,"animal_id");
+  const { data: current, error: readError } = await client.from("animals").select("id,species,image_urls,updated_at").eq("id",id).eq("owner_id",userId).maybeSingle();
+  if (readError || !current) return { error: "No pudimos encontrar tu animal." };
+  if (current.updated_at !== text(form,"updated_at")) return { error: "La ficha cambió. Recarga la página antes de editar." };
+  const parsed = parseAnimalFields(form,current.species);
+  if (!parsed.fields) return { error: parsed.error! };
+  const removed = new Set(form.getAll("remove_photos").map(String));
+  const retained: string[] = (current.image_urls ?? []).filter((url: string) => !removed.has(url));
+  const photos = form.getAll("photos").filter((value): value is File => value instanceof File && value.size > 0);
+  if (retained.length + photos.length > 5 || photos.some(p => p.size > 5*1024*1024 || !["image/jpeg","image/png","image/webp"].includes(p.type))) return { error: "Usa hasta 5 fotos JPG, PNG o WebP, de máximo 5 MB cada una." };
+  const paths: string[] = []; const urls: string[] = [];
+  for (const photo of photos) {
+    const extension = ({"image/jpeg":"jpg","image/png":"png","image/webp":"webp"} as Record<string,string>)[photo.type];
+    const path = `${userId}/${crypto.randomUUID()}.${extension}`;
+    const { error } = await client.storage.from("animal-photos").upload(path,photo,{upsert:false});
+    if (error) { if (paths.length) await client.storage.from("animal-photos").remove(paths); return { error: "No pudimos subir las fotos. Inténtalo nuevamente." }; }
+    paths.push(path); urls.push(client.storage.from("animal-photos").getPublicUrl(path).data.publicUrl);
+  }
+  const { data: saved, error } = await client.from("animals").update({...parsed.fields,image_urls:[...retained,...urls]}).eq("id",id).eq("owner_id",userId).eq("updated_at",current.updated_at).select("id").maybeSingle();
+  if (error || !saved) {
+    if (paths.length) await client.storage.from("animal-photos").remove(paths);
+    return { error: error?.message.includes("plan_limit") ? "Alcanzaste el límite de tu plan." : "No pudimos guardar. Recarga la ficha y vuelve a intentarlo." };
+  }
+  revalidatePath("/cuenta", "layout"); revalidatePath("/marketplace"); revalidatePath("/animales", "layout"); revalidatePath("/criaderos", "layout");
+  redirect(`/cuenta/animales?tipo=${encodeURIComponent(inventoryType(parsed.fields.species).key)}&updated=1`);
+}
+
+export async function deleteAnimal(_state: { error: string }, form: FormData) {
+  const client = await createClient();
+  const { data: auth } = await client.auth.getUser();
+  if (!auth.user) return { error: "Tu sesión terminó. Vuelve a ingresar." };
+  if (text(form,"confirm") !== "eliminar") return { error: "Confirma la eliminación." };
+  const id = text(form,"animal_id");
+  const { data: animal, error } = await client.from("animals").delete().eq("id",id).eq("owner_id",auth.user.id).select("species").maybeSingle();
+  if (error || !animal) return { error: "No pudimos eliminar tu animal. Recarga la lista y vuelve a intentarlo." };
+  revalidatePath("/cuenta", "layout"); revalidatePath("/marketplace"); revalidatePath("/animales", "layout"); revalidatePath("/criaderos", "layout");
+  redirect(`/cuenta/animales?tipo=${encodeURIComponent(inventoryType(animal.species).key)}&deleted=1`);
+}

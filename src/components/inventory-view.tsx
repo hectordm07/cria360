@@ -1,38 +1,18 @@
 "use client";
-
-import { useMemo, useState } from "react";
-import { inventoryGroups, inventoryType, type InventoryAnimal } from "@/lib/inventory-data";
-import { integer, pen } from "@/lib/dashboard-data";
+import Link from "next/link";
+import { useMemo,useState } from "react";
+import { inventoryGroups,inventoryType,type InventoryAnimal } from "@/lib/inventory-data";
+import { getCategory } from "@/lib/category-data";
+import { integer,pen } from "@/lib/dashboard-data";
 import { AnimalPhoto } from "./animal-photo";
-
-const statuses: Record<string, string> = { activo: "Activo", reservado: "Reservado", vendido: "Vendido", transferido: "Transferido", fallecido: "Fallecido", publicado: "Publicado", borrador: "Borrador", pausado: "Pausado" };
-const sexes: Record<string, string> = { macho: "Macho", hembra: "Hembra", sin_especificar: "Sexo sin especificar" };
-
-export function InventoryView({ animals }: { animals: InventoryAnimal[] }) {
-  const [selected, setSelected] = useState<string | null>(null);
-  const [visible, setVisible] = useState(20);
-  const groups = useMemo(() => inventoryGroups(animals), [animals]);
-  const filtered = useMemo(() => selected ? animals.filter(animal => inventoryType(animal.species).key === selected) : animals, [animals, selected]);
-  const label = groups.find(group => group.key === selected)?.label ?? "Todos los animales";
-
-  function selectType(key: string | null) {
-    setSelected(key);
-    setVisible(20);
-  }
-
-  return <>
-    <section className="inventory-types" aria-labelledby="inventory-types-title">
-      <div className="inventory-section-heading"><div><h2 id="inventory-types-title">Tu inventario por tipo de animal</h2><p>Selecciona una tarjeta para ver sus ejemplares.</p></div><button className="inventory-all-filter" type="button" aria-pressed={selected === null} onClick={() => selectType(null)}>Todos · {integer.format(animals.length)}</button></div>
-      <div className="inventory-type-grid">{groups.map(group => <button key={group.key} type="button" className={`inventory-type-card tone-${group.tone}`} aria-pressed={selected === group.key} aria-controls="inventory-results" onClick={() => selectType(group.key)}>
-        <span className="inventory-type-photo"><AnimalPhoto src={group.image} alt={group.imageAlt} sizes="(max-width: 359px) 75vw, (max-width: 600px) 40vw, 280px" /><span className="inventory-type-selected" aria-hidden="true">{selected === group.key ? "✓" : "↗"}</span></span>
-        <span className="inventory-type-label">{group.label}</span><span className="inventory-type-total">{integer.format(group.total)} <span>{group.total === 1 ? "ejemplar" : "ejemplares"}</span></span>
-        <span className="inventory-type-states"><span>{integer.format(group.active)} {group.active === 1 ? "activo" : "activos"}</span><span>{integer.format(group.reserved)} {group.reserved === 1 ? "reservado" : "reservados"}</span></span>
-      </button>)}</div>
-    </section>
-    <section id="inventory-results" className="inventory-results" aria-labelledby="inventory-results-title">
-      <div className="inventory-section-heading"><h2 id="inventory-results-title">{label}</h2><p role="status" aria-live="polite">{integer.format(filtered.length)} {filtered.length === 1 ? "ejemplar registrado" : "ejemplares registrados"}</p></div>
-      <div className="inventory-list">{filtered.slice(0, visible).map(animal => <article key={animal.id}><div><span className="inventory-code">{animal.public_code}</span><h3>{animal.name}</h3><p>{[animal.species, animal.breed, sexes[animal.sex] ?? animal.sex].filter(Boolean).join(" · ")}</p></div><div className="inventory-badges"><span>{statuses[animal.inventory_status] ?? animal.inventory_status}</span><span className={animal.publication_status === "publicado" ? "is-public" : ""}>{statuses[animal.publication_status] ?? animal.publication_status}</span></div><strong>{animal.price_pen == null ? "Sin precio" : pen.format(Number(animal.price_pen))}</strong></article>)}</div>
-      {filtered.length > visible && <button className="button button-secondary inventory-show-more" type="button" onClick={() => setVisible(count => count + 20)}>Mostrar más animales</button>}
-    </section>
-  </>;
+import { AnimalActions } from "./animal-actions";
+const statuses: Record<string,string>={activo:"Activo",reservado:"Reservado",vendido:"Vendido",transferido:"Transferido",fallecido:"Fallecido",publicado:"Publicado",borrador:"Borrador",pausado:"Pausado"};
+const sexes: Record<string,string>={macho:"Macho",hembra:"Hembra",sin_especificar:"Sin especificar"};
+export function InventoryView({animals,selectedType,preview=false,basePath="/cuenta/animales"}: {animals:InventoryAnimal[];selectedType?:string;preview?:boolean;basePath?:string}) {
+ const [visible,setVisible]=useState(20); const groups=useMemo(()=>inventoryGroups(animals),[animals]);
+ const filtered=useMemo(()=>animals.filter(a=>inventoryType(a.species).key===selectedType),[animals,selectedType]);
+ const separator=basePath.includes("?") ? "&" : "?";
+ if (!selectedType) return <section className="inventory-types" aria-labelledby="inventory-types-title"><div className="inventory-section-heading"><div><h2 id="inventory-types-title">Carpetas de animales</h2><p>Abre una carpeta para consultar sus ejemplares.</p></div></div><div className="inventory-type-grid">{groups.map(group=><Link key={group.key} className={`inventory-type-card tone-${group.tone}`} href={`${basePath}${separator}tipo=${encodeURIComponent(group.key)}`}><span className="inventory-type-photo"><AnimalPhoto src={group.image} alt={group.imageAlt} sizes="(max-width:600px) 45vw,280px"/><span className="inventory-type-selected" aria-hidden="true">↗</span></span><span className="inventory-type-label">{group.label}</span><span className="inventory-type-total">{integer.format(group.total)} <span>{group.total===1 ? "ejemplar" : "ejemplares"}</span></span><span className="inventory-type-states"><span>{group.active} activos</span><span>{group.reserved} reservados</span></span></Link>)}</div></section>;
+ const label=groups.find(g=>g.key===selectedType)?.label ?? getCategory(selectedType)?.shortName ?? "Carpeta de animales";
+ return <section className="inventory-results"><Link className="animal-back" href={basePath}>← Volver a carpetas</Link><div className="inventory-section-heading"><div><h2>{label}</h2><p>{filtered.length} {filtered.length===1 ? "ejemplar" : "ejemplares"}</p></div>{!preview && <Link className="inventory-add-link" href={`/cuenta/animales/nuevo?tipo=${encodeURIComponent(selectedType)}`}>+ Añadir</Link>}</div>{!filtered.length ? <p className="empty-inventory">Esta carpeta no tiene animales registrados.</p> : <ul className="animal-rows">{filtered.slice(0,visible).map(animal=><li key={animal.id}><span className="animal-row-photo"><AnimalPhoto src={animal.image_urls?.[0] ?? inventoryType(animal.species).image} alt={animal.name} sizes="64px"/></span><div className="animal-row-info"><h3>{animal.name}</h3><p>{[animal.breed,sexes[animal.sex] ?? animal.sex].filter(Boolean).join(" · ")}</p><span className="animal-row-code">{animal.public_code}</span><div className="animal-row-meta"><span>{statuses[animal.inventory_status] ?? animal.inventory_status}</span><span>{statuses[animal.publication_status] ?? animal.publication_status}</span><strong>{animal.price_pen==null ? "Sin precio" : pen.format(Number(animal.price_pen))}</strong></div></div><AnimalActions id={animal.id} name={animal.name} preview={preview}/></li>)}</ul>}{filtered.length>visible && <button className="button button-secondary inventory-show-more" type="button" onClick={()=>setVisible(n=>n+20)}>Mostrar más</button>}</section>;
 }

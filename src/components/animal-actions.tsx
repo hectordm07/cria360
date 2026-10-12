@@ -1,0 +1,10 @@
+"use client";
+import Link from "next/link";
+import { useActionState,useId,useRef,useState } from "react";
+import { deleteAnimal } from "@/app/cuenta/animales/actions";
+export function AnimalActions({id,name,preview=false}: {id:string;name:string;preview?:boolean}) {
+ const titleId=useId(); const dialog=useRef<HTMLDialogElement>(null); const [confirm,setConfirm]=useState(false);
+ const [state,action,pending]=useActionState(deleteAnimal,{error:""});
+ function open(){setConfirm(false);dialog.current?.showModal();}
+ return <><button type="button" className="animal-action-trigger" aria-label={`Acciones de ${name}`} onClick={open}>⋮</button><dialog ref={dialog} className="animal-action-dialog" aria-labelledby={titleId}><div className="animal-action-heading"><h2 id={titleId}>{confirm ? "¿Eliminar animal?" : "Acciones del animal"}</h2><button type="button" aria-label="Cerrar acciones" onClick={()=>dialog.current?.close()} disabled={pending}>×</button></div><p className="animal-action-name">{name}</p>{!confirm ? <div className="animal-action-options">{preview ? <p>Vista de ejemplo · La edición se realiza desde tu cuenta.</p> : <Link href={`/cuenta/animales/${id}/editar`}>Editar ficha <span aria-hidden="true">→</span></Link>}<button type="button" className="animal-delete-choice" onClick={()=>setConfirm(true)}>Eliminar animal</button></div> : <><p>Se eliminarán la ficha, su publicación y el historial de salidas. Los movimientos financieros se conservarán. Esta acción no se puede deshacer.</p><form action={preview ? undefined : action} onSubmit={preview ? event=>event.preventDefault() : undefined}><input type="hidden" name="animal_id" value={id}/><input type="hidden" name="confirm" value="eliminar"/>{state.error && <p role="alert" className="form-error">{state.error}</p>}{preview && <p>Vista de ejemplo · No se eliminarán datos.</p>}<div className="animal-confirm-buttons"><button type="button" onClick={()=>dialog.current?.close()} disabled={pending}>Cancelar</button><button className="animal-delete-choice" type="submit" disabled={pending || preview}>{pending ? "Eliminando…" : "Sí, eliminar"}</button></div></form></>}</dialog></>;
+}
