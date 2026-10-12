@@ -1,5 +1,6 @@
 /* Account scale is corrected only when a touch phone reports a desktop viewport. */
 .app-experience > main, .app-experience .account-app-shell { min-height: calc(100dvh / var(--app-viewport-scale, 1)); }
+.app-experience .auth-page, .app-experience .standalone-launch { min-height: calc(100svh / var(--app-viewport-scale, 1)); }
 .app-experience .account-sidebar { height: calc(100dvh / var(--app-viewport-scale, 1)); min-height: 0; }
 .app-experience .account-mobile-brand strong { font-size: 17px; }
 .app-experience .account-mobile-brand small { font-size: 12px; }

@@ -1,4 +1,4 @@
-const CACHE_NAME = "cria360-shell-v14-phone-scale";
+const CACHE_NAME = "cria360-shell-v15-phone-height";
 const APP_SHELL = [
   "/offline",
   "/icons/granja-conectada-192.png",
