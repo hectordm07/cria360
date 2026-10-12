@@ -30,7 +30,7 @@ const questions = [
   {question:"¿Puedo usar CRIA360 desde otro país?",answer:"Puedes acceder a la app por internet desde Latinoamérica. Los precios de planes y placas se adaptan a la moneda del país detectado. Puedes elegir otro país; las conversiones son referenciales. La entrega de placas físicas y las condiciones de pago se confirman con soporte según el país."},
   {question:"¿Cómo funciona la edición de animales?",answer:"Entra en la carpeta de la especie y toca el animal en la lista. Se abrirá su ficha para editarla. La eliminación se encuentra dentro de la ficha y pide confirmación."},
   {question:"¿Qué sucede al terminar los 30 días?",answer:"Puedes consultar y descargar tus datos. Para seguir registrando o editando, elige un plan de pago. Tu información no desaparece al terminar la prueba."},
-  {question:"¿Cómo se paga un plan?",answer:"Por ahora, solicítalo al equipo de CRIA360. Soporte confirma el importe, las condiciones y la activación. No hay cobros automáticos. El plan anual tiene el equivalente a dos meses de descuento."},
+  {question:"¿Cómo se paga un plan?",answer:"Selecciona Granja o Granja Pro, revisa el importe y continúa a Mercado Pago para autorizar el cobro recurrente mensual o anual. La activación de las funciones de pago en CRIA360 todavía se verifica con soporte. La prueba gratuita de 30 días no requiere tarjeta ni genera cobros automáticos. El plan anual tiene aproximadamente 20% de descuento."},
 ];
 export default function Home() {
   const siteUrl=process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app";
