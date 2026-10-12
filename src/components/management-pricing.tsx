@@ -7,6 +7,10 @@ import { PriceRegionSelector, RegionalPriceNote, useRegionalPricing } from "@/co
 import { formatPrice, roundPrice } from "@/lib/commercial-pricing";
 
 type Billing = "monthly" | "annual";
+const peruCheckoutLinks = {
+  granja: { monthly: "https://mpago.la/2kYixKC", annual: "https://mpago.la/2AbaeZ7" },
+  pro: { monthly: "https://mpago.la/1Mrerfo", annual: "https://mpago.la/2PNwRAx" },
+} as const;
 
 const plans = [
   {
@@ -63,7 +67,8 @@ const plans = [
 
 export function ManagementPricing() {
   const [billing, setBilling] = useState<Billing>("annual");
-  const { quote } = useRegionalPricing();
+  const { quote, loading } = useRegionalPricing();
+  const peruCheckoutReady = !loading && quote.country === "PE" && quote.currency === "PEN";
   const money = (value: number) => formatPrice(value, quote.currency, quote.country);
 
   return (
@@ -84,6 +89,10 @@ export function ManagementPricing() {
           const annualEquivalent = roundPrice(annual / 12, quote.currency);
           const annualSaving = roundPrice(monthly * 12 - annual, quote.currency);
           const price = billing === "annual" ? annual : monthly;
+          const checkoutUrl = plan.popular ? peruCheckoutLinks.granja[billing] : peruCheckoutLinks.pro[billing];
+          const paymentLink = !isFree && peruCheckoutReady;
+          const destination = isFree ? "/registro" : paymentLink ? checkoutUrl : "/cuenta/soporte";
+          const buttonText = isFree ? plan.cta : paymentLink ? "Suscribirme con Mercado Pago" : plan.cta;
 
           return (
             <article className={plan.popular ? "popular" : ""} key={plan.name}>
@@ -107,15 +116,16 @@ export function ManagementPricing() {
               )}
 
               <ul>{plan.features.map((feature) => <li key={feature}><Icon name="check" size={16} />{feature}</li>)}</ul>
-              <Link className={`button ${plan.popular ? "button-gold" : "button-outline-light"}`} href={isFree ? "/registro" : "/cuenta/soporte"} data-analytics-cta={`plan-${plan.name.toLowerCase().replace(/\s+/g,"-")}-${billing}`}>
-                {plan.cta}
+              <Link className={`button ${plan.popular ? "button-gold" : "button-outline-light"}`} href={destination} target={paymentLink ? "_blank" : undefined} rel={paymentLink ? "noopener noreferrer" : undefined} data-analytics-cta={`plan-${plan.name.toLowerCase().replace(/\s+/g,"-")}-${billing}`}>
+                {buttonText}
               </Link>
+              {paymentLink && <span className="billing-detail">Pago recurrente en soles. La activación de la cuenta requiere verificar el pago con soporte.</span>}
             </article>
           );
         })}
       </div>
       <RegionalPriceNote />
-      <p className="pricing-note">Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 20% de ahorro. Las placas físicas se adquieren por separado.</p>
+      <p className="pricing-note">En Perú, los enlaces de Mercado Pago permiten contratar cobros recurrentes. La activación del acceso de pago en CRIA360 requiere validación con soporte y aún no es automática. Fuera de Perú, consulta medios de pago disponibles. El pago anual incluye aproximadamente 20% de ahorro. Las placas se venden por separado.</p>
     </>
   );
 }
