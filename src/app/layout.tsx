@@ -9,6 +9,7 @@ import { AppExperience } from "@/components/app-experience";
 import { SiteAnalytics } from "@/components/site-analytics";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { RegionalPricingProvider } from "@/components/regional-pricing";
 import { getPublicSiteSettings } from "@/lib/site-settings";
 import "./globals.css";
 import "./design-system.css";
@@ -97,6 +98,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es" className={`${appSans.variable} ${geistSans.variable} ${geistMono.variable} ${editorialSerif.variable}`}>
       <body>
         <PwaInstallProvider>
+        <RegionalPricingProvider>
         <AppExperience>
         <a className="skip-link" href="#main-content">Ir al contenido</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replace(/</g, "\\u003c") }} />
@@ -109,6 +111,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <SiteAnalytics />
         <PwaRegister />
         </AppExperience>
+        </RegionalPricingProvider>
         </PwaInstallProvider>
       </body>
     </html>

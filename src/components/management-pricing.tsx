@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Icon } from "@/components/icon";
+import { PriceRegionSelector, RegionalPriceNote, useRegionalPricing } from "@/components/regional-pricing";
+import { formatPrice, roundPrice } from "@/lib/commercial-pricing";
 
 type Billing = "monthly" | "annual";
 
@@ -59,15 +61,14 @@ const plans = [
   },
 ];
 
-function money(value: number) {
-  return value.toLocaleString("es-PE", { minimumFractionDigits: value % 1 ? 2 : 0, maximumFractionDigits: 2 });
-}
-
 export function ManagementPricing() {
   const [billing, setBilling] = useState<Billing>("annual");
+  const { quote } = useRegionalPricing();
+  const money = (value: number) => formatPrice(value, quote.currency, quote.country);
 
   return (
     <>
+      <PriceRegionSelector />
       <div className="billing-toggle" role="group" aria-label="Frecuencia de pago">
         <button type="button" aria-pressed={billing === "monthly"} className={billing === "monthly" ? "active" : ""} onClick={() => setBilling("monthly")}>Mensual</button>
         <button type="button" aria-pressed={billing === "annual"} className={billing === "annual" ? "active" : ""} onClick={() => setBilling("annual")}>
@@ -78,9 +79,11 @@ export function ManagementPricing() {
       <div className="management-plan-grid">
         {plans.map((plan) => {
           const isFree = plan.monthly === 0;
-          const annualEquivalent = plan.annual ? plan.annual / 12 : 0;
-          const annualSaving = plan.monthly * 12 - plan.annual;
-          const price = billing === "annual" ? plan.annual : plan.monthly;
+          const monthly = isFree ? 0 : quote.prices[plan.popular ? "granjaMonthly" : "proMonthly"];
+          const annual = isFree ? 0 : quote.prices[plan.popular ? "granjaAnnual" : "proAnnual"];
+          const annualEquivalent = roundPrice(annual / 12, quote.currency);
+          const annualSaving = roundPrice(monthly * 12 - annual, quote.currency);
+          const price = billing === "annual" ? annual : monthly;
 
           return (
             <article className={plan.popular ? "popular" : ""} key={plan.name}>
@@ -92,14 +95,14 @@ export function ManagementPricing() {
                 <><strong className="management-price">Gratis<em> / 30 días</em></strong><span className="billing-detail">Desde tu primer registro de correo. Sin tarjeta ni renovación automática.</span></>
               ) : billing === "monthly" ? (
                 <>
-                  <strong className="management-price">US$ {money(price)}<em> / mes</em></strong>
+                  <strong className="management-price">{money(price)}<em> / mes</em></strong>
                   <span className="billing-detail">Pago mensual. Cambia de plan al siguiente periodo.</span>
                 </>
               ) : (
                 <>
-                  <strong className="management-price">US$ {money(price)}<em> / año</em></strong>
-                  <span className="annual-equivalent">Equivale a US$ {money(annualEquivalent)} / mes</span>
-                  <span className="annual-saving">Oferta anual: ahorras US$ {money(annualSaving)} · pagas 10 meses y usas 12</span>
+                  <strong className="management-price">{money(price)}<em> / año</em></strong>
+                  <span className="annual-equivalent">Equivale a {money(annualEquivalent)} / mes</span>
+                  <span className="annual-saving">Oferta anual: ahorras {money(annualSaving)} · pagas 10 meses y usas 12</span>
                 </>
               )}
 
@@ -111,7 +114,8 @@ export function ManagementPricing() {
           );
         })}
       </div>
-      <p className="pricing-note">Precios en dólares estadounidenses (USD) para Latinoamérica. Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
+      <RegionalPriceNote />
+      <p className="pricing-note">Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
     </>
   );
 }
