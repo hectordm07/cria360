@@ -7,11 +7,6 @@ import { PriceRegionSelector, RegionalPriceNote, useRegionalPricing } from "@/co
 import { formatPrice, roundPrice } from "@/lib/commercial-pricing";
 
 type Billing = "monthly" | "annual";
-const peruCheckoutLinks = {
-  granja: { monthly: "https://mpago.la/2kYixKC", annual: "https://mpago.la/2AbaeZ7" },
-  pro: { monthly: "https://mpago.la/1Mrerfo", annual: "https://mpago.la/2PNwRAx" },
-} as const;
-
 const plans = [
   {
     name: "Inicial",
@@ -89,10 +84,9 @@ export function ManagementPricing() {
           const annualEquivalent = roundPrice(annual / 12, quote.currency);
           const annualSaving = roundPrice(monthly * 12 - annual, quote.currency);
           const price = billing === "annual" ? annual : monthly;
-          const checkoutUrl = plan.popular ? peruCheckoutLinks.granja[billing] : peruCheckoutLinks.pro[billing];
           const paymentLink = !isFree && peruCheckoutReady;
-          const destination = isFree ? "/registro" : paymentLink ? checkoutUrl : "/cuenta/soporte";
-          const buttonText = isFree ? plan.cta : paymentLink ? "Suscribirme con Mercado Pago" : plan.cta;
+          const destination = isFree ? "/registro" : paymentLink ? `/checkout?plan=${plan.popular ? "granja" : "pro"}&periodo=${billing === "annual" ? "anual" : "mensual"}` : "/cuenta/soporte";
+          const buttonText = isFree ? plan.cta : paymentLink ? "Elegir plan y continuar" : plan.cta;
 
           return (
             <article className={plan.popular ? "popular" : ""} key={plan.name}>
@@ -116,10 +110,10 @@ export function ManagementPricing() {
               )}
 
               <ul>{plan.features.map((feature) => <li key={feature}><Icon name="check" size={16} />{feature}</li>)}</ul>
-              <Link className={`button ${plan.popular ? "button-gold" : "button-outline-light"}`} href={destination} target={paymentLink ? "_blank" : undefined} rel={paymentLink ? "noopener noreferrer" : undefined} data-analytics-cta={`plan-${plan.name.toLowerCase().replace(/\s+/g,"-")}-${billing}`}>
+              <Link className={`button ${plan.popular ? "button-gold" : "button-outline-light"}`} href={destination} data-analytics-cta={`plan-${plan.name.toLowerCase().replace(/\s+/g,"-")}-${billing}`}>
                 {buttonText}
               </Link>
-              {paymentLink && <span className="billing-detail">Pago recurrente en soles. La activación de la cuenta requiere verificar el pago con soporte.</span>}
+              {paymentLink && <span className="billing-detail">Revisa tu compra en el checkout seguro de CRIA360 antes de continuar a Mercado Pago.</span>}
             </article>
           );
         })}
