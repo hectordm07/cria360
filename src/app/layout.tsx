@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   applicationName: "CRIA360",
   manifest: "/manifest.webmanifest",
   alternates: { canonical: "/" },
-  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : undefined,
+  verification: { google: "2dxRtlcgfZa_dlJvw-VAcxam33rc0Tl_afERUIUe8PU" },
   icons: {
     icon: [
       { url: "/icons/granja-conectada-192.png", sizes: "192x192", type: "image/png" },
