@@ -26,17 +26,17 @@ const plans = [
   {
     name: "Granja",
     note: "Criaderos pequeños y medianos",
-    monthly: 29,
-    annual: 290,
+    monthly: 34.99,
+    annual: 335.90,
     cta: "Solicitar Granja",
     popular: true,
     features: [
-      "Hasta 150 animales",
+      "Hasta 200 animales",
       "Genealogía e historial sanitario",
       "30 publicaciones activas",
       "Ventas, compras y gastos",
       "Escaneo QR / NFC y salidas de inventario",
-      "Carga masiva desde Excel",
+      "Exportación de reportes básicos",
       "Estadísticas y soporte",
       "10% de descuento en placas",
     ],
@@ -44,16 +44,16 @@ const plans = [
   {
     name: "Granja Pro",
     note: "Operación profesional",
-    monthly: 69,
-    annual: 690,
+    monthly: 69.99,
+    annual: 671.90,
     cta: "Solicitar Granja Pro",
     features: [
-      "Hasta 1,000 animales",
+      "Hasta 2,000 animales",
       "Genealogía y salud completas",
       "Publicaciones ilimitadas",
       
       "Reportes y trazabilidad avanzada",
-      "Carga masiva Excel hasta 1,000 animales",
+      "Carga masiva Excel hasta 2,000 animales",
       "Gestión financiera completa",
       "Soporte prioritario",
       "20% de descuento en placas",
@@ -72,7 +72,7 @@ export function ManagementPricing() {
       <div className="billing-toggle" role="group" aria-label="Frecuencia de pago">
         <button type="button" aria-pressed={billing === "monthly"} className={billing === "monthly" ? "active" : ""} onClick={() => setBilling("monthly")}>Mensual</button>
         <button type="button" aria-pressed={billing === "annual"} className={billing === "annual" ? "active" : ""} onClick={() => setBilling("annual")}>
-          Anual <span>2 meses gratis</span>
+          Anual <span>20% de descuento</span>
         </button>
       </div>
 
@@ -102,7 +102,7 @@ export function ManagementPricing() {
                 <>
                   <strong className="management-price">{money(price)}<em> / año</em></strong>
                   <span className="annual-equivalent">Equivale a {money(annualEquivalent)} / mes</span>
-                  <span className="annual-saving">Oferta anual: ahorras {money(annualSaving)} · pagas 10 meses y usas 12</span>
+                  <span className="annual-saving">Oferta anual: ahorras {money(annualSaving)} · 20% de descuento</span>
                 </>
               )}
 
@@ -115,7 +115,7 @@ export function ManagementPricing() {
         })}
       </div>
       <RegionalPriceNote />
-      <p className="pricing-note">Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
+      <p className="pricing-note">Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 20% de ahorro. Las placas físicas se adquieren por separado.</p>
     </>
   );
 }
