@@ -70,8 +70,9 @@ export function quoteForRate(country: string | null, source: PricingQuote["sourc
     const time = Number(feed?.time_last_update_unix)*1000;
     const rate = feed?.rates?.[currency];
     const validRate = feed?.result === "success" && feed?.base_code === "USD" && Number.isFinite(time) && now-time <= 72*3600_000 && time-now <= 3600_000 && Number.isFinite(rate) && Number(rate)>0;
-    const plates = platePrices ?? (validRate ? {plateQr:roundPrice(basePrices.plateQr*Number(rate),currency),plateNfc:roundPrice(basePrices.plateNfc*Number(rate),currency),platePack:roundPrice(basePrices.platePack*Number(rate),currency)} : {plateQr:basePrices.plateQr,plateNfc:basePrices.plateNfc,platePack:basePrices.platePack});
-    // If a plate rate is unavailable, avoid implying that USD numerical prices are in local currency.
+    const plateFallback: Record<string,{plateQr:number;plateNfc:number;platePack:number}> = {PEN:{plateQr:32,plateNfc:53,platePack:265},MXN:{plateQr:180,plateNfc:300,platePack:1500},COP:{plateQr:36000,plateNfc:60000,platePack:300000},CLP:{plateQr:9000,plateNfc:15000,platePack:75000},EUR:{plateQr:9,plateNfc:15,platePack:75}};
+    const plates = platePrices ?? (validRate ? {plateQr:roundPrice(basePrices.plateQr*Number(rate),currency),plateNfc:roundPrice(basePrices.plateNfc*Number(rate),currency),platePack:roundPrice(basePrices.platePack*Number(rate),currency)} : plateFallback[currency]);
+    // Use approximate explicitly configured local plate display estimates when FX rates are unavailable.
     return {country,source,currency,status:"base",updatedAt:null,prices:{...plans,...plates}};
   }
   const fallback: PricingQuote = { country, source, currency: "USD", status: target === "USD" ? "base" : "unavailable", updatedAt: null, prices: { ...basePrices } };
