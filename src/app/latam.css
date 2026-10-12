@@ -155,3 +155,4 @@ body:not(:has(.account-app-shell)) .site-header .header-inner nav.site-navigatio
 @media (prefers-reduced-motion:reduce) {.animal-row-link {transition:none;}}
 
 .latam-pricing .billing-toggle button span {color:#173f35;}
+@media (min-width:901px) {.site-header .site-navigation>a.mobile-menu-account {display:none;}}
