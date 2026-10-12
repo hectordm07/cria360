@@ -8,7 +8,7 @@ import { whatsappLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Bienvenido",
-  description: "Tu criadero en una mini app. Prueba CRIA360 gratis durante 30 días desde tu primer registro.",
+  description: "Tu criadero en una app. Prueba CRIA360 gratis durante 30 días desde tu primer registro.",
   alternates: { canonical: "/ingresar" },
   robots: { index: false, follow: true },
 };

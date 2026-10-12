@@ -5,7 +5,7 @@ import { Icon } from "@/components/icon";
 import { LogoMark } from "@/components/logo-mark";
 
 export const metadata: Metadata = {
-  title: "Instalar la mini app",
+  title: "Instalar la app",
   description: "Añade CRIA360 a la pantalla de inicio de tu Android o iPhone. Tu inventario, ventas y fichas QR desde la web.",
   alternates: { canonical: "/instalar" },
 };
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function InstallPage() {
   return <section className="install-page miniapp-install-page"><div className="section-shell install-grid">
     <div className="install-copy">
-      <span className="eyebrow">CRIA360 · Mini app web</span>
+      <span className="eyebrow">CRIA360 · App web</span>
       <h1>Tu criadero,<br />a un toque.</h1>
       <p>Añade CRIA360 a la pantalla de inicio de tu celular. Entra a tu inventario, registra ventas y gastos y consulta las fichas de tus animales.</p>
       <InstallAppButton />

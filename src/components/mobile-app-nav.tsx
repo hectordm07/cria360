@@ -10,7 +10,7 @@ const items = [
   { href: "/", label: "Inicio", icon: "store" as const },
   { href: "/marketplace", label: "Comprar", icon: "spark" as const },
   { href: "/cuenta", label: "Mi criadero", icon: "health" as const, primary: true },
-  { href: "/instalar", label: "Instalar", icon: "verified" as const },
+  { href: "/instalar", label: "Instalar app", icon: "verified" as const },
 ];
 
 export function MobileAppNav() {
@@ -42,4 +42,5 @@ export function MobileAppNav() {
     </nav>
   );
 }
+
 
