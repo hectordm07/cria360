@@ -13,6 +13,13 @@ export async function updateSiteSettings(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/ingresar");
 
+  const legalRuc = value(formData, "legal_ruc") || null;
+  const legalAddress = value(formData, "legal_address") || null;
+  const complaintsUrl = value(formData, "complaints_url") || null;
+  if ((legalRuc && !/^[0-9]{11}$/.test(legalRuc)) || (legalAddress && legalAddress.length > 250)) redirect("/cuenta/configuracion?error=datos");
+  if (complaintsUrl) {
+    try { const url = new URL(complaintsUrl); if (url.protocol !== "https:" || url.username || url.password) redirect("/cuenta/configuracion?error=datos"); } catch { redirect("/cuenta/configuracion?error=datos"); }
+  }
   const legalName = value(formData, "legal_name");
   const contactEmail = value(formData, "contact_email") || null;
   const whatsappNumber = value(formData, "whatsapp_number").replace(/\D/g, "") || null;
@@ -24,6 +31,9 @@ export async function updateSiteSettings(formData: FormData) {
 
   const { error } = await supabase.from("site_settings").update({
     legal_name: legalName,
+    legal_ruc: legalRuc,
+    legal_address: legalAddress,
+    complaints_url: complaintsUrl,
     contact_email: contactEmail,
     whatsapp_number: whatsappNumber,
     google_business_url: googleBusinessUrl,
@@ -34,3 +44,4 @@ export async function updateSiteSettings(formData: FormData) {
   revalidatePath("/", "layout");
   redirect("/cuenta/configuracion?ok=1");
 }
+

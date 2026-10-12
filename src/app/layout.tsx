@@ -19,6 +19,7 @@ import "./mobile-first.css";
 import "./miniapp.css";
 import "./account-mobile.css";
 import "./account-home.css";
+import "./launch.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
@@ -27,7 +28,7 @@ const editorialSerif = Source_Serif_4({ variable: "--font-editorial", subsets: [
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://cria360.vercel.app"),
   title: { default: "Venta de animales y criaderos en Perú | CRIA360", template: "%s | CRIA360" },
-  description: "Encuentra animales de criaderos en Perú con procedencia, salud y genealogía. Publica gratis y protege cada ejemplar con una placa QR o NFC CRIA360.",
+  description: "Administra tu criadero desde el celular. Inventario, ventas, gastos e identidad QR y NFC. Prueba CRIA360 gratis durante 30 días desde tu primer registro.",
   applicationName: "CRIA360",
   manifest: "/manifest.webmanifest",
   alternates: { canonical: "/" },

@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { type FinanceMovement, type FinanceMonth } from "@/lib/dashboard-data";
 import type { InventoryAnimal } from "@/lib/inventory-data";
+import { dailyFinanceDates } from "@/lib/dashboard-data";
 
 export type StockAnimal = { species: string; inventory_status: string; publication_status: string; view_count: number };
 
@@ -48,3 +49,20 @@ export async function readFinance(client: Awaited<ReturnType<typeof createClient
   }
   return { rows, error: false };
 }
+
+// The home screen needs two days, not two months of transaction history.
+export async function readDailyFinance(client: Awaited<ReturnType<typeof createClient>>, ownerId: string, now = new Date()) {
+  const { today, previousDate } = dailyFinanceDates(now);
+  const rows: FinanceMovement[] = [];
+  for (let offset = 0; ; offset += 1000) {
+    const { data, error } = await client.from("farm_transactions")
+      .select("type,amount_pen,transaction_date,payment_status").eq("owner_id", ownerId)
+      .gte("transaction_date", previousDate).lte("transaction_date", today)
+      .order("id", { ascending: true }).range(offset, offset + 999);
+    if (error) return { rows: [], error: true };
+    rows.push(...(data ?? []) as FinanceMovement[]);
+    if (!data || data.length < 1000) break;
+  }
+  return { rows, error: false };
+}
+

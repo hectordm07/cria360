@@ -1,0 +1,41 @@
+.app-experience .signin-screen { width: 100%; max-width: 640px; min-height: calc(100svh / var(--app-viewport-scale, 1)); margin: 0 auto; background: #f6f8f3; color: #173f35; }
+.signin-intro { padding: max(28px, env(safe-area-inset-top)) 24px 30px; background: radial-gradient(ellipse at 100% 0%, #426749 0, transparent 60%), #173f35; color: #fff; border-radius: 0 0 28px 28px; }
+.signin-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+.signin-brand > svg { width: 44px; height: 44px; padding: 3px; background: #f6f8f3; border-radius: 50%; }
+.signin-brand > span { font-size: 23px; font-weight: 700; line-height: 1.1; letter-spacing: -.04em; }
+.signin-brand strong { color: #e4ba52; }
+.signin-brand small { display: block; margin-top: 4px; font-size: 11px; font-weight: 400; letter-spacing: 0; color: #d1dfd4; }
+.signin-launch-pill { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 30px; background: #e7bc531a; border: 1px solid #d7b95770; color: #f2d689; font-size: 13px; font-weight: 600; }
+.signin-intro h1 { margin: 20px 0 12px; color: #fff; font-family: var(--ui-font); font-size: 36px; font-weight: 600; letter-spacing: -.045em; line-height: 1.15; }
+.signin-intro h1 em { color: #d4e4b3; font-family: var(--font-editorial), Georgia, serif; font-weight: 400; }
+.signin-intro > p { color: #dae5dc; font-size: 16px; line-height: 1.6; max-width: 440px; margin: 0; }
+.signin-features { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; list-style: none; margin: 24px 0 0; padding: 0; }
+.signin-features li { display: flex; flex-direction: column; gap: 5px; padding: 14px 8px; border: 1px solid #ffffff25; border-radius: 16px; background: #ffffff08; min-width: 0; }
+.signin-features li > span { display: flex; align-items: center; color: #e6ce8c; margin-bottom: 6px; }
+.signin-features strong { font-size: 13px; font-weight: 600; }
+.signin-features small { font-size: 11px; color: #d1dfd4; }
+.signin-access { padding: 28px 24px max(24px, env(safe-area-inset-bottom)); }
+.signin-access h2 { font-family: var(--ui-font); font-size: 22px; letter-spacing: -.03em; margin: 0 0 8px; font-weight: 650; }
+.signin-access > p { font-size: 15px; line-height: 1.5; color: #52665b; margin: 0 0 20px; }
+.signin-access .google-signin { min-height: 56px; border: 1px solid #c6d2c8; border-radius: 14px; font-size: 16px; text-transform: none; }
+.signin-access .signin-trial-note { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #28674b; margin: 13px 0 20px; }
+.signin-access .signin-privacy { font-size: 12px; line-height: 1.6; margin-bottom: 12px; }
+.signin-legal { display: flex; gap: 18px; flex-wrap: wrap; }
+.signin-legal > a { display: flex; align-items: center; min-height: 44px; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.signin-google-info { display: block; font-size: 11px; line-height: 1.6; color: #52665b; margin-top: 4px; }
+.signin-install { display: flex; align-items: center; justify-content: space-between; min-height: 48px; font-size: 13px; font-weight: 600; margin-top: 15px; border-top: 1px solid #dbe4d7; padding-top: 9px; }
+.account-trial-strip { max-width: 860px; margin: 16px auto 0; padding: 0 24px; }
+.account-trial-strip > div { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; padding: 12px 14px; background: #edf2e2; border: 1px solid #dbe4cd; border-radius: 14px; }
+.account-trial-strip strong { display: block; font-size: 14px; color: #173f35; }
+.account-trial-strip small { display: block; font-size: 12px; line-height: 1.5; color: #52665b; }
+.account-trial-strip a { display: flex; align-items: center; min-height: 44px; font-size: 13px; font-weight: 650; text-decoration: underline; }
+.account-trial-strip.expired > div { background: #fff5e4; border-color: #ead3a8; }
+.app-experience .register-form .registration-consent { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.6; margin: 4px 0 20px; }
+.app-experience .register-form .registration-consent input { width: 22px; height: 22px; min-height: 22px; flex-shrink: 0; margin-top: 2px; accent-color: #173f35; }
+.registration-consent a { text-decoration: underline; text-underline-offset: 3px; }
+.trial-account-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+.trial-account-detail dt { font-size: 13px; color: #52665b; }
+.trial-account-detail dd { margin: 5px 0 0; font-size: 16px; font-weight: 600; }
+@media (max-width: 600px) { .account-trial-strip { padding-inline: 16px; } .signin-intro h1 { font-size: 32px; } }
+@media (max-width: 350px) { .signin-intro, .signin-access { padding-inline: 18px; } .signin-features { gap: 6px; } .signin-features strong { font-size: 12px; } }
+@media (display-mode: standalone) { .signin-install { display: none; } }

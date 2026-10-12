@@ -16,7 +16,7 @@ export default async function AppPreviewPage({ searchParams }: { searchParams: P
   const scale = params.escala === "amplia" ? mobileAppScale(980, width, 1) : 1;
   const style = { "--app-viewport-scale": scale, zoom: scale } as CSSProperties;
   return <div className="app-experience simulated-mobile-app" style={style}><div className="account-app-shell">
-    <Suspense fallback={null}><AccountSidebar breederName="Mi criadero · Ejemplo" plan="Gratis" preview /></Suspense>
+    <Suspense fallback={null}><AccountSidebar breederName="Mi criadero · Ejemplo" plan="Prueba · 30 días" preview /></Suspense>
     <div className="account-app-content"><section className="account-dashboard app-home">
       <p className="app-example-label">Vista de ejemplo · En tu cuenta verás tus datos</p>
       <AccountHomeSummary firstName="Criador" breederName="Mi criadero" dateLabel="Hoy" summary={summarizeDay([])} illustrative />

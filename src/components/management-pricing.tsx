@@ -9,10 +9,10 @@ type Billing = "monthly" | "annual";
 const plans = [
   {
     name: "Inicial",
-    note: "Para conocer CRIA360",
+    note: "Prueba de lanzamiento · 30 días",
     monthly: 0,
     annual: 0,
-    cta: "Crear mi granja",
+    cta: "Probar gratis 30 días",
     features: [
       "Hasta 5 animales",
       "Ficha básica y fotografías",
@@ -26,7 +26,7 @@ const plans = [
     note: "Criaderos pequeños y medianos",
     monthly: 99.9,
     annual: 999,
-    cta: "Elegir Granja",
+    cta: "Solicitar Granja",
     popular: true,
     features: [
       "Hasta 150 animales",
@@ -44,12 +44,12 @@ const plans = [
     note: "Operación profesional",
     monthly: 229.9,
     annual: 2299,
-    cta: "Elegir Pro",
+    cta: "Solicitar Granja Pro",
     features: [
       "Hasta 1,000 animales",
       "Genealogía y salud completas",
       "Publicaciones ilimitadas",
-      "Hasta 5 usuarios del equipo",
+      
       "Reportes y trazabilidad avanzada",
       "Carga masiva Excel hasta 1,000 animales",
       "Gestión financiera completa",
@@ -84,12 +84,12 @@ export function ManagementPricing() {
 
           return (
             <article className={plan.popular ? "popular" : ""} key={plan.name}>
-              {plan.popular && <span className="popular-label">Más elegido</span>}
+              {plan.popular && <span className="popular-label">Recomendado</span>}
               <small>{plan.note}</small>
               <h3>{plan.name}</h3>
 
               {isFree ? (
-                <strong className="management-price">Gratis</strong>
+                <><strong className="management-price">Gratis<em> / 30 días</em></strong><span className="billing-detail">Desde tu primer registro de correo. Sin tarjeta ni renovación automática.</span></>
               ) : billing === "monthly" ? (
                 <>
                   <strong className="management-price">S/ {money(price)}<em> / mes</em></strong>
@@ -104,15 +104,16 @@ export function ManagementPricing() {
               )}
 
               <ul>{plan.features.map((feature) => <li key={feature}><Icon name="check" size={16} />{feature}</li>)}</ul>
-              <Link className={`button ${plan.popular ? "button-gold" : "button-outline-light"}`} href="/registro" data-analytics-cta={`plan-${plan.name.toLowerCase().replace(/\s+/g,"-")}-${billing}`}>
+              <Link className={`button ${plan.popular ? "button-gold" : "button-outline-light"}`} href={isFree ? "/registro" : "/cuenta/soporte"} data-analytics-cta={`plan-${plan.name.toLowerCase().replace(/\s+/g,"-")}-${billing}`}>
                 {plan.cta}
               </Link>
             </article>
           );
         })}
       </div>
-      <p className="pricing-note">Precios de lanzamiento en Perú. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
+      <p className="pricing-note">Precios de lanzamiento en Perú. Los planes de pago se activan previa confirmación con soporte; no se cobran automáticamente. El pago anual incluye aproximadamente 17% de ahorro. Las placas físicas se adquieren por separado.</p>
     </>
   );
 }
+
 

@@ -3,11 +3,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { validTransactionAmount, validTransactionDate } from "@/lib/finance-validation";
 import { createClient } from "@/lib/supabase/server";
+import { canManageAccount } from "@/lib/trial-server";
 
 export async function createTransaction(_state: { error: string }, formData: FormData): Promise<{ error: string }> {
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) redirect("/ingresar");
+  if (!(await canManageAccount(supabase, user.id))) return { error: "Tu prueba terminó o no pudimos verificar tu plan. Consulta Mi cuenta para continuar; tus datos están conservados." };
   const type = String(formData.get("type") ?? "");
   if (!["venta", "compra", "gasto"].includes(type)) return { error: "Selecciona venta, compra o gasto y vuelve a intentarlo." };
   const concept = String(formData.get("concept") ?? "").trim();
@@ -24,3 +26,4 @@ export async function createTransaction(_state: { error: string }, formData: For
   revalidatePath("/cuenta/finanzas");
   redirect(`/cuenta/finanzas?tipo=${type}&ok=1`);
 }
+

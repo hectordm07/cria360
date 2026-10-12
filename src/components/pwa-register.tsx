@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export function PwaRegister() {
   useEffect(() => {
-    if (!("serviceWorker" in navigator)) return;
+    if (!("serviceWorker" in navigator) || window.self !== window.top) return;
 
     const wasControlled = Boolean(navigator.serviceWorker.controller);
     let refreshing = false;
@@ -33,4 +33,5 @@ export function PwaRegister() {
 
   return null;
 }
+
 

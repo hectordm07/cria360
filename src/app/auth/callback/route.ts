@@ -5,7 +5,7 @@ export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
   const requestedNext = requestUrl.searchParams.get("next") ?? "/cuenta";
-  const next = requestedNext.startsWith("/") && !requestedNext.startsWith("//")
+  const next = requestedNext.startsWith("/") && !requestedNext.startsWith("//") && !requestedNext.includes("\\") && !/[\u0000-\u001f]/.test(requestedNext)
     ? requestedNext
     : "/cuenta";
 
@@ -34,3 +34,4 @@ export async function GET(request: Request) {
 
   return NextResponse.redirect(new URL(next, requestUrl.origin));
 }
+

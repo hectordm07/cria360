@@ -13,11 +13,16 @@ export function limaDate(now = new Date()) {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Lima", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
 }
 
-export function summarizeDay(rows: FinanceMovement[], now = new Date()) {
+export function dailyFinanceDates(now = new Date()) {
   const today = limaDate(now);
   const yesterday = new Date(`${today}T12:00:00Z`);
   yesterday.setUTCDate(yesterday.getUTCDate() - 1);
   const previousDate = yesterday.toISOString().slice(0, 10);
+  return { today, previousDate };
+}
+
+export function summarizeDay(rows: FinanceMovement[], now = new Date()) {
+  const { today, previousDate } = dailyFinanceDates(now);
   let sales = 0, previousSales = 0, purchases = 0, expenses = 0;
   for (const row of rows) {
     const amount = Number(row.amount_pen);
@@ -68,3 +73,4 @@ export function summarizeFinance(rows: FinanceMovement[], periods = financeMonth
   const current = months.at(-1)!;
   return { months, current, balance: Math.round((current.sales - current.purchases - current.expenses) * 100) / 100, pending: Math.round(pending * 100) / 100 };
 }
+

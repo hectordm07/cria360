@@ -15,6 +15,7 @@ export type Animal = {
   image: string;
   imageAlt: string;
   verified?: boolean;
+  isDemo?: boolean;
 };
 
 export const featuredAnimals: Animal[] = [
@@ -24,5 +25,6 @@ export const featuredAnimals: Animal[] = [
   { id: "CRIA-PE-00816", name: "Canela 816", species: "Caprino", breed: "Anglo-Nubian", sex: "Hembra", age: "14 meses", location: "Piura", price: "S/ 1,400", priceValue: 1400, breeder: "Fundo San Miguel", breederSlug: "fundo-san-miguel", tone: "goat", mark: "C", image: "https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=85", imageAlt: "Cabra de criadero en el campo" },
   { id: "CRIA-PE-01452", name: "Tornado 452", species: "Equino", breed: "Caballo peruano", sex: "Macho", age: "4 años", location: "La Libertad", price: "Consultar", breeder: "Establo Paso Norte", breederSlug: "establo-paso-norte", tone: "horse", mark: "E", image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=1200&q=85", imageAlt: "Caballo de crianza en un campo abierto", verified: true },
   { id: "CRIA-PE-02514", name: "Nube 514", species: "Ovino", breed: "Dorper", sex: "Hembra", age: "8 meses", location: "Junín", price: "S/ 1,100", priceValue: 1100, breeder: "Ganadera Los Andes", breederSlug: "ganadera-los-andes", tone: "sheep", mark: "O", image: "/images/animals/ovinos-v1.webp", imageAlt: "Oveja de criadero sobre pasto" },
-];
+].map(animal => ({ ...animal, verified: false, isDemo: true }));
+
 

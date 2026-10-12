@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { canManageAccount } from "@/lib/trial-server";
 
 function text(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
@@ -13,6 +14,8 @@ export async function createAnimal(formData: FormData) {
   const { data: authData } = await supabase.auth.getUser();
   const user = authData.user;
   if (!user) redirect("/ingresar");
+
+  if (!(await canManageAccount(supabase, user.id))) redirect("/cuenta/mi-cuenta?aviso=prueba");
 
   const { data: breeder } = await supabase
     .from("breeders")
@@ -73,10 +76,13 @@ export async function createAnimal(formData: FormData) {
 
   if (error) {
     if (uploadedPaths.length) await supabase.storage.from("animal-photos").remove(uploadedPaths);
+    if (error.message.includes("trial_expired")) redirect("/cuenta/mi-cuenta?aviso=prueba");
+    if (error.message.includes("plan_limit")) redirect("/cuenta/animales/nuevo?error=limite");
     redirect("/cuenta/animales/nuevo?error=guardar");
   }
   revalidatePath("/cuenta");
   revalidatePath("/cuenta/animales");
+  revalidatePath("/marketplace");
   redirect("/cuenta/animales?created=1");
 }
 
@@ -86,6 +92,8 @@ export async function exitAnimal(formData: FormData) {
   const { data: authData } = await supabase.auth.getUser();
   const user = authData.user;
   if (!user) redirect("/ingresar");
+
+  if (!(await canManageAccount(supabase, user.id))) redirect("/cuenta/mi-cuenta?aviso=prueba");
 
   const animalId = text(formData, "animal_id");
   const reason = text(formData, "reason");
@@ -106,5 +114,7 @@ export async function exitAnimal(formData: FormData) {
 
   revalidatePath("/cuenta");
   revalidatePath("/cuenta/animales");
+  revalidatePath("/marketplace");
   redirect(`/cuenta/escanear?exit=1${returnCode ? `&code=${encodeURIComponent(returnCode)}` : ""}`);
 }
+

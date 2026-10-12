@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { LEGAL_VERSION } from "@/lib/trial";
 
 function value(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
@@ -28,18 +29,22 @@ export async function completeRegistration(formData: FormData) {
   const primarySpecies = value(formData, "primary_species");
   const phone = value(formData, "phone") || null;
 
-  if (!fullName || !breederName || !primarySpecies) {
+  if (!fullName || fullName.length > 140 || !breederName || breederName.length > 140 || !["Aves","Porcinos","Vacunos","Ovinos","Caprinos","Equinos","Otro"].includes(primarySpecies) || (phone && phone.length > 35)) {
     redirect("/registro?error=campos");
   }
+
+  if (formData.get("accept_terms") !== "on") redirect("/registro?error=terminos");
+  const { data: existingProfile, error: profileReadError } = await supabase.from("profiles").select("terms_accepted_at").eq("id", user.id).maybeSingle();
+  if (profileReadError) redirect("/registro?error=perfil");
 
   const { error: profileError } = await supabase.from("profiles").upsert({
     id: user.id,
     email: user.email,
     full_name: fullName,
     phone,
-    plan: "gratis",
     onboarding_completed: true,
     updated_at: new Date().toISOString(),
+    ...(!existingProfile?.terms_accepted_at ? { terms_accepted_at: new Date().toISOString(), terms_version: LEGAL_VERSION } : {}),
   });
 
   if (profileError) redirect("/registro?error=perfil");
@@ -56,6 +61,8 @@ export async function completeRegistration(formData: FormData) {
     name: breederName,
     slug,
     primary_species: primarySpecies,
+    department: value(formData, "department").slice(0,80) || null,
+    is_public: formData.get("publish_breeder") === "on",
     updated_at: new Date().toISOString(),
   };
 
@@ -66,3 +73,4 @@ export async function completeRegistration(formData: FormData) {
   if (breederError) redirect("/registro?error=criadero");
   redirect("/cuenta");
 }
+

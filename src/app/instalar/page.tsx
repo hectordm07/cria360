@@ -21,7 +21,7 @@ export default function InstallPage() {
       <div className="install-benefits">
         <div><Icon name="check" /><span><strong>Un icono en tu celular</strong><small>Abre CRIA360 directamente desde tu pantalla de inicio.</small></span></div>
         <div><Icon name="check" /><span><strong>Tu información sincronizada</strong><small>Usa la misma cuenta en tu celular y computadora.</small></span></div>
-        <div><Icon name="check" /><span><strong>Plan gratis para empezar</strong><small>Registra hasta 5 animales en tu criadero.</small></span></div>
+        <div><Icon name="check" /><span><strong>30 días gratis para empezar</strong><small>Desde el primer registro de tu correo. Hasta 5 animales y sin cobro automático.</small></span></div>
       </div>
     </div>
     <div className="install-app-tile"><div className="install-app-symbol"><LogoMark inverse /></div><strong>CRIA360</strong><span>Tu granja, conectada.</span><p>Inventario · Ventas · Identidad QR</p></div>
@@ -32,3 +32,4 @@ export default function InstallPage() {
     <p className="miniapp-install-note">Necesitas conexión para consultar y guardar los datos del criadero. Si abriste el enlace dentro de Facebook o WhatsApp, usa la opción de abrirlo en Chrome o Safari.</p>
   </div></section>;
 }
+
