@@ -10,6 +10,7 @@ export function DailySummary({ summary, dateLabel, illustrative = false }: { sum
     </div>
     <dl className="daily-balance"><div><dt>Balance registrado</dt><dd className={summary.balance < 0 ? "daily-negative" : "daily-positive"}>{pen.format(summary.balance)}</dd></div><div><dt>Compras y gastos</dt><dd>{pen.format(summary.purchases + summary.expenses)}</dd></div></dl>
     <Link className="button button-primary daily-sale-button" href={illustrative ? "/registro" : "/cuenta/finanzas/nuevo?tipo=venta"}><Icon name="spark" size={18} />Registrar venta</Link>
-    <p className="daily-summary-note">Ventas pagadas y pendientes, menos compras y gastos. No equivale al efectivo disponible.</p>
+    <details className="daily-balance-explanation"><summary>¿Qué incluye el balance?</summary><p className="daily-summary-note">Ventas pagadas y pendientes, menos compras y gastos. No equivale al efectivo disponible.</p></details>
   </section>;
 }
+

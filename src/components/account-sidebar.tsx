@@ -7,14 +7,15 @@ import { Icon } from "@/components/icon";
 import { LogoMark } from "@/components/logo-mark";
 
 const navigation = [
-  { href: "/cuenta", label: "Inicio", icon: "store" as const, exact: true },
-  { href: "/cuenta/animales", label: "Inventario", icon: "health" as const, exact: true },
+  { href: "/cuenta", label: "Inicio", icon: "home" as const, exact: true },
+  { href: "/cuenta/animales", label: "Inventario", icon: "box" as const, exact: true },
   { href: "/cuenta/escanear", label: "Escanear QR / NFC", icon: "scan" as const, exact: true },
   { href: "/cuenta/animales/nuevo", label: "Registrar animal", icon: "spark" as const, exact: true },
   { href: "/cuenta/publicaciones", label: "Publicaciones", icon: "users" as const, exact: true },
   { href: "/cuenta/finanzas?tipo=venta", label: "Ventas", icon: "spark" as const, path: "/cuenta/finanzas", type: "venta" },
   { href: "/cuenta/finanzas?tipo=compra", label: "Compras", icon: "store" as const, path: "/cuenta/finanzas", type: "compra" },
   { href: "/cuenta/finanzas?tipo=gasto", label: "Gastos", icon: "tag" as const, path: "/cuenta/finanzas", type: "gasto" },
+  { href: "/cuenta/reportes", label: "Reportes", icon: "chart" as const, exact: true },
   { href: "/cuenta/soporte", label: "Soporte", icon: "users" as const, exact: true },
   { href: "/cuenta/mi-cuenta", label: "Mi cuenta", icon: "shield" as const, exact: true },
   { href: "/cuenta/configuracion", label: "Configuración", icon: "shield" as const, exact: true },
@@ -55,10 +56,10 @@ export function AccountSidebar({ breederName, plan, preview = false }: { breeder
   };
 
   const mobileItems = [
-    { href: "/cuenta", label: "Inicio", icon: "store" as const, active: pathname === "/cuenta" },
-    { href: "/cuenta/animales", label: "Inventario", icon: "health" as const, active: pathname.startsWith("/cuenta/animales") },
+    { href: "/cuenta", label: "Inicio", icon: "home" as const, active: pathname === "/cuenta" },
+    { href: "/cuenta/animales", label: "Inventario", icon: "box" as const, active: pathname.startsWith("/cuenta/animales") },
     { href: "/cuenta/escanear", label: "Escanear", icon: "scan" as const, active: pathname === "/cuenta/escanear" },
-    { href: "/cuenta/finanzas", label: "Movimientos", icon: "tag" as const, active: pathname.startsWith("/cuenta/finanzas") },
+    { href: "/cuenta/finanzas", label: "Movimientos", icon: "wallet" as const, active: pathname.startsWith("/cuenta/finanzas") },
     { href: "/cuenta/mi-cuenta", label: "Cuenta", icon: "users" as const, active: pathname === "/cuenta/mi-cuenta" || pathname === "/cuenta/configuracion" },
   ];
 
@@ -66,7 +67,7 @@ export function AccountSidebar({ breederName, plan, preview = false }: { breeder
     <header className="account-mobile-header">
       <button ref={mobileMenuButton} type="button" aria-label={expanded ? "Cerrar menú del criadero" : "Abrir menú del criadero"} aria-controls="account-navigation" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}><Icon name="menu" size={24} /></button>
       <Link className="account-mobile-brand" href="/cuenta"><LogoMark inverse /><span><strong title={breederName}>{breederName}</strong><small>CRIA360 · {plan}</small></span></Link>
-      <Link className="account-mobile-help" href="/cuenta/soporte" aria-label="Ayuda y soporte"><Icon name="shield" size={23} /></Link>
+      <Link className="account-mobile-help" href="/cuenta/soporte" aria-label="Ayuda y soporte"><Icon name="help" size={23} /></Link>
     </header>
     <aside ref={drawer} className="account-sidebar" data-expanded={expanded} onKeyDown={(event) => {
     if (event.key === "Escape" && expanded) {
