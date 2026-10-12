@@ -99,7 +99,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replace(/</g, "\\u003c") }} />
         <SiteHeader />
         <main id="main-content" tabIndex={-1}>{children}</main>
-        <SiteFooter />
+        <SiteFooter whatsappNumber={settings.whatsapp_number} />
         <MobileAppNav />
         <FloatingWhatsApp number={settings.whatsapp_number} />
         <CookieConsent />

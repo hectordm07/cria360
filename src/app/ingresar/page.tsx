@@ -3,6 +3,8 @@ import Link from "next/link";
 import { GoogleSignInButton } from "@/components/google-sign-in-button";
 import { Icon } from "@/components/icon";
 import { LogoMark } from "@/components/logo-mark";
+import { getPublicSiteSettings } from "@/lib/site-settings";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Bienvenido",
@@ -12,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SignInPage({ searchParams }: { searchParams: Promise<{ error?: string; preview?: string }> }) {
-  const params = await searchParams;
+  const [params, settings] = await Promise.all([searchParams, getPublicSiteSettings()]);
   return <section className="signin-screen" aria-labelledby="signin-title">
     <div className="signin-intro">
       <div className="signin-brand"><LogoMark /><span>CRIA<strong>360</strong><small>Tu granja, conectada.</small></span></div>
@@ -33,7 +35,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
       {params.preview === "1" && <small className="signin-google-info">Vista de ejemplo. Abre tu cuenta fuera de esta previsualización para ingresar.</small>}
       <p className="signin-trial-note"><Icon name="check" size={17} /> Sin tarjeta y sin cobros automáticos.</p>
       <p className="signin-privacy">La prueba del plan Inicial comienza al registrar tu correo por primera vez. Si ya tienes una cuenta, el ingreso conserva tu plan y tus datos.</p>
-      <nav className="signin-legal" aria-label="Información de acceso"><Link href="/aviso-legal">Términos</Link><Link href="/privacidad">Privacidad</Link><Link href="/contacto">Ayuda</Link></nav>
+      <nav className="signin-legal" aria-label="Información de acceso"><Link href="/aviso-legal">Términos</Link><Link href="/privacidad">Privacidad</Link><Link href="/contacto">Ayuda</Link><a href={whatsappLink("Hola CRIA360, necesito ayuda para ingresar a mi cuenta.", settings.whatsapp_number || undefined)} target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
       <small className="signin-google-info">Google comparte tu nombre, correo y foto de perfil para identificar tu cuenta.</small>
       <Link className="signin-install" href="/instalar">Añadir CRIA360 a mi celular <span aria-hidden="true">→</span></Link>
     </div>

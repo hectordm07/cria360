@@ -1,4 +1,5 @@
 import { supabasePublishableKey, supabaseUrl } from "@/lib/supabase/config";
+import { CRIA360_WHATSAPP } from "@/lib/whatsapp";
 
 export type PublicSiteSettings = {
   legal_name: string;
@@ -16,7 +17,7 @@ const fallback: PublicSiteSettings = {
   legal_ruc: null,
   legal_address: null,
   complaints_url: null,
-  whatsapp_number: null,
+  whatsapp_number: CRIA360_WHATSAPP,
   google_business_url: null,
 };
 
@@ -35,7 +36,7 @@ export async function getPublicSiteSettings(): Promise<PublicSiteSettings> {
 
     if (!response.ok) return fallback;
     const rows = (await response.json()) as PublicSiteSettings[];
-    return rows[0] ?? fallback;
+    return rows[0] ? { ...rows[0], whatsapp_number: rows[0].whatsapp_number || CRIA360_WHATSAPP } : fallback;
   } catch {
     return fallback;
   }

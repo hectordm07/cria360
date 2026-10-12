@@ -39,3 +39,18 @@
 @media (max-width: 600px) { .account-trial-strip { padding-inline: 16px; } .signin-intro h1 { font-size: 32px; } }
 @media (max-width: 350px) { .signin-intro, .signin-access { padding-inline: 18px; } .signin-features { gap: 6px; } .signin-features strong { font-size: 12px; } }
 @media (display-mode: standalone) { .signin-install { display: none; } }
+.whatsapp-contact { margin: 24px 0 32px; }
+.whatsapp-contact-heading h2 { font-size: 23px; color: #173f35; margin: 0 0 10px; letter-spacing: -.02em; }
+.whatsapp-contact-heading p { color: #52665b; font-size: 15px; line-height: 1.6; margin: 0 0 10px; }
+.whatsapp-contact-heading > strong { color: #23684b; font-size: 19px; font-variant-numeric: tabular-nums; }
+.whatsapp-contact-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin-top: 20px; }
+.whatsapp-contact-options.sales-only { grid-template-columns: minmax(0,1fr); }
+.whatsapp-contact-card { display: flex; align-items: center; gap: 12px; min-height: 104px; padding: 18px; background: #edf3e7; color: #173f35; border: 1px solid #cfdec9; border-radius: 18px; }
+.whatsapp-contact-card > svg { flex-shrink: 0; }
+.whatsapp-contact-card > span:nth-child(2) { flex: 1; min-width: 0; }
+.whatsapp-contact-card strong { display: block; font-size: 16px; line-height: 1.4; }
+.whatsapp-contact-card small { display: block; margin-top: 5px; font-size: 13px; line-height: 1.5; color: #52665b; }
+.whatsapp-contact-card.enterprise { background: #173f35; color: #fff; border-color: #173f35; }
+.whatsapp-contact-card.enterprise small { color: #d4e2d6; }
+.enterprise-contact-section { padding-block: 50px; }
+@media (max-width: 600px) { .whatsapp-contact-options { grid-template-columns: minmax(0,1fr); } }

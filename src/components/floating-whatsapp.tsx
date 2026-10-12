@@ -11,7 +11,7 @@ export function FloatingWhatsApp({ number }: { number?: string | null }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Contactar a CRIA360 por WhatsApp"
+      aria-label="WhatsApp de soporte y ventas empresariales de CRIA360"
       data-analytics-cta="whatsapp"
     >
       <span aria-hidden="true">WA</span>
@@ -19,3 +19,4 @@ export function FloatingWhatsApp({ number }: { number?: string | null }) {
     </a>
   );
 }
+

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createTicket } from "./actions";
+import { WhatsAppContact } from "@/components/whatsapp-contact";
+import { getPublicSiteSettings } from "@/lib/site-settings";
 
 export const metadata: Metadata = { title: "Soporte", robots: { index: false, follow: false } };
 
@@ -10,16 +12,18 @@ export default async function SupportPage({ searchParams }: { searchParams: Prom
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/ingresar");
+  const settings = await getPublicSiteSettings();
   const { data: tickets } = await supabase.from("support_tickets").select("id,subject,category,status,created_at").eq("owner_id", user.id).order("created_at", { ascending: false });
 
   return <section className="inventory-page finance-page"><div className="section-shell">
     <div className="inventory-heading"><div><span className="eyebrow">Centro de ayuda</span><h1>Soporte CRIA360</h1><p>Tu solicitud queda guardada y puedes seguir su estado.</p></div></div>
+    <WhatsAppContact number={settings.whatsapp_number} />
     {params.ok && <p className="form-notice success">Solicitud enviada correctamente.</p>}
     {params.error && <p className="form-notice error">{params.error === "rate" ? "Espera unos segundos antes de enviar otra solicitud." : "Revisa los datos e inténtalo nuevamente."}</p>}
     <div className="support-grid">
       <form action={createTicket} className="finance-form">
         <input className="hp-field" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-        <input type="hidden" name="started_at" value={Date.now()} />
+        <input type="hidden" name="started_at" value={new Date().getTime()} />
         <label>Asunto<input name="subject" required minLength={3} maxLength={120} /></label>
         <label>Categoría<select name="category"><option value="general">Consulta general</option><option value="inventario">Inventario</option><option value="placas">Placas QR / NFC</option><option value="pagos">Pagos</option><option value="cuenta">Mi cuenta</option></select></label>
         <label>Mensaje<textarea name="message" required minLength={10} maxLength={2000} rows={6} /></label>
@@ -29,3 +33,4 @@ export default async function SupportPage({ searchParams }: { searchParams: Prom
     </div>
   </div></section>;
 }
+

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getPublicSiteSettings } from "@/lib/site-settings";
 import { sendPublicContact } from "./actions";
+import { WhatsAppContact } from "@/components/whatsapp-contact";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -10,7 +11,6 @@ export const metadata: Metadata = {
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ ok?: string; error?: string; asunto?: string }> }) {
   const [settings, params] = await Promise.all([getPublicSiteSettings(), searchParams]);
-  const whatsapp = (settings.whatsapp_number ?? "").replace(/\D/g, "");
 
   return (
     <section className="legal-page contact-page">
@@ -20,17 +20,13 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         <p className="legal-lead">Consultas sobre tu cuenta, placas inteligentes, marketplace o información legal.</p>
 
         <div className="contact-options">
-          {whatsapp && (
-            <a className="contact-option" href={`https://wa.me/${whatsapp}?text=${encodeURIComponent("Hola CRIA360, quisiera recibir información.")}`} target="_blank" rel="noopener noreferrer">
-              <strong>WhatsApp</strong><span>Conversación directa</span>
-            </a>
-          )}
           {settings.contact_email && (
             <a className="contact-option" href={`mailto:${settings.contact_email}`}>
               <strong>Correo</strong><span>{settings.contact_email}</span>
             </a>
           )}
         </div>
+        <WhatsAppContact number={settings.whatsapp_number} />
 
         {params.ok && <p className="form-success">Recibimos tu mensaje. Gracias por contactarnos.</p>}
         {params.error && <p className="form-error">No pudimos enviar el mensaje. Revisa los datos e inténtalo nuevamente.</p>}
