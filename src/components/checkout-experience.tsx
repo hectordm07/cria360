@@ -36,9 +36,9 @@ export function CheckoutExperience({ initialPlan, initialPeriod }: { initialPlan
   return (
     <section className="cria-checkout">
       <div className="cria-checkout-shell">
-        <Link href="/planes#gestion" className="cria-checkout-back"><Icon name="arrow-left" size={17} /> Volver a los planes</Link>
+        <Link href="/planes#gestion" className="cria-checkout-back"><Icon name="logout" size={17} /> Volver a los planes</Link>
         <div className="cria-checkout-heading">
-          <span className="cria-checkout-eyebrow"><Icon name="shield-check" size={18} /> Suscripciones CRIA360</span>
+          <span className="cria-checkout-eyebrow"><Icon name="shield" size={18} /> Suscripciones CRIA360</span>
           <h1>Un último paso para organizar tu criadero.</h1>
           <p>Revisa tu plan y continúa al pago seguro. Tu suscripción se cobrará automáticamente con la frecuencia que elijas.</p>
         </div>
@@ -50,7 +50,7 @@ export function CheckoutExperience({ initialPlan, initialPeriod }: { initialPlan
               {(Object.keys(options) as Plan[]).map(key => (
                 <button key={key} type="button" className={`cria-checkout-option ${plan === key ? "selected" : ""}`} aria-pressed={plan === key} onClick={() => setPlan(key)}>
                   <span><strong>{options[key].title}</strong><small>{options[key].animals}</small></span>
-                  <Icon name={plan === key ? "circle-check" : "circle"} size={23} />
+                  <Icon name={plan === key ? "verified" : "box"} size={23} />
                 </button>
               ))}
             </div>
@@ -63,7 +63,7 @@ export function CheckoutExperience({ initialPlan, initialPeriod }: { initialPlan
 
             <div className="cria-checkout-benefits">
               <h3>Todo lo incluido en {selected.title}</h3>
-              <ul>{selected.features.map(item => <li key={item}><Icon name="check-circle" size={18}/>{item}</li>)}</ul>
+              <ul>{selected.features.map(item => <li key={item}><Icon name="check" size={18}/>{item}</li>)}</ul>
             </div>
           </div>
 
@@ -74,13 +74,13 @@ export function CheckoutExperience({ initialPlan, initialPeriod }: { initialPlan
             <div className="cria-checkout-line"><span>Periodo</span><strong>{period === "annual" ? "Cada 12 meses" : "Cada mes"}</strong></div>
             {period === "annual" && <div className="cria-checkout-line discount"><span>Ahorro frente a 12 meses</span><strong>−{pen(savings)}</strong></div>}
             <div className="cria-checkout-total"><span>Total recurrente</span><strong>{pen(selectedPayment.price)}</strong><small>/{period === "annual" ? "año" : "mes"}</small></div>
-            <div className="cria-checkout-currency"><Icon name="map-pin" size={17}/> Precio y cobro en soles peruanos (PEN)</div>
+            <div className="cria-checkout-currency"><Icon name="pin" size={17}/> Precio y cobro en soles peruanos (PEN)</div>
             <a className="cria-checkout-pay" href={selectedPayment.link} target="_blank" rel="noopener noreferrer" data-analytics-cta={`checkout-${plan}-${period}`}>
-              Continuar con Mercado Pago <Icon name="arrow-up-right" size={20}/>
+              Continuar con Mercado Pago <Icon name="logout" size={20}/>
             </a>
-            <p className="cria-checkout-note"><Icon name="lock-keyhole" size={17}/> CRIA360 no recoge ni almacena datos de tu tarjeta. Mercado Pago procesa el pago.</p>
+            <p className="cria-checkout-note"><Icon name="shield" size={17}/> CRIA360 no recoge ni almacena datos de tu tarjeta. Mercado Pago procesa el pago.</p>
             <div className="cria-checkout-activation">
-              <strong><Icon name="info" size={17}/> Importante sobre la activación</strong>
+              <strong><Icon name="help" size={17}/> Importante sobre la activación</strong>
               <p>La autorización de pago no activa todavía el plan de forma automática en CRIA360. Después de pagar, comunícate con soporte desde tu cuenta para verificar tu suscripción y habilitarla.</p>
               <Link href="/cuenta/soporte">Ir a soporte de CRIA360 →</Link>
             </div>
